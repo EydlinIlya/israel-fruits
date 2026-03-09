@@ -15,7 +15,7 @@
     { "name": "Anona (Cherimoya)",       "months": [1, 2, 10, 11, 12] },
     { "name": "Apples",                  "months": [7, 8, 9, 10] },
     { "name": "Apricots",                "months": [5, 6] },
-    { "name": "Asian Pears",             "months": [1, 2, 3, 10, 11, 12] },
+    { "name": "Asian Pears",             "months": [1, 2, 3, 9, 10, 11, 12] },
     { "name": "Avocado",                 "months": [1, 2, 3, 4, 5, 8, 9, 10, 11, 12] },
     { "name": "Bananas",                 "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
     { "name": "Carambola (Star Fruit)",  "months": [10] },
@@ -43,7 +43,7 @@
     { "name": "Peaches",                 "months": [5, 6, 7, 8, 9, 10, 11] },
     { "name": "Pears",                   "months": [7, 8, 9] },
     { "name": "Persimmons",              "months": [1, 2, 3, 10, 11, 12] },
-    { "name": "Pineapple",               "months": [1, 2, 3, 6, 9, 10, 11, 12] },
+    { "name": "Pineapple",               "months": [1, 2, 3, 4, 5, 6, 9, 10, 11, 12] },
     { "name": "Plums",                   "months": [6, 7, 8, 9, 10, 11] },
     { "name": "Pomegranates",            "months": [1, 2, 3, 9, 10, 11, 12] },
     { "name": "Pomelo",                  "months": [1, 2, 3, 10, 11, 12] },
@@ -55,7 +55,7 @@
     { "name": "Watermelon",              "months": [4, 5, 6, 7, 8, 9, 10] }
   ],
   "vegetables": [
-    { "name": "Artichokes",              "months": [1, 2, 3, 4, 5, 6, 7, 12] },
+    { "name": "Artichokes",              "months": [1, 2, 3, 4, 5, 12] },
     { "name": "Asparagus",               "months": [2, 3, 4] },
     { "name": "Beets",                   "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
     { "name": "Broccoli",                "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
