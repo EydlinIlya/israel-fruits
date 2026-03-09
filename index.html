@@ -870,6 +870,55 @@
     text-transform: none; letter-spacing: 0.04em;
     vertical-align: middle;
   }
+
+  /* ══════════════════════════════════════════════════
+     YEAR-ROUND PANEL (dark section below Gantt)
+  ══════════════════════════════════════════════════ */
+  .yr-panel {
+    background: #1C1410;
+    border-radius: var(--radius);
+    border: 1.5px solid #3A2A14;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.28);
+    margin-top: 12px;
+    padding: 14px 20px 18px;
+    overflow: hidden;
+  }
+  .yr-panel-header {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .yr-panel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.88rem; font-style: italic;
+    color: rgba(232,216,176,0.65);
+    letter-spacing: 0.07em;
+    flex: 1;
+  }
+  .yr-panel-cats { display: flex; flex-direction: column; gap: 10px; }
+  .yr-cat-row { display: flex; align-items: flex-start; gap: 10px; }
+  .yr-cat-label {
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: rgba(232,216,176,0.4);
+    min-width: 68px; padding-top: 5px;
+    white-space: nowrap;
+  }
+  .yr-items { display: flex; flex-wrap: wrap; gap: 5px; }
+  .yr-item {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 12px;
+    font-size: 0.82rem; font-weight: 500;
+    color: rgba(240,226,190,0.82);
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    transition: background 0.12s;
+  }
+  .yr-item:hover { background: rgba(255,255,255,0.1); }
+  .yr-item.fruit { border-color: rgba(196,80,30,0.45); }
+  .yr-item.veg   { border-color: rgba(61,122,32,0.4); }
+  .yr-item.herb  { border-color: rgba(58,128,96,0.4); }
   </style>
 </head>
 <body>
@@ -991,6 +1040,9 @@
     </div>
     <div class="stats-bar" id="statsBar"></div>
   </div>
+
+  <!-- Year-round produce (dark panel, visible on both desktop and mobile) -->
+  <div id="yrPanel"></div>
 
   <!-- Legend -->
   <div class="type-legend">
@@ -1294,6 +1346,7 @@ function buildBody() {
     if (filterCat !== 'all' && filterCat !== filterMap[cat.key]) return;
     let items = sortItems(RAW[cat.key].filter(matchSearch));
     if (filterMonth !== null) items = items.filter(i => i.months.includes(filterMonth));
+    items = items.filter(i => i.months.length !== 12); // year-round go to yrPanel
     if (!items.length) return;
     totalShown += items.length;
 
@@ -1306,48 +1359,36 @@ function buildBody() {
     trCat.appendChild(tdCat);
     body.appendChild(trCat);
 
-    // Item rows
-    if (cat.key === 'herbs') {
-      // Herbs: compact year-round list, no Gantt bars
-      items.forEach(item => { if (item.months.includes(NOW_MONTH)) inSeasonNow++; });
-      const trH = document.createElement('tr');
-      trH.className = 'tr-item';
-      const tdH = document.createElement('td');
-      tdH.colSpan = 13;
-      tdH.className = 'td-herb-list';
-      tdH.innerHTML = `<div class="herb-chips">${items.map(i => `<span class="herb-chip">${i.emoji} ${i.name}<span class="badge-yr">YR</span></span>`).join('')}</div>`;
-      trH.appendChild(tdH);
-      body.appendChild(trH);
-    } else {
-      items.forEach(item => {
-        const isYR = item.months.length === 12;
-        if (item.months.includes(NOW_MONTH)) inSeasonNow++;
+    // Item rows (seasonal only — year-round shown in yrPanel below)
+    items.forEach(item => {
+      if (item.months.includes(NOW_MONTH)) inSeasonNow++;
 
-        const tr = document.createElement('tr');
-        tr.className = 'tr-item';
+      const tr = document.createElement('tr');
+      tr.className = 'tr-item';
 
-        const tdName = document.createElement('td');
-        tdName.className = 'td-name';
-        tdName.title = item.name;
-        tdName.innerHTML = `<span class="item-emoji">${item.emoji}</span>${item.name}${isYR ? '<span class="badge-yr">YR</span>' : ''}`;
-        tr.appendChild(tdName);
+      const tdName = document.createElement('td');
+      tdName.className = 'td-name';
+      tdName.title = item.name;
+      tdName.innerHTML = `<span class="item-emoji">${item.emoji}</span>${item.name}`;
+      tr.appendChild(tdName);
 
-        for (let m = 1; m <= 12; m++) {
-          const td = document.createElement('td');
-          td.className = `td-month${m === NOW_MONTH ? ' current-col' : ''}`;
-          const inSeason = item.months.includes(m);
-          const div = document.createElement('div');
-          const pc = posClass(item.months, m);
-          const isIso = inSeason && isIsolatedMonth(item.months, m);
-          div.className = `cell-bar ${cat.cellCls} ${inSeason ? 'on ' + pc : 'off'}${m === NOW_MONTH && inSeason ? ' current-bar' : ''}${isIso ? ' isolated' : ''}`;
-          if (inSeason) div.dataset.tip = `${item.emoji} ${item.name} · ${MONTHS_LONG[m-1]}${isIso ? ' · isolated window' : ''}`;
-          td.appendChild(div);
-          tr.appendChild(td);
-        }
-        body.appendChild(tr);
-      });
-    }
+      for (let m = 1; m <= 12; m++) {
+        const td = document.createElement('td');
+        td.className = `td-month${m === NOW_MONTH ? ' current-col' : ''}`;
+        const inSeason = item.months.includes(m);
+        const div = document.createElement('div');
+        const pc = posClass(item.months, m);
+        const isIso = inSeason && isIsolatedMonth(item.months, m);
+        div.className = `cell-bar ${cat.cellCls} ${inSeason ? 'on ' + pc : 'off'}${m === NOW_MONTH && inSeason ? ' current-bar' : ''}${isIso ? ' isolated' : ''}`;
+        if (inSeason) div.dataset.tip = `${item.emoji} ${item.name} · ${MONTHS_LONG[m-1]}${isIso ? ' · isolated window' : ''}`;
+        td.appendChild(div);
+        tr.appendChild(td);
+      }
+      body.appendChild(tr);
+    });
   });
+
+  buildYrPanel();
 
   if (totalShown === 0) {
     const tr = document.createElement('tr');
@@ -1424,6 +1465,36 @@ function buildDishPanel() {
   `;
 }
 
+function buildYrPanel() {
+  const panel = document.getElementById('yrPanel');
+  if (!panel) return;
+  const filterMap = { fruits:'fruit', vegetables:'veg', herbs:'herb' };
+  const cats = [
+    { key:'fruits',     label:'Fruits',     icon:'🍎', cls:'fruit' },
+    { key:'vegetables', label:'Vegetables', icon:'🥦', cls:'veg'   },
+    { key:'herbs',      label:'Herbs',      icon:'🌿', cls:'herb'  }
+  ];
+  let catsHtml = '';
+  cats.forEach(cat => {
+    if (filterCat !== 'all' && filterCat !== filterMap[cat.key]) return;
+    const items = sortItems(RAW[cat.key].filter(i => i.months.length === 12 && matchSearch(i)));
+    if (!items.length) return;
+    catsHtml += `
+      <div class="yr-cat-row">
+        <span class="yr-cat-label">${cat.icon} ${cat.label}</span>
+        <div class="yr-items">${items.map(i => `<span class="yr-item ${cat.cls}">${i.emoji} ${i.name}</span>`).join('')}</div>
+      </div>`;
+  });
+  if (!catsHtml) { panel.innerHTML = ''; panel.removeAttribute('class'); return; }
+  panel.className = 'yr-panel';
+  panel.innerHTML = `
+    <div class="yr-panel-header">
+      <span class="yr-panel-title">Always in season — year-round</span>
+      <span class="badge-yr">YR</span>
+    </div>
+    <div class="yr-panel-cats">${catsHtml}</div>`;
+}
+
 function buildMobilePanel() {
   const panel = document.getElementById('mobilePanel');
   if (!panel) return;
@@ -1452,7 +1523,7 @@ function buildMobilePanel() {
   ].forEach(cat => {
     const catKey = cat.key === 'fruits' ? 'fruit' : 'veg';
     if (filterCat !== 'all' && filterCat !== catKey) return;
-    const items = sortItems(RAW[cat.key].filter(i => i.months.includes(m) && matchSearch(i)));
+    const items = sortItems(RAW[cat.key].filter(i => i.months.includes(m) && i.months.length !== 12 && matchSearch(i)));
     if (!items.length) return;
     anyShown = true;
     html += `<div class="mob-cat-header">${cat.icon}&ensp;${cat.label}</div>
@@ -1463,18 +1534,6 @@ function buildMobilePanel() {
       }).join('')}
     </div>`;
   });
-
-  // Herbs — always year-round, no month filter
-  if (filterCat === 'all' || filterCat === 'herb') {
-    const herbs = sortItems(RAW.herbs.filter(matchSearch));
-    if (herbs.length) {
-      anyShown = true;
-      html += `<div class="mob-cat-header">🌿&ensp;Herbs <span class="mob-yr-note">all year-round</span></div>
-      <div class="mob-items-grid">
-        ${herbs.map(i => `<span class="mob-item herb">${i.emoji} ${i.name}<span class="badge-yr" style="margin-left:4px">YR</span></span>`).join('')}
-      </div>`;
-    }
-  }
 
   if (!anyShown) html += `<p style="text-align:center;padding:28px 0;color:var(--ink-muted);font-style:italic">Nothing found</p>`;
   panel.innerHTML = html;
