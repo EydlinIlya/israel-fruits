@@ -776,9 +776,9 @@
   ══════════════════════════════════════════════════ */
   @media (max-width: 768px) {
     /* Hide Gantt + related */
-    .divider, .season-legend, .chart-card, .type-legend { display: none; }
+    .divider, .season-legend, .chart-card, .type-legend { display: none !important; }
     /* Show mobile produce */
-    .mobile-produce { display: block; }
+    .mobile-produce { display: block !important; }
 
     /* Dish carousel */
     .dish-cards {
@@ -919,6 +919,73 @@
   .yr-item.fruit { border-color: rgba(196,80,30,0.45); }
   .yr-item.veg   { border-color: rgba(61,122,32,0.4); }
   .yr-item.herb  { border-color: rgba(58,128,96,0.4); }
+
+  /* ══════════════════════════════════════════════════
+     VIEW TOGGLE BUTTON
+  ══════════════════════════════════════════════════ */
+  .btn-view-toggle {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 7px 15px;
+    border-radius: 20px;
+    border: 2px solid var(--rule);
+    background: var(--surface-2);
+    color: var(--ink-mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  .btn-view-toggle:hover { border-color: var(--green); color: var(--green-dark); background: var(--surface); }
+  .btn-view-toggle.gantt-active { background: var(--green-dark); color: #fff; border-color: var(--green-dark); }
+  /* Hidden on mobile — gantt never available there */
+  @media (max-width: 768px) { .btn-view-toggle { display: none; } }
+
+  /* ══════════════════════════════════════════════════
+     VIEW MODE — show/hide panels
+  ══════════════════════════════════════════════════ */
+  /* Grid mode (default): hide Gantt elements, show grid panel */
+  body.view-grid .divider,
+  body.view-grid .season-legend,
+  body.view-grid .chart-card,
+  body.view-grid .type-legend { display: none; }
+  body.view-grid .mobile-produce { display: block; }
+
+  /* Gantt mode: hide grid panel */
+  body.view-gantt .mobile-produce { display: none; }
+
+  /* ── Desktop grid panel: card + layout ── */
+  @media (min-width: 769px) {
+    body.view-grid #mobilePanel {
+      background: var(--surface);
+      border: 1.5px solid var(--rule-light);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-warm);
+      padding: 20px 24px 26px;
+      animation: gridFadeIn 0.2s ease;
+    }
+    @keyframes gridFadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to   { opacity: 1; transform: none; }
+    }
+    body.view-grid .mob-month-nav {
+      flex-wrap: wrap;
+      overflow: visible;
+      gap: 6px;
+      padding-bottom: 16px;
+    }
+    body.view-grid .mob-month-pill {
+      padding: 7px 17px;
+      font-size: 0.88rem;
+      border-radius: 20px;
+    }
+    body.view-grid .mob-title { font-size: 1.35rem; }
+    body.view-grid .mob-items-grid { gap: 9px; }
+    body.view-grid .mob-item { padding: 8px 15px; font-size: 0.93rem; }
+    body.view-grid .mob-cat-header { font-size: 0.8rem; margin: 16px 0 10px; }
+  }
   </style>
 </head>
 <body>
@@ -1006,6 +1073,8 @@
       <option value="months-asc">Fewest months ↑</option>
     </select>
   </div>
+
+  <button class="btn-view-toggle" id="btn-view-toggle" onclick="toggleViewMode()">📊 Gantt Chart</button>
 </div>
 
 <!-- ════════════════════════ MAIN ════════════════════════ -->
@@ -1260,6 +1329,7 @@ const MONTH_DISHES = {
 
 /* ─── State ─────────────────────────────────────────────────────────────── */
 let filterCat = 'all', searchQ = '', sortMode = 'name', filterMonth = null, mobileMonth = NOW_MONTH;
+let viewMode = 'grid'; // 'grid' | 'gantt'
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
 function posClass(months, m) {
@@ -1439,6 +1509,27 @@ function setMobileMonth(m) {
   buildDishPanel();
 }
 
+function setViewMode(mode) {
+  viewMode = mode;
+  document.body.classList.toggle('view-grid',  mode === 'grid');
+  document.body.classList.toggle('view-gantt', mode === 'gantt');
+  const btn = document.getElementById('btn-view-toggle');
+  if (btn) {
+    btn.textContent = mode === 'grid' ? '📊 Gantt Chart' : '🗓 Grid View';
+    btn.classList.toggle('gantt-active', mode === 'gantt');
+  }
+}
+function toggleViewMode() {
+  const next = viewMode === 'grid' ? 'gantt' : 'grid';
+  setViewMode(next);
+  if (next === 'grid') {
+    // sync grid month from any active gantt filter
+    if (filterMonth !== null) mobileMonth = filterMonth;
+    buildMobilePanel();
+    buildDishPanel();
+  }
+}
+
 function buildDishPanel() {
   const panel = document.getElementById('dishPanel');
   if (!panel) return;
@@ -1547,6 +1638,7 @@ function buildMobilePanel() {
 document.getElementById('seasonBadge').textContent =
   `Now Harvesting · ${MONTHS_LONG[NOW_MONTH-1]} · ${SEASON_NAME[NOW_MONTH]}`;
 
+setViewMode('grid');
 buildHead();
 buildBody();
 buildDishPanel();
