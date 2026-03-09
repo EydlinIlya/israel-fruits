@@ -801,6 +801,75 @@
     /* Dish panel: no animation re-trigger on mobile */
     .dish-panel { animation: none; }
   }
+
+  /* ══════════════════════════════════════════════════
+     MOBILE MONTH NAV
+  ══════════════════════════════════════════════════ */
+  .mob-month-nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 5px;
+    padding: 0 2px 12px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .mob-month-nav::-webkit-scrollbar { display: none; }
+  .mob-month-pill {
+    flex: 0 0 auto;
+    padding: 5px 11px;
+    border-radius: 16px;
+    border: 1.5px solid transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.15s;
+    outline: none;
+    background: none;
+  }
+  .mob-month-pill.winter { background: var(--s-winter-bg); color: var(--s-winter-txt); border-color: rgba(44,78,112,0.25); }
+  .mob-month-pill.spring { background: var(--s-spring-bg); color: var(--s-spring-txt); border-color: rgba(46,96,16,0.25); }
+  .mob-month-pill.summer { background: var(--s-summer-bg); color: var(--s-summer-txt); border-color: rgba(156,100,0,0.25); }
+  .mob-month-pill.autumn { background: var(--s-autumn-bg); color: var(--s-autumn-txt); border-color: rgba(122,44,10,0.25); }
+  .mob-month-pill.active.winter { background: var(--s-winter-h); color: #fff; border-color: var(--s-winter-h); }
+  .mob-month-pill.active.spring { background: var(--s-spring-h); color: #fff; border-color: var(--s-spring-h); }
+  .mob-month-pill.active.summer { background: var(--s-summer-h); color: #fff; border-color: var(--s-summer-h); }
+  .mob-month-pill.active.autumn { background: var(--s-autumn-h); color: #fff; border-color: var(--s-autumn-h); }
+  .mob-month-pill.now-month { outline: 2px solid #F2E060; outline-offset: 1px; }
+
+  /* ══════════════════════════════════════════════════
+     HERB LIST (GANTT COLLAPSED)
+  ══════════════════════════════════════════════════ */
+  .td-herb-list { padding: 10px 14px 14px !important; }
+  .herb-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .herb-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 16px;
+    font-size: 0.88rem; font-weight: 500;
+    background: #E8F6EE; border: 1.5px solid var(--sage-light);
+    color: var(--sage-dark);
+  }
+  .herb-chip .badge-yr { font-size: 0.65rem; }
+
+  /* ══════════════════════════════════════════════════
+     ISOLATED MONTH INDICATORS
+  ══════════════════════════════════════════════════ */
+  .cell-bar.s-solo.isolated {
+    outline: 1.5px dashed rgba(210,140,0,0.75);
+    outline-offset: 1px;
+  }
+  .mob-item.isolated-month {
+    border-color: var(--gold) !important;
+    background: #FFF7DC !important;
+  }
+  .mob-yr-note {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem; font-weight: 600;
+    color: var(--sage); margin-left: 8px;
+    text-transform: none; letter-spacing: 0.04em;
+    vertical-align: middle;
+  }
   </style>
 </head>
 <body>
@@ -1138,7 +1207,7 @@ const MONTH_DISHES = {
 };
 
 /* ─── State ─────────────────────────────────────────────────────────────── */
-let filterCat = 'all', searchQ = '', sortMode = 'name', filterMonth = null;
+let filterCat = 'all', searchQ = '', sortMode = 'name', filterMonth = null, mobileMonth = NOW_MONTH;
 
 /* ─── Helpers ───────────────────────────────────────────────────────────── */
 function posClass(months, m) {
@@ -1158,6 +1227,12 @@ function sortItems(arr) {
 }
 function matchSearch(item) {
   return !searchQ || item.name.toLowerCase().includes(searchQ);
+}
+function isIsolatedMonth(months, m) {
+  if (!months.includes(m)) return false;
+  const prev = m === 1 ? 12 : m - 1;
+  const next = m === 12 ? 1 : m + 1;
+  return !months.includes(prev) && !months.includes(next);
 }
 
 /* ─── Build head ────────────────────────────────────────────────────────── */
@@ -1232,32 +1307,46 @@ function buildBody() {
     body.appendChild(trCat);
 
     // Item rows
-    items.forEach(item => {
-      const isYR = item.months.length === 12;
-      if (item.months.includes(NOW_MONTH)) inSeasonNow++;
+    if (cat.key === 'herbs') {
+      // Herbs: compact year-round list, no Gantt bars
+      items.forEach(item => { if (item.months.includes(NOW_MONTH)) inSeasonNow++; });
+      const trH = document.createElement('tr');
+      trH.className = 'tr-item';
+      const tdH = document.createElement('td');
+      tdH.colSpan = 13;
+      tdH.className = 'td-herb-list';
+      tdH.innerHTML = `<div class="herb-chips">${items.map(i => `<span class="herb-chip">${i.emoji} ${i.name}<span class="badge-yr">YR</span></span>`).join('')}</div>`;
+      trH.appendChild(tdH);
+      body.appendChild(trH);
+    } else {
+      items.forEach(item => {
+        const isYR = item.months.length === 12;
+        if (item.months.includes(NOW_MONTH)) inSeasonNow++;
 
-      const tr = document.createElement('tr');
-      tr.className = 'tr-item';
+        const tr = document.createElement('tr');
+        tr.className = 'tr-item';
 
-      const tdName = document.createElement('td');
-      tdName.className = 'td-name';
-      tdName.title = item.name;
-      tdName.innerHTML = `<span class="item-emoji">${item.emoji}</span>${item.name}${isYR ? '<span class="badge-yr">YR</span>' : ''}`;
-      tr.appendChild(tdName);
+        const tdName = document.createElement('td');
+        tdName.className = 'td-name';
+        tdName.title = item.name;
+        tdName.innerHTML = `<span class="item-emoji">${item.emoji}</span>${item.name}${isYR ? '<span class="badge-yr">YR</span>' : ''}`;
+        tr.appendChild(tdName);
 
-      for (let m = 1; m <= 12; m++) {
-        const td = document.createElement('td');
-        td.className = `td-month${m === NOW_MONTH ? ' current-col' : ''}`;
-        const inSeason = item.months.includes(m);
-        const div = document.createElement('div');
-        const pc = posClass(item.months, m);
-        div.className = `cell-bar ${cat.cellCls} ${inSeason ? 'on ' + pc : 'off'}${m === NOW_MONTH && inSeason ? ' current-bar' : ''}`;
-        if (inSeason) div.dataset.tip = `${item.emoji} ${item.name} · ${MONTHS_LONG[m-1]}`;
-        td.appendChild(div);
-        tr.appendChild(td);
-      }
-      body.appendChild(tr);
-    });
+        for (let m = 1; m <= 12; m++) {
+          const td = document.createElement('td');
+          td.className = `td-month${m === NOW_MONTH ? ' current-col' : ''}`;
+          const inSeason = item.months.includes(m);
+          const div = document.createElement('div');
+          const pc = posClass(item.months, m);
+          const isIso = inSeason && isIsolatedMonth(item.months, m);
+          div.className = `cell-bar ${cat.cellCls} ${inSeason ? 'on ' + pc : 'off'}${m === NOW_MONTH && inSeason ? ' current-bar' : ''}${isIso ? ' isolated' : ''}`;
+          if (inSeason) div.dataset.tip = `${item.emoji} ${item.name} · ${MONTHS_LONG[m-1]}${isIso ? ' · isolated window' : ''}`;
+          td.appendChild(div);
+          tr.appendChild(td);
+        }
+        body.appendChild(tr);
+      });
+    }
   });
 
   if (totalShown === 0) {
@@ -1303,11 +1392,16 @@ function setMonthFilter(m) {
   buildBody();
   buildDishPanel();
 }
+function setMobileMonth(m) {
+  mobileMonth = m;
+  buildMobilePanel();
+  buildDishPanel();
+}
 
 function buildDishPanel() {
   const panel = document.getElementById('dishPanel');
   if (!panel) return;
-  const m = filterMonth !== null ? filterMonth : NOW_MONTH;
+  const m = filterMonth !== null ? filterMonth : mobileMonth;
   const dishes = MONTH_DISHES[m] || [];
   const isFiltered = filterMonth !== null;
   panel.className = 'dish-panel';
@@ -1315,7 +1409,7 @@ function buildDishPanel() {
     <div class="dish-panel-header">
       <span class="dish-panel-title">In-season dishes for</span>
       <span class="dish-panel-month">&ensp;${MONTHS_LONG[m - 1]}</span>
-      ${!isFiltered ? '<span class="dish-panel-hint">↑ Click a month header to explore</span>' : ''}
+      ${!isFiltered ? '<span class="dish-panel-hint">Click a month to explore</span>' : ''}
     </div>
     <div class="dish-cards">
       ${dishes.map(d => `
@@ -1333,31 +1427,61 @@ function buildDishPanel() {
 function buildMobilePanel() {
   const panel = document.getElementById('mobilePanel');
   if (!panel) return;
-  const m = NOW_MONTH;
-  const cats = [
-    { key:'fruits',     label:'Fruits',     icon:'🍎', cls:'fruit' },
-    { key:'vegetables', label:'Vegetables', icon:'🥦', cls:'veg'   },
-    { key:'herbs',      label:'Herbs',      icon:'🌿', cls:'herb'  }
-  ];
+  const m = mobileMonth;
+
+  // Month navigation pills
+  let nav = '<div class="mob-month-nav">';
+  for (let i = 1; i <= 12; i++) {
+    nav += `<button class="mob-month-pill ${SEASON_OF[i]}${i === m ? ' active' : ''}${i === NOW_MONTH ? ' now-month' : ''}" onclick="setMobileMonth(${i})">${MONTHS_SHORT[i-1]}</button>`;
+  }
+  nav += '</div>';
+
   let html = `
     <div class="mob-header">
       <span class="mob-title">In Season — ${MONTHS_LONG[m-1]}</span>
       <span class="mob-season-badge ${SEASON_OF[m]}">${SEASON_NAME[m]}</span>
-    </div>`;
-  const filterMap = { fruits:'fruit', vegetables:'veg', herbs:'herb' };
+    </div>
+    ${nav}`;
+
   let anyShown = false;
-  cats.forEach(cat => {
-    if (filterCat !== 'all' && filterCat !== filterMap[cat.key]) return;
+
+  // Fruits & Vegetables — filtered by selected month
+  [
+    { key:'fruits',     label:'Fruits',     icon:'🍎', cls:'fruit' },
+    { key:'vegetables', label:'Vegetables', icon:'🥦', cls:'veg'   }
+  ].forEach(cat => {
+    const catKey = cat.key === 'fruits' ? 'fruit' : 'veg';
+    if (filterCat !== 'all' && filterCat !== catKey) return;
     const items = sortItems(RAW[cat.key].filter(i => i.months.includes(m) && matchSearch(i)));
     if (!items.length) return;
     anyShown = true;
     html += `<div class="mob-cat-header">${cat.icon}&ensp;${cat.label}</div>
     <div class="mob-items-grid">
-      ${items.map(i => `<span class="mob-item ${cat.cls}">${i.emoji} ${i.name}</span>`).join('')}
+      ${items.map(i => {
+        const iso = isIsolatedMonth(i.months, m);
+        return `<span class="mob-item ${cat.cls}${iso ? ' isolated-month' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}>${i.emoji} ${i.name}</span>`;
+      }).join('')}
     </div>`;
   });
+
+  // Herbs — always year-round, no month filter
+  if (filterCat === 'all' || filterCat === 'herb') {
+    const herbs = sortItems(RAW.herbs.filter(matchSearch));
+    if (herbs.length) {
+      anyShown = true;
+      html += `<div class="mob-cat-header">🌿&ensp;Herbs <span class="mob-yr-note">all year-round</span></div>
+      <div class="mob-items-grid">
+        ${herbs.map(i => `<span class="mob-item herb">${i.emoji} ${i.name}<span class="badge-yr" style="margin-left:4px">YR</span></span>`).join('')}
+      </div>`;
+    }
+  }
+
   if (!anyShown) html += `<p style="text-align:center;padding:28px 0;color:var(--ink-muted);font-style:italic">Nothing found</p>`;
   panel.innerHTML = html;
+
+  // Scroll active month pill into view
+  const activeBtn = panel.querySelector('.mob-month-pill.active');
+  if (activeBtn) activeBtn.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' });
 }
 
 /* ─── Init ──────────────────────────────────────────────────────────────── */
