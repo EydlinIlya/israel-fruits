@@ -16,14 +16,14 @@
     { "name": "Apples",                  "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
     { "name": "Apricots",                "months": [5, 6] },
     { "name": "Asian Pears",             "months": [1, 2, 3, 10, 11, 12] },
-    { "name": "Avocado",                 "months": [1, 2, 3, 4, 5, 8, 10, 11, 12] },
+    { "name": "Avocado",                 "months": [1, 2, 3, 4, 5, 8, 9, 10, 11, 12] },
     { "name": "Bananas",                 "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
     { "name": "Carambola (Star Fruit)",  "months": [10] },
     { "name": "Cherry Tomatoes",         "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
     { "name": "Cherries",                "months": [5, 6, 7] },
     { "name": "Chestnuts",               "months": [1, 2, 12] },
     { "name": "Clementines / Mandarins", "months": [1, 2, 3, 4, 5, 10, 11, 12] },
-    { "name": "Coconuts",                "months": [12] },
+
     { "name": "Dates",                   "months": [1, 2, 3, 4, 9, 10, 11, 12] },
     { "name": "Grapefruit",              "months": [1, 2, 3, 4, 5, 6, 10, 11, 12] },
     { "name": "Grapes",                  "months": [4, 5, 6, 7, 8, 9, 10, 11] },
@@ -55,8 +55,8 @@
     { "name": "Watermelon",              "months": [4, 5, 6, 7, 8, 9, 10] }
   ],
   "vegetables": [
-    { "name": "Artichokes",              "months": [2, 3, 4, 5, 6, 7] },
-    { "name": "Asparagus",               "months": [6] },
+    { "name": "Artichokes",              "months": [1, 2, 3, 4, 5, 6, 7, 12] },
+    { "name": "Asparagus",               "months": [2, 3, 4] },
     { "name": "Beets",                   "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
     { "name": "Broccoli",                "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
     { "name": "Butternut Squash",        "months": [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12] },
