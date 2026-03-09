@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Israel's Seasonal Produce Calendar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+
+  <style>
+  /* ══════════════════════════════════════════════════
+     VARIABLES — Harvest / Nature Palette
+  ══════════════════════════════════════════════════ */
+  :root {
+    /* Surfaces */
+    --bg:          #F0E8D4;       /* warm parchment */
+    --surface:     #FBF6EC;       /* card / elevated */
+    --surface-2:   #EDE3C8;       /* pressed / inset */
+
+    /* Brand greens */
+    --green-deep:  #1A3A0C;
+    --green-dark:  #2A5A14;
+    --green:       #3D7A20;
+    --green-light: #C8E4B0;
+
+    /* Harvest gold */
+    --gold-deep:   #6A3E00;
+    --gold-dark:   #9A5C00;
+    --gold:        #C4880A;
+    --gold-light:  #F2E0A0;
+
+    /* Terracotta / fruit */
+    --terra-deep:  #6A1C06;
+    --terra-dark:  #9A2C0A;
+    --terra:       #C4501E;
+    --terra-light: #F4D0BC;
+
+    /* Sage / herb */
+    --sage-dark:   #1E5038;
+    --sage:        #3A8060;
+    --sage-light:  #B8E4CC;
+
+    /* Text */
+    --ink:         #1C0E06;
+    --ink-mid:     #50341A;
+    --ink-muted:   #8C6840;
+    --ink-faint:   #C4A878;
+
+    /* Borders */
+    --rule:        #C8B48C;
+    --rule-light:  #E0D0B0;
+
+    /* Shadows */
+    --shadow-warm: 0 4px 24px rgba(80,40,0,0.12);
+    --shadow-sm:   0 2px 8px  rgba(80,40,0,0.08);
+
+    /* Season headers */
+    --s-winter-h:  #2C4E70;  --s-winter-bg: #D0E0F0;  --s-winter-txt: #0E2040;
+    --s-spring-h:  #2E6010;  --s-spring-bg: #CCE8B0;  --s-spring-txt: #0C3004;
+    --s-summer-h:  #9C6400;  --s-summer-bg: #F4E4A0;  --s-summer-txt: #4A2C00;
+    --s-autumn-h:  #7A2C0A;  --s-autumn-bg: #F0C8A4;  --s-autumn-txt: #4A1004;
+
+    /* Bar gradients */
+    --fruit-lo:    #D86A2A;  --fruit-hi:    #7C1E08;
+    --veg-lo:      #68A828;  --veg-hi:      #245014;
+    --herb-lo:     #80C898;  --herb-hi:     #1C5C3C;
+
+    --off-cell:    #E8DFCC;
+    --off-border:  #D8CDB0;
+
+    --radius:      12px;
+    --radius-sm:   8px;
+  }
+
+  /* ══════════════════════════════════════════════════
+     RESET & BASE
+  ══════════════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(60,100,20,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 90%, rgba(160,100,10,0.07) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='3' cy='3' r='0.6' fill='%23A08040' opacity='0.12'/%3E%3C/svg%3E");
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ══════════════════════════════════════════════════
+     HEADER
+  ══════════════════════════════════════════════════ */
+  header {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(160deg, #0C2006 0%, #1C4010 35%, #2E5A14 60%, #6A3C04 100%);
+    padding: 52px 24px 44px;
+    text-align: center;
+    color: #fff;
+  }
+
+  /* Grain overlay */
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* ── Botanical SVG decorations ── */
+  .hdr-deco {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 200px;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+  .hdr-deco-left  { left: 0; }
+  .hdr-deco-right { right: 0; transform: scaleX(-1); }
+
+  .hdr-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .hdr-emblem {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+    opacity: 0.75;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: #D4C090;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: #FDFAF0;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    margin-bottom: 12px;
+  }
+  header h1 em {
+    font-style: italic;
+    color: #F0D880;
+  }
+
+  header p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(253,250,240,0.72);
+    line-height: 1.6;
+    max-width: 460px;
+    margin: 0 auto 20px;
+  }
+
+  .season-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.28);
+    backdrop-filter: blur(4px);
+    color: #F8EEC0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 8px 20px;
+    border-radius: 30px;
+    transition: background 0.2s;
+  }
+  .season-pill::before { content: '✦'; font-size: 0.65rem; opacity: 0.7; }
+
+  /* ══════════════════════════════════════════════════
+     CONTROLS
+  ══════════════════════════════════════════════════ */
+  .controls {
+    position: sticky; top: 0; z-index: 200;
+    background: var(--surface);
+    border-bottom: 2px solid var(--rule-light);
+    box-shadow: var(--shadow-sm);
+    padding: 12px 20px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  }
+
+  /* Decorative leaf left border */
+  .controls::before {
+    content: '🌿';
+    font-size: 1.1rem;
+    opacity: 0.55;
+  }
+
+  .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+    background: transparent;
+  }
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-all   { border-color: var(--ink-mid);   color: var(--ink-mid); }
+  .btn-fruit { border-color: var(--terra);      color: var(--terra-dark); }
+  .btn-veg   { border-color: var(--green);      color: var(--green-dark); }
+  .btn-herb  { border-color: var(--sage);       color: var(--sage-dark); }
+
+  .btn-all.active   { background: var(--ink-mid);   color: var(--surface); }
+  .btn-fruit.active { background: var(--terra);      color: #fff; }
+  .btn-veg.active   { background: var(--green);      color: #fff; }
+  .btn-herb.active  { background: var(--sage);       color: #fff; }
+
+  .search-wrap { flex: 1; min-width: 180px; position: relative; }
+  .search-wrap .search-icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    color: var(--ink-faint); pointer-events: none; font-size: 0.9rem;
+  }
+  .search-input {
+    width: 100%;
+    padding: 8px 14px 8px 34px;
+    border: 2px solid var(--rule-light);
+    border-radius: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.94rem;
+    color: var(--ink);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.18s, background 0.18s;
+  }
+  .search-input::placeholder { color: var(--ink-faint); }
+  .search-input:focus {
+    border-color: var(--green);
+    background: var(--surface);
+  }
+
+  .sort-wrap { display: flex; align-items: center; gap: 6px; }
+  .sort-label {
+    font-size: 0.72rem; font-weight: 600;
+    color: var(--ink-muted); text-transform: uppercase;
+    letter-spacing: 0.07em; white-space: nowrap;
+  }
+  .sort-select {
+    padding: 7px 10px;
+    border: 2px solid var(--rule-light);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink);
+    background: var(--bg);
+    cursor: pointer; outline: none;
+    transition: border-color 0.18s;
+  }
+  .sort-select:focus { border-color: var(--green); }
+
+  /* ══════════════════════════════════════════════════
+     MAIN SECTION
+  ══════════════════════════════════════════════════ */
+  main { padding: 24px 20px 32px; }
+
+  /* ── Section divider ── */
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 18px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, var(--rule), transparent);
+  }
+  .divider-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--ink-muted);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  /* ── Season chips ── */
+  .season-legend {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 16px;
+  }
+  .season-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.04em;
+    border: 1.5px solid transparent;
+  }
+  .chip-winter {
+    background: var(--s-winter-bg); color: var(--s-winter-txt);
+    border-color: rgba(44,78,112,0.25);
+  }
+  .chip-spring {
+    background: var(--s-spring-bg); color: var(--s-spring-txt);
+    border-color: rgba(46,96,16,0.25);
+  }
+  .chip-summer {
+    background: var(--s-summer-bg); color: var(--s-summer-txt);
+    border-color: rgba(156,100,0,0.25);
+  }
+  .chip-autumn {
+    background: var(--s-autumn-bg); color: var(--s-autumn-txt);
+    border-color: rgba(122,44,10,0.25);
+  }
+
+  /* ── Chart card ── */
+  .chart-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1.5px solid var(--rule-light);
+    box-shadow: var(--shadow-warm);
+    overflow: hidden;
+  }
+  .chart-scroll { overflow-x: auto; }
+
+  /* ── Gantt table ── */
+  .gantt-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    min-width: 700px;
+  }
+  .gantt-table thead th { position: sticky; top: 0; z-index: 10; }
+
+  /* Season header row */
+  .th-season {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 8px 2px;
+    border: none;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.92);
+  }
+  .th-season.winter { background: var(--s-winter-h); }
+  .th-season.spring { background: var(--s-spring-h); }
+  .th-season.summer { background: var(--s-summer-h); }
+  .th-season.autumn { background: var(--s-autumn-h); }
+  .th-spacer { background: var(--surface); border: none; }
+
+  /* Month header row */
+  .th-month {
+    text-align: center;
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 8px 3px;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+  }
+  .th-month.winter { background: #3A6490; }
+  .th-month.spring { background: #3E7A1E; }
+  .th-month.summer { background: #B88010; }
+  .th-month.autumn { background: #903A18; }
+  .th-month.current {
+    outline: 3px solid #F2E060;
+    outline-offset: -3px;
+  }
+
+  .th-name {
+    text-align: left;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+    padding: 9px 14px;
+    background: var(--surface);
+    border-bottom: 1.5px solid var(--rule-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    width: 260px;
+    min-width: 260px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  /* Category header row */
+  .tr-category td {
+    padding: 10px 14px;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.96rem;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 0.05em;
+    border-top: 2px solid var(--rule);
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .tr-category.fruit-cat td {
+    color: var(--terra-deep);
+    background: linear-gradient(90deg, #F8E8DC 0%, var(--surface) 60%);
+  }
+  .tr-category.veg-cat td {
+    color: var(--green-deep);
+    background: linear-gradient(90deg, #E4F0D8 0%, var(--surface) 60%);
+  }
+  .tr-category.herb-cat td {
+    color: var(--sage-dark);
+    background: linear-gradient(90deg, #D4EEE0 0%, var(--surface) 60%);
+  }
+
+  .cat-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.84rem;
+    font-style: normal;
+    font-weight: 500;
+    opacity: 0.6;
+    margin-left: 8px;
+  }
+
+  /* Item rows */
+  .tr-item { transition: background 0.12s; }
+  .tr-item:hover { background: #F4EDD8; }
+  .tr-item:nth-child(even) { background: rgba(200,180,140,0.04); }
+  .tr-item:hover .td-name { color: var(--green-dark); }
+
+  .td-name {
+    padding: 6px 28px 6px 14px;
+    font-size: 0.93rem;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    width: 260px;
+    max-width: 260px;
+    border-bottom: 1px solid var(--rule-light);
+    transition: color 0.15s;
+    position: sticky; left: 0; z-index: 5;
+    background: inherit;
+  }
+  .tr-item:hover .td-name { background: #F4EDD8; }
+
+  .badge-yr {
+    display: inline-block;
+    margin-left: 6px;
+    background: var(--green-light);
+    color: var(--green-deep);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.07em;
+    vertical-align: middle;
+    font-family: 'DM Sans', sans-serif;
+    border: 1px solid rgba(42,90,20,0.2);
+  }
+  .item-emoji { margin-right: 5px; }
+
+  /* Gantt cells */
+  .td-month {
+    padding: 4px 2px;
+    border-bottom: 1px solid var(--rule-light);
+    border-left: 1px solid rgba(200,180,140,0.2);
+    min-width: 40px;
+    position: relative;
+  }
+  .td-month.current-col { background: rgba(242,224,96,0.07); }
+
+  .cell-bar {
+    height: 24px;
+    border-radius: 3px;
+    width: 100%;
+    position: relative;
+    transition: filter 0.15s, transform 0.12s;
+  }
+  .cell-bar.off {
+    background: var(--off-cell);
+    border: 1px solid var(--off-border);
+    border-radius: 3px;
+  }
+
+  /* ── Bar shapes (connected run) ── */
+  .cell-bar.s-solo  { border-radius: 10px; }
+  .cell-bar.s-start { border-radius: 10px 3px 3px 10px; }
+  .cell-bar.s-mid   { border-radius: 2px; }
+  .cell-bar.s-end   { border-radius: 3px 10px 10px 3px; }
+
+  /* Fruit — terracotta-to-burgundy */
+  .cell-bar.fruit.on {
+    background: linear-gradient(135deg, var(--fruit-lo) 0%, var(--fruit-hi) 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  /* Veg — field green */
+  .cell-bar.veg.on {
+    background: linear-gradient(135deg, var(--veg-lo) 0%, var(--veg-hi) 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  /* Herb — sage */
+  .cell-bar.herb.on {
+    background: linear-gradient(135deg, var(--herb-lo) 0%, var(--herb-hi) 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+
+  .tr-item:hover .cell-bar.on { filter: brightness(1.1) saturate(1.1); }
+
+  .cell-bar.current-bar {
+    box-shadow:
+      0 0 0 2px #F2E060,
+      0 0 10px rgba(242,224,96,0.5) !important;
+  }
+
+  /* Tooltip via CSS */
+  .cell-bar[data-tip] { cursor: pointer; }
+  .cell-bar[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 7px);
+    left: 50%; transform: translateX(-50%);
+    background: var(--ink);
+    color: var(--gold-light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; font-weight: 600;
+    padding: 5px 10px; border-radius: 6px;
+    white-space: nowrap; z-index: 999;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    letter-spacing: 0.02em;
+  }
+  .cell-bar[data-tip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%; transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--ink);
+    z-index: 999;
+  }
+
+  /* ── Stats bar ── */
+  .stats-bar {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    padding: 10px 16px;
+    background: var(--surface-2);
+    border-top: 1.5px solid var(--rule-light);
+    font-size: 0.87rem; color: var(--ink-mid);
+    align-items: center;
+  }
+  .stat-item { display: flex; align-items: center; gap: 6px; }
+  .stat-marker {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .stat-item strong { color: var(--ink); font-weight: 700; }
+
+  /* ── No results ── */
+  .no-results {
+    text-align: center; padding: 56px 24px;
+    color: var(--ink-muted);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-style: italic;
+  }
+  .no-results span { display: block; font-size: 2.2rem; margin-bottom: 10px; }
+
+  /* ══════════════════════════════════════════════════
+     LEGEND
+  ══════════════════════════════════════════════════ */
+  .type-legend {
+    background: var(--surface);
+    border: 1.5px solid var(--rule-light);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    margin-top: 16px;
+    padding: 14px 18px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+  }
+  .legend-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.78rem; font-style: italic;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+  .leg-group {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  }
+  .leg-item { display: flex; align-items: center; gap: 7px; }
+  .leg-swatch {
+    width: 28px; height: 13px; border-radius: 6px; flex-shrink: 0;
+  }
+  .leg-item span {
+    font-size: 0.88rem; color: var(--ink-mid);
+    white-space: nowrap;
+  }
+  .leg-sep {
+    width: 1px; height: 20px; background: var(--rule-light);
+  }
+
+  /* ══════════════════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════════════════ */
+  footer {
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    line-height: 1.8;
+    border-top: 1.5px solid var(--rule-light);
+    margin-top: 4px;
+  }
+  footer a { color: var(--green-dark); text-decoration: none; font-weight: 500; }
+  footer a:hover { text-decoration: underline; }
+  .footer-brand {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.8rem; font-style: italic;
+    color: var(--ink-faint);
+    margin-top: 4px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ══════════════════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════════════════ */
+  @media (max-width: 640px) {
+    header { padding: 36px 16px 32px; }
+    main   { padding: 16px 12px 24px; }
+    .controls { padding: 10px 12px; }
+    .hdr-deco { display: none; }
+  }
+
+  /* ══════════════════════════════════════════════════
+     MONTH FILTER
+  ══════════════════════════════════════════════════ */
+  .th-month { cursor: pointer; user-select: none; transition: filter 0.15s; }
+  .th-month:hover { filter: brightness(1.25); }
+  .th-month.month-active {
+    outline: 3px solid rgba(255,255,255,0.92) !important;
+    outline-offset: -3px;
+    filter: brightness(1.35);
+  }
+  .clear-filter-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: var(--gold-light); border: 1.5px solid var(--gold);
+    color: var(--gold-deep); font-size: 0.78rem; font-weight: 700;
+    padding: 3px 11px; border-radius: 12px; cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .clear-filter-btn:hover { background: var(--gold); color: #fff; }
+
+  /* ══════════════════════════════════════════════════
+     DISH PANEL
+  ══════════════════════════════════════════════════ */
+  .dish-panel {
+    background: var(--surface);
+    border: 1.5px solid var(--rule-light);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    margin-top: 16px;
+    overflow: hidden;
+    animation: dishFadeIn 0.25s ease;
+  }
+  @keyframes dishFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .dish-panel-header {
+    display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;
+    padding: 11px 18px;
+    background: linear-gradient(90deg, var(--surface-2), var(--surface));
+    border-bottom: 1.5px solid var(--rule-light);
+  }
+  .dish-panel-title {
+    font-family: 'Playfair Display', serif; font-size: 0.9rem;
+    font-style: italic; color: var(--ink-muted);
+  }
+  .dish-panel-month {
+    font-family: 'Playfair Display', serif; font-size: 1rem;
+    font-weight: 700; color: var(--green-dark);
+  }
+  .dish-panel-hint {
+    margin-left: auto; font-size: 0.71rem; color: var(--ink-faint);
+    font-style: italic; white-space: nowrap;
+  }
+  .dish-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .dish-card {
+    padding: 14px 18px;
+    border-right: 1px solid var(--rule-light);
+    transition: background 0.14s;
+  }
+  .dish-card:last-child { border-right: none; }
+  .dish-card:hover { background: #F8F2E4; }
+  .dish-name {
+    font-family: 'Playfair Display', serif; font-size: 0.94rem;
+    font-weight: 700; color: var(--ink); margin-bottom: 3px; line-height: 1.3;
+  }
+  .dish-meta {
+    font-size: 0.72rem; color: var(--ink-faint); font-weight: 600;
+    letter-spacing: 0.03em; margin-bottom: 6px;
+  }
+  .dish-desc {
+    font-size: 0.83rem; color: var(--ink-mid); line-height: 1.5; margin-bottom: 8px;
+  }
+  .dish-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .dish-tag {
+    font-size: 0.7rem; font-weight: 600; padding: 2px 8px;
+    border-radius: 10px; background: var(--green-light);
+    color: var(--green-deep); border: 1px solid rgba(42,90,20,0.15);
+    white-space: nowrap;
+  }
+
+  /* ══════════════════════════════════════════════════
+     MOBILE PRODUCE PANEL
+  ══════════════════════════════════════════════════ */
+  .mobile-produce { display: none; }
+
+  .mob-header {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    padding: 0 2px 14px;
+  }
+  .mob-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 800; color: var(--ink);
+  }
+  .mob-season-badge {
+    font-size: 0.72rem; font-weight: 700; padding: 3px 11px;
+    border-radius: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .mob-season-badge.winter { background: var(--s-winter-bg); color: var(--s-winter-txt); }
+  .mob-season-badge.spring { background: var(--s-spring-bg); color: var(--s-spring-txt); }
+  .mob-season-badge.summer { background: var(--s-summer-bg); color: var(--s-summer-txt); }
+  .mob-season-badge.autumn { background: var(--s-autumn-bg); color: var(--s-autumn-txt); }
+
+  .mob-cat-header {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--ink-muted);
+    margin: 12px 0 8px;
+  }
+  .mob-cat-header::after {
+    content: ''; flex: 1; height: 1px; background: var(--rule-light);
+  }
+  .mob-items-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+  .mob-item {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 6px 12px; border-radius: 20px;
+    font-size: 0.87rem; font-weight: 500;
+    border: 1.5px solid var(--rule-light); background: var(--surface);
+    color: var(--ink);
+  }
+  .mob-item.fruit { border-color: var(--terra-light); background: #FCF0E8; }
+  .mob-item.veg   { border-color: var(--green-light); background: #EEF6E4; }
+  .mob-item.herb  { border-color: var(--sage-light);  background: #E8F6EE; }
+
+  /* ══════════════════════════════════════════════════
+     MOBILE BREAKPOINT
+  ══════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    /* Hide Gantt + related */
+    .divider, .season-legend, .chart-card, .type-legend { display: none; }
+    /* Show mobile produce */
+    .mobile-produce { display: block; }
+
+    /* Dish carousel */
+    .dish-cards {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      grid-template-columns: unset;
+    }
+    .dish-card {
+      flex: 0 0 82%;
+      scroll-snap-align: start;
+      border-right: 1px solid var(--rule-light);
+    }
+    .dish-card:last-child { border-right: none; }
+    .dish-cards::-webkit-scrollbar { height: 4px; }
+    .dish-cards::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+
+    /* Dish panel: no animation re-trigger on mobile */
+    .dish-panel { animation: none; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════ SVG DEFS ════════════════════════ -->
+<!-- Hidden grain filter -->
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <defs>
+    <filter id="hdr-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="gray"/>
+      <feBlend in="SourceGraphic" in2="gray" mode="overlay" result="blend"/>
+      <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ════════════════════════ HEADER ════════════════════════ -->
+<header>
+  <!-- Left botanical: olive branch -->
+  <svg class="hdr-deco hdr-deco-left" viewBox="0 0 120 320" fill="none" aria-hidden="true">
+    <path d="M60 320 C56 280 50 240 54 200 C57 170 63 140 60 100 C57 60 50 30 55 0" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+    <path d="M54 290 C28 276 10 250 34 244 C46 262 53 278 54 290Z" fill="rgba(255,255,255,0.1)"/>
+    <path d="M56 256 C80 240 96 216 74 210 C62 228 57 244 56 256Z" fill="rgba(255,255,255,0.09)"/>
+    <path d="M53 220 C28 204 10 180 34 174 C46 192 52 208 53 220Z" fill="rgba(255,255,255,0.11)"/>
+    <path d="M56 186 C80 170 96 146 74 140 C62 158 57 174 56 186Z" fill="rgba(255,255,255,0.08)"/>
+    <path d="M53 150 C28 134 10 110 34 104 C46 122 52 138 53 150Z" fill="rgba(255,255,255,0.1)"/>
+    <path d="M57 115 C80 100 94 78 73 72 C62 90 58 104 57 115Z" fill="rgba(255,255,255,0.08)"/>
+    <!-- small fruits (dots) -->
+    <circle cx="34" cy="244" r="4" fill="rgba(255,200,80,0.25)"/>
+    <circle cx="74" cy="210" r="3.5" fill="rgba(255,200,80,0.22)"/>
+    <circle cx="34" cy="174" r="4" fill="rgba(255,200,80,0.25)"/>
+    <circle cx="74" cy="140" r="3" fill="rgba(255,200,80,0.2)"/>
+  </svg>
+
+  <!-- Right botanical: pomegranate + leaves -->
+  <svg class="hdr-deco hdr-deco-right" viewBox="0 0 120 320" fill="none" aria-hidden="true">
+    <path d="M60 320 C56 280 50 240 54 200 C57 170 63 140 60 100 C57 60 50 30 55 0" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+    <!-- Pomegranate shape -->
+    <ellipse cx="38" cy="155" rx="18" ry="22" fill="rgba(200,60,30,0.18)" stroke="rgba(255,200,120,0.2)" stroke-width="1"/>
+    <!-- crown on pomegranate -->
+    <path d="M30 134 L32 130 L35 133 L38 129 L41 133 L44 130 L46 134" stroke="rgba(255,200,120,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- stem -->
+    <line x1="38" y1="129" x2="42" y2="120" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/>
+    <!-- leaves -->
+    <path d="M54 290 C80 276 96 252 72 246 C62 263 56 278 54 290Z" fill="rgba(255,255,255,0.1)"/>
+    <path d="M56 256 C28 242 12 218 36 212 C48 230 55 244 56 256Z" fill="rgba(255,255,255,0.09)"/>
+    <path d="M53 200 C80 184 96 160 74 154 C62 172 55 188 53 200Z" fill="rgba(255,255,255,0.09)"/>
+    <path d="M57 115 C28 100 12 78 34 72 C46 90 55 104 57 115Z" fill="rgba(255,255,255,0.1)"/>
+    <circle cx="72" cy="246" r="4" fill="rgba(255,200,80,0.2)"/>
+    <circle cx="36" cy="212" r="3.5" fill="rgba(255,200,80,0.2)"/>
+  </svg>
+
+  <div class="hdr-inner">
+    <div class="hdr-emblem">
+      <span>🇮🇱</span>
+      <span>From the Fields of Israel</span>
+      <span>🌾</span>
+    </div>
+    <h1><em>Seasonal</em> Produce Calendar</h1>
+    <p>A month-by-month harvest guide to the freshest fruits, vegetables &amp; herbs of Israel</p>
+    <span class="season-pill" id="seasonBadge">Now in season…</span>
+  </div>
+</header>
+
+<!-- ════════════════════════ CONTROLS ════════════════════════ -->
+<div class="controls">
+  <div class="filter-group">
+    <button class="btn btn-all active"   onclick="setFilter('all')"   id="btn-all">All Produce</button>
+    <button class="btn btn-fruit"        onclick="setFilter('fruit')" id="btn-fruit">🍎 Fruits</button>
+    <button class="btn btn-veg"          onclick="setFilter('veg')"   id="btn-veg">🥦 Vegetables</button>
+    <button class="btn btn-herb"         onclick="setFilter('herb')"  id="btn-herb">🌿 Herbs</button>
+  </div>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" placeholder="Search produce…" oninput="setSearch(this.value)" />
+  </div>
+
+  <div class="sort-wrap">
+    <span class="sort-label">Sort by</span>
+    <select class="sort-select" onchange="setSort(this.value)">
+      <option value="name">A – Z</option>
+      <option value="months-desc">Most months ↓</option>
+      <option value="months-asc">Fewest months ↑</option>
+    </select>
+  </div>
+</div>
+
+<!-- ════════════════════════ MAIN ════════════════════════ -->
+<main>
+
+  <!-- Dish suggestions (top — updates on month click) -->
+  <div id="dishPanel"></div>
+
+  <!-- Mobile: current month produce (hidden on desktop) -->
+  <div id="mobilePanel" class="mobile-produce"></div>
+
+  <!-- Decorative divider -->
+  <div class="divider">
+    <span class="divider-label">🌱 Monthly Availability 🌱</span>
+  </div>
+
+  <!-- Season legend -->
+  <div class="season-legend">
+    <div class="season-chip chip-winter">❄️ &nbsp;Winter — Dec · Jan · Feb</div>
+    <div class="season-chip chip-spring">🌸 &nbsp;Spring — Mar · Apr · May</div>
+    <div class="season-chip chip-summer">☀️ &nbsp;Summer — Jun · Jul · Aug</div>
+    <div class="season-chip chip-autumn">🍂 &nbsp;Autumn — Sep · Oct · Nov</div>
+  </div>
+
+  <!-- Chart -->
+  <div class="chart-card">
+    <div class="chart-scroll">
+      <table class="gantt-table" id="ganttTable">
+        <thead id="ganttHead"></thead>
+        <tbody id="ganttBody"></tbody>
+      </table>
+    </div>
+    <div class="stats-bar" id="statsBar"></div>
+  </div>
+
+  <!-- Legend -->
+  <div class="type-legend">
+    <span class="legend-title">Legend</span>
+    <div class="leg-group">
+      <div class="leg-item">
+        <div class="leg-swatch" style="background:linear-gradient(90deg,var(--fruit-lo),var(--fruit-hi))"></div>
+        <span>Fruit in season</span>
+      </div>
+      <div class="leg-item">
+        <div class="leg-swatch" style="background:linear-gradient(90deg,var(--veg-lo),var(--veg-hi))"></div>
+        <span>Vegetable in season</span>
+      </div>
+      <div class="leg-item">
+        <div class="leg-swatch" style="background:linear-gradient(90deg,var(--herb-lo),var(--herb-hi))"></div>
+        <span>Herb in season</span>
+      </div>
+      <div class="leg-item">
+        <div class="leg-swatch" style="background:var(--off-cell);border:1px solid var(--off-border)"></div>
+        <span>Out of season</span>
+      </div>
+    </div>
+    <div class="leg-sep"></div>
+    <div class="leg-group">
+      <div class="leg-item">
+        <div class="leg-swatch" style="background:var(--off-cell);outline:2px solid #F2E060;outline-offset:1px"></div>
+        <span>Current month</span>
+      </div>
+      <div class="leg-item">
+        <span class="badge-yr" style="font-size:0.7rem;padding:2px 7px">YR</span>
+        <span>Available year-round</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ════════════════════════ FOOTER ════════════════════════ -->
+<footer>
+  <span>Data sourced from
+    <a href="https://anglo-list.com/israels-seasonal-fruits-vegetables/" target="_blank" rel="noopener">Anglo-List — Israel's Seasonal Fruits &amp; Vegetables</a>
+    &nbsp;·&nbsp; Last updated December 2021
+  </span>
+  <em class="footer-brand">🌿 From the Land — Harvested with Care 🌿</em>
+</footer>
+
+<!-- ════════════════════════ SCRIPT ════════════════════════ -->
+<script>
+/* ─── Data ─────────────────────────────────────────────────────────────── */
+const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS_LONG  = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+const SEASON_OF    = {1:'winter',2:'winter',3:'spring',4:'spring',5:'spring',
+                      6:'summer',7:'summer',8:'summer',9:'autumn',10:'autumn',
+                      11:'autumn',12:'winter'};
+const SEASON_NAME  = {1:'Winter',2:'Winter',3:'Spring',4:'Spring',5:'Spring',
+                      6:'Summer',7:'Summer',8:'Summer',9:'Autumn',10:'Autumn',
+                      11:'Autumn',12:'Winter'};
+const NOW_MONTH    = new Date().getMonth() + 1;
+
+const RAW = {
+  fruits: [
+    { name:"Anona (Cherimoya)",       emoji:"🍈", months:[1,2,10,11,12] },
+    { name:"Apples",                  emoji:"🍎", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Apricots",                emoji:"🍑", months:[5,6] },
+    { name:"Asian Pears",             emoji:"🍐", months:[1,2,3,10,11,12] },
+    { name:"Avocado",                 emoji:"🥑", months:[1,2,3,4,5,8,10,11,12] },
+    { name:"Bananas",                 emoji:"🍌", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Carambola (Star Fruit)",  emoji:"⭐", months:[10] },
+    { name:"Cherry Tomatoes",         emoji:"🍅", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Cherries",                emoji:"🍒", months:[5,6,7] },
+    { name:"Chestnuts",               emoji:"🌰", months:[1,2,12] },
+    { name:"Clementines / Mandarins", emoji:"🍊", months:[1,2,3,4,5,10,11,12] },
+    { name:"Coconuts",                emoji:"🥥", months:[12] },
+    { name:"Dates",                   emoji:"🌴", months:[1,2,3,4,9,10,11,12] },
+    { name:"Grapefruit",              emoji:"🍋", months:[1,2,3,4,5,6,10,11,12] },
+    { name:"Grapes",                  emoji:"🍇", months:[4,5,6,7,8,9,10,11] },
+    { name:"Guavas",                  emoji:"🍈", months:[10,11,12] },
+    { name:"Kiwi",                    emoji:"🥝", months:[1,2,3,4,5,10,11,12] },
+    { name:"Kumquats",                emoji:"🟠", months:[1,2,3,12] },
+    { name:"Lemons",                  emoji:"🍋", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Limes",                   emoji:"🍋", months:[10,11] },
+    { name:"Loquats",                 emoji:"🍑", months:[4,5] },
+    { name:"Lychees",                 emoji:"🍒", months:[7,8,9] },
+    { name:"Mangoes",                 emoji:"🥭", months:[7,8,9,10,11] },
+    { name:"Melons",                  emoji:"🍈", months:[4,5,6,7,8,9,10,11] },
+    { name:"Nectarines",              emoji:"🍑", months:[5,6,7,8,9,10,11] },
+    { name:"Oranges",                 emoji:"🍊", months:[1,2,3,4,5,6,10,11,12] },
+    { name:"Papaya",                  emoji:"🍈", months:[2,3,5,10,11] },
+    { name:"Passion Fruit",           emoji:"💜", months:[4,5] },
+    { name:"Peaches",                 emoji:"🍑", months:[5,6,7,8,9,10,11] },
+    { name:"Pears",                   emoji:"🍐", months:[1,2,3,4,5,7,8,9,10,11,12] },
+    { name:"Persimmons",              emoji:"🟠", months:[1,2,3,10,11,12] },
+    { name:"Pineapple",               emoji:"🍍", months:[1,2,3,6,9,10,11,12] },
+    { name:"Plums",                   emoji:"🫐", months:[6,7,8,9,10,11] },
+    { name:"Pomegranates",            emoji:"❤️",  months:[1,2,3,9,10,11,12] },
+    { name:"Pomelo",                  emoji:"🟡", months:[1,2,3,10,11,12] },
+    { name:"Pomelit",                 emoji:"🟡", months:[1,2,3,12] },
+    { name:"Prickly Pears (Sabras)",  emoji:"🌵", months:[5,7,8,9,10,11,12] },
+    { name:"Quinces",                 emoji:"🍐", months:[1,2,3,10,11,12] },
+    { name:"Strawberries",            emoji:"🍓", months:[1,2,3,4,5,6,11,12] },
+    { name:"Tomatoes",                emoji:"🍅", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Watermelon",              emoji:"🍉", months:[4,5,6,7,8,9,10] }
+  ],
+  vegetables: [
+    { name:"Artichokes",              emoji:"🌿", months:[2,3,4,5,6,7] },
+    { name:"Asparagus",               emoji:"🌱", months:[6] },
+    { name:"Beets",                   emoji:"🟣", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Broccoli",                emoji:"🥦", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Butternut Squash",        emoji:"🎃", months:[1,2,3,4,6,7,8,9,10,11,12] },
+    { name:"Cabbage",                 emoji:"🥬", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Carrots",                 emoji:"🥕", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Cauliflower",             emoji:"🥦", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Chinese Cabbage",         emoji:"🥬", months:[1,2,3,11,12] },
+    { name:"Chicory",                 emoji:"🌿", months:[1,2,3,11,12] },
+    { name:"Corn",                    emoji:"🌽", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Courgettes (Zucchini)",   emoji:"🥒", months:[1,2,3,9,10,11,12] },
+    { name:"Cucumbers",               emoji:"🥒", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Eggplant",                emoji:"🍆", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Fennel",                  emoji:"🌿", months:[1,2,3,4,5,6,7,8,10,11,12] },
+    { name:"Garlic",                  emoji:"🧄", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Jerusalem Artichoke",     emoji:"🌿", months:[1,2,3,10,11,12] },
+    { name:"Kale",                    emoji:"🥬", months:[1,2,3,11,12] },
+    { name:"Kohlrabi",                emoji:"💜", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Leeks",                   emoji:"🌿", months:[1,2,3,10,11,12] },
+    { name:"Lettuce",                 emoji:"🥬", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Mushrooms",               emoji:"🍄", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Onions",                  emoji:"🧅", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Potatoes",                emoji:"🥔", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Pumpkin",                 emoji:"🎃", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Radish",                  emoji:"🔴", months:[1,2,3,11,12] },
+    { name:"Runner Beans",            emoji:"🫘", months:[1,2,3,7,8,9,10,11,12] },
+    { name:"Sweet Peppers",           emoji:"🫑", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Sweet Potatoes (Batata)", emoji:"🍠", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Swiss Chard (Mangold)",   emoji:"🥬", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Turnips",                 emoji:"⚪", months:[1,2,3,4,12] }
+  ],
+  herbs: [
+    { name:"Basil",             emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Celery",            emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Chives",            emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Coriander",         emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Dill",              emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Flat-Leaf Parsley", emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Mint (Nana)",       emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Spring Onions",     emoji:"🌱", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Sprouts",           emoji:"🌱", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Thyme",             emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] }
+  ]
+};
+
+/* ─── Dish suggestions ──────────────────────────────────────────────────── */
+const MONTH_DISHES = {
+  1:[
+    {name:"Leek & Potato Soup",time:"30 min",cuisine:"Sephardic",desc:"Creamy winter soup fragrant with sautéed leeks and potatoes, finished with fresh coriander.",tags:["🌿 Leeks","🥔 Potatoes","🌿 Coriander"]},
+    {name:"Roasted Cauliflower with Tahini",time:"25 min",cuisine:"Israeli",desc:"Golden-roasted florets drizzled with nutty tahini, lemon and parsley.",tags:["🥦 Cauliflower","🧄 Garlic","🌿 Parsley"]},
+    {name:"Citrus & Avocado Salad",time:"10 min",cuisine:"Israeli",desc:"Bright clementine segments over creamy avocado with a honey-lime dressing.",tags:["🍊 Clementines","🥑 Avocado","🍋 Lemons"]}
+  ],
+  2:[
+    {name:"Shakshuka with Swiss Chard",time:"20 min",cuisine:"Tunisian-Israeli",desc:"Spiced tomato sauce with wilted mangold, eggs poached until just set.",tags:["🍅 Tomatoes","🥬 Swiss Chard","🧄 Garlic"]},
+    {name:"Strawberry & Labneh Toast",time:"10 min",cuisine:"Israeli",desc:"Thick labneh on grilled bread topped with fresh strawberries and za'atar honey.",tags:["🍓 Strawberries","🍋 Lemons"]},
+    {name:"Moroccan Carrot Salad",time:"15 min",cuisine:"Moroccan-Jewish",desc:"Cooked carrots tossed warm with cumin, lemon and coriander — a classic mezze.",tags:["🥕 Carrots","🌿 Coriander","🍋 Lemons"]}
+  ],
+  3:[
+    {name:"Artichoke Hearts with Lemon & Garlic",time:"25 min",cuisine:"Levantine",desc:"Tender artichoke hearts braised in olive oil, lemon juice and plenty of garlic.",tags:["🌿 Artichokes","🧄 Garlic","🍋 Lemons"]},
+    {name:"Strawberry Tabbouleh",time:"15 min",cuisine:"Israeli-modern",desc:"Classic parsley-bulgur salad brightened with spring strawberries and pomegranate molasses.",tags:["🍓 Strawberries","🌿 Parsley","🍅 Tomatoes"]},
+    {name:"Avocado Toast with Za'atar",time:"10 min",cuisine:"Israeli",desc:"Mashed avocado on toast dusted with za'atar and chilli — a Shabbat brunch staple.",tags:["🥑 Avocado","🍅 Cherry Tomatoes","🌿 Chives"]}
+  ],
+  4:[
+    {name:"Matzo Brei with Strawberries",time:"15 min",cuisine:"Ashkenazi · Passover",desc:"Soaked matzo pan-fried in butter, served sweet with fresh strawberries and honey.",tags:["🍓 Strawberries","🍋 Lemons"]},
+    {name:"Fattoush Salad",time:"15 min",cuisine:"Levantine",desc:"Crisp salad of cucumbers, tomatoes and spring herbs with a sumac-lemon dressing.",tags:["🥒 Cucumbers","🍅 Tomatoes","🌿 Mint","🌱 Spring Onions"]},
+    {name:"Spring Herb Frittata",time:"20 min",cuisine:"Israeli",desc:"Oven-baked egg cake loaded with spring onions, parsley and dill — great warm or cold.",tags:["🌱 Spring Onions","🌿 Dill","🌿 Parsley"]}
+  ],
+  5:[
+    {name:"Apricot & Chicken Tagine",time:"50 min",cuisine:"Moroccan-Jewish",desc:"Sweet-savory chicken slow-cooked with fresh apricots, saffron and preserved lemon.",tags:["🍑 Apricots","🧄 Garlic","🌿 Coriander"]},
+    {name:"Cherry Compote over Labneh",time:"20 min",cuisine:"Israeli",desc:"Lightly spiced warm cherry sauce with cinnamon and lemon zest, served over thick labneh.",tags:["🍒 Cherries","🍋 Lemons"]},
+    {name:"Strawberry & Mint Granita",time:"10 min + freeze",cuisine:"Israeli",desc:"Blended fresh strawberries and mint frozen into a refreshing icy granita.",tags:["🍓 Strawberries","🌿 Mint","🍋 Lemons"]}
+  ],
+  6:[
+    {name:"Watermelon, Feta & Mint Salad",time:"10 min",cuisine:"Israeli",desc:"The iconic Israeli summer plate — cool watermelon cubes, salty feta and fresh mint.",tags:["🍉 Watermelon","🌿 Mint","🍋 Lemons"]},
+    {name:"Grilled Eggplant with Tehina",time:"25 min",cuisine:"Levantine",desc:"Charred eggplant dressed with tahini, garlic and chopped parsley — classic mezze.",tags:["🍆 Eggplant","🧄 Garlic","🌿 Parsley"]},
+    {name:"Cherry Soup (Kirshensuppe)",time:"15 min",cuisine:"Ashkenazi · Shavuot",desc:"Chilled sweet cherry soup with cinnamon and lemon — a Shavuot dairy-week tradition.",tags:["🍒 Cherries","🍋 Lemons"]}
+  ],
+  7:[
+    {name:"Watermelon Gazpacho",time:"15 min",cuisine:"Israeli-modern",desc:"Blended watermelon, cucumber and tomato chilled soup with mint and a drizzle of olive oil.",tags:["🍉 Watermelon","🥒 Cucumbers","🍅 Tomatoes","🌿 Mint"]},
+    {name:"Mango & Cucumber Salad",time:"10 min",cuisine:"Israeli",desc:"Ripe mango strips with cucumber, chilli and coriander in a lime-ginger dressing.",tags:["🥭 Mangoes","🥒 Cucumbers","🌿 Coriander"]},
+    {name:"Stuffed Eggplant (Imam Bayildi)",time:"50 min",cuisine:"Turkish-Jewish",desc:"Eggplants baked with spiced tomato, onion and garlic filling until meltingly soft.",tags:["🍆 Eggplant","🍅 Tomatoes","🧅 Onions","🧄 Garlic"]}
+  ],
+  8:[
+    {name:"Peach & Tomato Salad with Basil",time:"10 min",cuisine:"Israeli-modern",desc:"Late-summer ripe peaches and tomatoes with fresh basil, olive oil and coarse salt.",tags:["🍑 Peaches","🍅 Tomatoes","🌿 Basil"]},
+    {name:"Nectarine & Labneh Bowl",time:"15 min",cuisine:"Israeli",desc:"Creamy labneh swirled with honey, topped with sliced nectarines and pistachios.",tags:["🍑 Nectarines","🌿 Mint","🍋 Lemons"]},
+    {name:"Grilled Peach with Honey & Za'atar",time:"15 min",cuisine:"Israeli",desc:"Halved peaches grilled until caramelised, drizzled with wildflower honey and za'atar.",tags:["🍑 Peaches","🌿 Thyme"]}
+  ],
+  9:[
+    {name:"Pomegranate Molasses Chicken",time:"50 min",cuisine:"Persian-Jewish · Rosh Hashana",desc:"Chicken braised with pomegranate molasses, walnuts and onions — symbolic New Year dish.",tags:["❤️ Pomegranates","🧅 Onions","🧄 Garlic"]},
+    {name:"Apple & Honey Cake",time:"60 min",cuisine:"Ashkenazi · Rosh Hashana",desc:"Traditional honey-sweetened apple cake with cinnamon — the taste of the Jewish New Year.",tags:["🍎 Apples","🍋 Lemons"]},
+    {name:"Date & Pomegranate Salad",time:"10 min",cuisine:"Middle Eastern",desc:"Pomegranate arils and fresh dates over bitter greens with a citrus-honey dressing.",tags:["❤️ Pomegranates","🌴 Dates","🍋 Lemons"]}
+  ],
+  10:[
+    {name:"Pumpkin & Red Lentil Soup",time:"35 min",cuisine:"Israeli · Sukkot",desc:"Velvety golden soup of roasted pumpkin and red lentils with cumin and coriander.",tags:["🎃 Pumpkin","🧄 Garlic","🌿 Coriander"]},
+    {name:"Persimmon & Rocket Salad",time:"10 min",cuisine:"Israeli-modern",desc:"Sliced ripe persimmons over rocket with pomegranate, walnuts and tahini dressing.",tags:["🟠 Persimmons","❤️ Pomegranates","🌴 Dates"]},
+    {name:"Quince & Lamb Stew",time:"60 min",cuisine:"Sephardic · Sukkot",desc:"Tender lamb slow-cooked with quince, cinnamon and honey — a festive Sukkot classic.",tags:["🍐 Quinces","🧅 Onions","🧄 Garlic"]}
+  ],
+  11:[
+    {name:"Pumpkin Kibbeh",time:"50 min",cuisine:"Syrian-Jewish",desc:"Crispy bulgur-pumpkin shells stuffed with spiced meat, onions and pine nuts.",tags:["🎃 Pumpkin","🧅 Onions","🌿 Coriander"]},
+    {name:"Persimmon Honey Cake",time:"55 min",cuisine:"Israeli-modern",desc:"Moist cake where ripe persimmon replaces oil, sweetened with honey and cardamom.",tags:["🟠 Persimmons","🍋 Lemons"]},
+    {name:"Guava Paste & Cheese Pastry",time:"30 min",cuisine:"Sephardic",desc:"Flaky pastry filled with guava paste and white cheese — a Sephardic pre-Hanukkah treat.",tags:["🍈 Guavas","🍋 Lemons"]}
+  ],
+  12:[
+    {name:"Sufganiyot (Hanukkah Donuts)",time:"90 min",cuisine:"Ashkenazi · Hanukkah",desc:"Fluffy deep-fried doughnuts filled with strawberry jam — the iconic Hanukkah treat.",tags:["🍓 Strawberries","🍊 Oranges"]},
+    {name:"Orange & Fennel Salad",time:"10 min",cuisine:"Moroccan-Jewish",desc:"Thin-sliced fennel and sweet oranges with olives, coriander and citrus dressing.",tags:["🍊 Oranges","🌿 Fennel","🌿 Coriander"]},
+    {name:"Roasted Chestnuts with Date Honey",time:"20 min",cuisine:"Sephardic",desc:"Oven-roasted chestnuts scored and glazed with date honey — warming winter street food.",tags:["🌰 Chestnuts","🌴 Dates"]}
+  ]
+};
+
+/* ─── State ─────────────────────────────────────────────────────────────── */
+let filterCat = 'all', searchQ = '', sortMode = 'name', filterMonth = null;
+
+/* ─── Helpers ───────────────────────────────────────────────────────────── */
+function posClass(months, m) {
+  if (!months.includes(m)) return '';
+  const prev = months.includes(m - 1), next = months.includes(m + 1);
+  if (!prev && !next) return 's-solo';
+  if (!prev &&  next) return 's-start';
+  if ( prev &&  next) return 's-mid';
+  return 's-end';
+}
+function sortItems(arr) {
+  const c = [...arr];
+  if (sortMode === 'name')        c.sort((a,b) => a.name.localeCompare(b.name));
+  if (sortMode === 'months-desc') c.sort((a,b) => b.months.length - a.months.length);
+  if (sortMode === 'months-asc')  c.sort((a,b) => a.months.length - b.months.length);
+  return c;
+}
+function matchSearch(item) {
+  return !searchQ || item.name.toLowerCase().includes(searchQ);
+}
+
+/* ─── Build head ────────────────────────────────────────────────────────── */
+function buildHead() {
+  const head = document.getElementById('ganttHead');
+  head.innerHTML = '';
+
+  const seasonSpans = [
+    { label:'❄ Winter',  cls:'winter', cols:2 },
+    { label:'🌸 Spring', cls:'spring', cols:3 },
+    { label:'☀ Summer',  cls:'summer', cols:3 },
+    { label:'🍂 Autumn', cls:'autumn', cols:3 },
+    { label:'❄ Winter',  cls:'winter', cols:1 }
+  ];
+  const tr1 = document.createElement('tr');
+  const th0 = document.createElement('th');
+  th0.className = 'th-name th-spacer';
+  tr1.appendChild(th0);
+  seasonSpans.forEach(s => {
+    const th = document.createElement('th');
+    th.colSpan = s.cols;
+    th.className = `th-season ${s.cls}`;
+    th.textContent = s.label;
+    tr1.appendChild(th);
+  });
+  head.appendChild(tr1);
+
+  const tr2 = document.createElement('tr');
+  const th1 = document.createElement('th');
+  th1.className = 'th-name';
+  th1.textContent = 'Produce';
+  tr2.appendChild(th1);
+  for (let m = 1; m <= 12; m++) {
+    const th = document.createElement('th');
+    th.className = `th-month ${SEASON_OF[m]}${m === NOW_MONTH ? ' current' : ''}${m === filterMonth ? ' month-active' : ''}`;
+    th.textContent = MONTHS_SHORT[m - 1];
+    th.title = `Filter to ${MONTHS_LONG[m - 1]}`;
+    th.addEventListener('click', () => setMonthFilter(m));
+    tr2.appendChild(th);
+  }
+  head.appendChild(tr2);
+}
+
+/* ─── Build body ────────────────────────────────────────────────────────── */
+function buildBody() {
+  const body = document.getElementById('ganttBody');
+  body.innerHTML = '';
+
+  const cats = [
+    { key:'fruits',     label:'Fruits',     icon:'🍎', cls:'fruit-cat', cellCls:'fruit' },
+    { key:'vegetables', label:'Vegetables', icon:'🥦', cls:'veg-cat',   cellCls:'veg'   },
+    { key:'herbs',      label:'Herbs',      icon:'🌿', cls:'herb-cat',  cellCls:'herb'  }
+  ];
+
+  const filterMap = { fruits:'fruit', vegetables:'veg', herbs:'herb' };
+  let totalShown = 0, inSeasonNow = 0;
+
+  cats.forEach(cat => {
+    if (filterCat !== 'all' && filterCat !== filterMap[cat.key]) return;
+    let items = sortItems(RAW[cat.key].filter(matchSearch));
+    if (filterMonth !== null) items = items.filter(i => i.months.includes(filterMonth));
+    if (!items.length) return;
+    totalShown += items.length;
+
+    // Category header
+    const trCat = document.createElement('tr');
+    trCat.className = `tr-category ${cat.cls}`;
+    const tdCat = document.createElement('td');
+    tdCat.colSpan = 13;
+    tdCat.innerHTML = `${cat.icon}&ensp;${cat.label}<span class="cat-count">&mdash; ${items.length} varieties</span>`;
+    trCat.appendChild(tdCat);
+    body.appendChild(trCat);
+
+    // Item rows
+    items.forEach(item => {
+      const isYR = item.months.length === 12;
+      if (item.months.includes(NOW_MONTH)) inSeasonNow++;
+
+      const tr = document.createElement('tr');
+      tr.className = 'tr-item';
+
+      const tdName = document.createElement('td');
+      tdName.className = 'td-name';
+      tdName.title = item.name;
+      tdName.innerHTML = `<span class="item-emoji">${item.emoji}</span>${item.name}${isYR ? '<span class="badge-yr">YR</span>' : ''}`;
+      tr.appendChild(tdName);
+
+      for (let m = 1; m <= 12; m++) {
+        const td = document.createElement('td');
+        td.className = `td-month${m === NOW_MONTH ? ' current-col' : ''}`;
+        const inSeason = item.months.includes(m);
+        const div = document.createElement('div');
+        const pc = posClass(item.months, m);
+        div.className = `cell-bar ${cat.cellCls} ${inSeason ? 'on ' + pc : 'off'}${m === NOW_MONTH && inSeason ? ' current-bar' : ''}`;
+        if (inSeason) div.dataset.tip = `${item.emoji} ${item.name} · ${MONTHS_LONG[m-1]}`;
+        td.appendChild(div);
+        tr.appendChild(td);
+      }
+      body.appendChild(tr);
+    });
+  });
+
+  if (totalShown === 0) {
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.colSpan = 13;
+    td.innerHTML = `<div class="no-results"><span>🌾</span>Nothing found for "${searchQ}"</div>`;
+    tr.appendChild(td); body.appendChild(tr);
+  }
+
+  document.getElementById('statsBar').innerHTML = filterMonth ? `
+    <div class="stat-item">
+      <span class="stat-marker" style="background:var(--green)"></span>
+      Showing <strong>${totalShown}</strong> varieties in season in <strong>${MONTHS_LONG[filterMonth-1]}</strong>
+    </div>
+    <span class="clear-filter-btn" onclick="setMonthFilter(${filterMonth})">✕ Clear filter</span>
+  ` : `
+    <div class="stat-item">
+      <span class="stat-marker" style="background:var(--green)"></span>
+      Showing <strong>${totalShown}</strong> varieties
+    </div>
+    <div class="stat-item">
+      <span class="stat-marker" style="background:#F2E060"></span>
+      <strong>${inSeasonNow}</strong> in season now &mdash; <em>${MONTHS_LONG[NOW_MONTH-1]}, ${SEASON_NAME[NOW_MONTH]}</em>
+    </div>
+  `;
+}
+
+/* ─── UI handlers ───────────────────────────────────────────────────────── */
+function setFilter(f) {
+  filterCat = f;
+  ['all','fruit','veg','herb'].forEach(k =>
+    document.getElementById(`btn-${k}`).classList.toggle('active', k === f));
+  buildBody();
+}
+function setSearch(q) { searchQ = q.toLowerCase().trim(); buildBody(); }
+function setSort(v)   { sortMode = v; buildBody(); }
+
+function setMonthFilter(m) {
+  filterMonth = (filterMonth === m) ? null : m;
+  buildHead();
+  buildBody();
+  buildDishPanel();
+}
+
+function buildDishPanel() {
+  const panel = document.getElementById('dishPanel');
+  if (!panel) return;
+  const m = filterMonth !== null ? filterMonth : NOW_MONTH;
+  const dishes = MONTH_DISHES[m] || [];
+  const isFiltered = filterMonth !== null;
+  panel.className = 'dish-panel';
+  panel.innerHTML = `
+    <div class="dish-panel-header">
+      <span class="dish-panel-title">In-season dishes for</span>
+      <span class="dish-panel-month">&ensp;${MONTHS_LONG[m - 1]}</span>
+      ${!isFiltered ? '<span class="dish-panel-hint">↑ Click a month header to explore</span>' : ''}
+    </div>
+    <div class="dish-cards">
+      ${dishes.map(d => `
+        <div class="dish-card">
+          <div class="dish-name">${d.name}</div>
+          <div class="dish-meta">⏱ ${d.time}&ensp;·&ensp;${d.cuisine}</div>
+          <div class="dish-desc">${d.desc}</div>
+          <div class="dish-tags">${d.tags.map(t => `<span class="dish-tag">${t}</span>`).join('')}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function buildMobilePanel() {
+  const panel = document.getElementById('mobilePanel');
+  if (!panel) return;
+  const m = NOW_MONTH;
+  const cats = [
+    { key:'fruits',     label:'Fruits',     icon:'🍎', cls:'fruit' },
+    { key:'vegetables', label:'Vegetables', icon:'🥦', cls:'veg'   },
+    { key:'herbs',      label:'Herbs',      icon:'🌿', cls:'herb'  }
+  ];
+  let html = `
+    <div class="mob-header">
+      <span class="mob-title">In Season — ${MONTHS_LONG[m-1]}</span>
+      <span class="mob-season-badge ${SEASON_OF[m]}">${SEASON_NAME[m]}</span>
+    </div>`;
+  cats.forEach(cat => {
+    const items = RAW[cat.key].filter(i => i.months.includes(m));
+    if (!items.length) return;
+    html += `<div class="mob-cat-header">${cat.icon}&ensp;${cat.label}</div>
+    <div class="mob-items-grid">
+      ${items.map(i => `<span class="mob-item ${cat.cls}">${i.emoji} ${i.name}</span>`).join('')}
+    </div>`;
+  });
+  panel.innerHTML = html;
+}
+
+/* ─── Init ──────────────────────────────────────────────────────────────── */
+document.getElementById('seasonBadge').textContent =
+  `Now Harvesting · ${MONTHS_LONG[NOW_MONTH-1]} · ${SEASON_NAME[NOW_MONTH]}`;
+
+buildHead();
+buildBody();
+buildDishPanel();
+buildMobilePanel();
+</script>
+</body>
+</html>
