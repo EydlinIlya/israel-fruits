@@ -18,7 +18,7 @@ An interactive, beautifully designed month-by-month harvest guide to the freshes
 
 ## Data
 
-Seasonal availability data is sourced from [Anglo-List — Israel's Seasonal Fruits & Vegetables](https://anglo-list.com/israels-seasonal-fruits-vegetables/) (last updated December 2021).
+Seasonal data based on Israeli agricultural harvest records.
 
 Covers **40+ fruits**, **31 vegetables** and **10 herbs**.
 
