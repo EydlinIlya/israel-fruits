@@ -1,8 +1,8 @@
 # 🌿 Israel's Seasonal Produce Calendar
 
-An interactive, beautifully designed month-by-month harvest guide to the freshest fruits, vegetables and herbs of Israel — with curated Middle Eastern & Jewish cuisine dish suggestions for each month.
+**Live site → [eydlinilya.github.io/israel-fruits](https://eydlinilya.github.io/israel-fruits/)**
 
-![Preview](preview.png)
+An interactive, beautifully designed month-by-month harvest guide to the freshest fruits, vegetables and herbs of Israel — with curated Middle Eastern & Jewish cuisine dish suggestions for each month.
 
 ## Features
 
