@@ -707,10 +707,13 @@
   .dish-card {
     padding: 14px 18px;
     border-right: 1px solid var(--rule-light);
-    transition: background 0.14s;
+    transition: background 0.14s, box-shadow 0.14s;
+    display: block; text-decoration: none; color: inherit;
+    cursor: pointer; position: relative;
   }
   .dish-card:last-child { border-right: none; }
-  .dish-card:hover { background: #F8F2E4; }
+  .dish-card:hover { background: #F8F2E4; box-shadow: inset 0 -2px 0 var(--green-mid); }
+  .dish-card:hover .dish-name { text-decoration: underline; text-underline-offset: 2px; }
   .dish-name {
     font-family: 'Playfair Display', serif; font-size: 0.94rem;
     font-weight: 700; color: var(--ink); margin-bottom: 3px; line-height: 1.3;
@@ -1362,66 +1365,76 @@ const RAW = {
 /* ─── Dish suggestions ──────────────────────────────────────────────────── */
 const MONTH_DISHES = {
   1:[
-    {name:"Leek & Potato Soup",time:"30 min",cuisine:"Sephardic",desc:"Creamy winter soup fragrant with sautéed leeks and potatoes, finished with fresh coriander.",tags:["🌿 Leeks","🥔 Potatoes","🌿 Coriander"]},
-    {name:"Roasted Cauliflower with Tahini",time:"25 min",cuisine:"Israeli",desc:"Golden-roasted florets drizzled with nutty tahini, lemon and parsley.",tags:["🥦 Cauliflower","🧄 Garlic","🌿 Parsley"]},
-    {name:"Citrus & Avocado Salad",time:"10 min",cuisine:"Israeli",desc:"Bright clementine segments over creamy avocado with a honey-lime dressing.",tags:["🍊 Clementines","🥑 Avocado","🍋 Lemons"]}
+    {name:"Msoki de Pesaj (Braised Lamb and Vegetables)",time:"3 h",desc:"﻿﻿This recipe was shared by Jessica Solnicki. Read more about her family in \"Remembering a Tunisian Matriarch at an Argentine...",tags:["Oranges", "Courgettes (Zucchini)", "Fennel", "Leeks"],url:"https://www.jewishfoodsociety.org/recipes/msoki-de-pesaj-braised-lamb-and-vegetables"},
+    {name:"Yemenite Soup With Chicken and Hawaij",time:"1 hour 5 minutes",desc:"For as long as Hilla Segev can remember, she’s eaten this fragrant Yemenite soup for Shabbat. Known in Israel as marak temani...",tags:["Courgettes (Zucchini)"],url:"https://www.jewishfoodsociety.org/recipes/yemenite-soup-with-chicken-and-hawaij"},
+    {name:"Salade Cuite (Cooked Pepper and Tomato Salad)",time:"20 min + 2-3 H inactive",desc:"While Simone Azoulay changes her Shabbat menu in Paris every week, this jammy cooked Moroccan salad of tomatoes and peppers is...",tags:["Oranges"],url:"https://www.jewishfoodsociety.org/recipes/salade-cuite"}
   ],
   2:[
-    {name:"Shakshuka with Swiss Chard",time:"20 min",cuisine:"Tunisian-Israeli",desc:"Spiced tomato sauce with wilted mangold, eggs poached until just set.",tags:["🍅 Tomatoes","🥬 Swiss Chard","🧄 Garlic"]},
-    {name:"Strawberry & Labneh Toast",time:"10 min",cuisine:"Israeli",desc:"Thick labneh on grilled bread topped with fresh strawberries and za'atar honey.",tags:["🍓 Strawberries","🍋 Lemons"]},
-    {name:"Moroccan Carrot Salad",time:"15 min",cuisine:"Moroccan-Jewish",desc:"Cooked carrots tossed warm with cumin, lemon and coriander — a classic mezze.",tags:["🥕 Carrots","🌿 Coriander","🍋 Lemons"]}
+    {name:"Tsivia Tobi's Merget Kaski (Vegetable Soup With Bulgur)",time:"1h 45min",desc:"﻿﻿This recipe was shared by Tsivia Tobi. Read more about her family in \"Keeping a Couscous Tradition Alive — Even When There’s No...",tags:["Butternut Squash", "Courgettes (Zucchini)", "Turnips"],url:"https://www.jewishfoodsociety.org/recipes/tsivia-tobis-merget-kaski-vegetable-soup-with-bulgur"},
+    {name:"North African Makroud with Dates and Semolina",time:"3 ½ hours",desc:"Makroud are North African cookies made with a toasted semolina dough and stuffed with a date and hazelnut filling. While each...",tags:["Dates", "Oranges"],url:"https://www.jewishfoodsociety.org/recipes/north-african-makroud-with-dates-and-semolina"},
+    {name:"Shaved Fennel and Orange Salad",time:"10 minutes",desc:"This bright, refreshing salad is a staple in Julia Mande Moroccan family. Fennel slices provide crunch and anise-like sweetness...",tags:["Oranges", "Fennel"],url:"https://www.jewishfoodsociety.org/recipes/shaved-fennel-and-orange-salad"}
   ],
   3:[
-    {name:"Artichoke Hearts with Lemon & Garlic",time:"25 min",cuisine:"Levantine",desc:"Tender artichoke hearts braised in olive oil, lemon juice and plenty of garlic.",tags:["🌿 Artichokes","🧄 Garlic","🍋 Lemons"]},
-    {name:"Strawberry Tabbouleh",time:"15 min",cuisine:"Israeli-modern",desc:"Classic parsley-bulgur salad brightened with spring strawberries and pomegranate molasses.",tags:["🍓 Strawberries","🌿 Parsley","🍅 Tomatoes"]},
-    {name:"Avocado Toast with Za'atar",time:"10 min",cuisine:"Israeli",desc:"Mashed avocado on toast dusted with za'atar and chilli — a Shabbat brunch staple.",tags:["🥑 Avocado","🍅 Cherry Tomatoes","🌿 Chives"]}
+    {name:"Chicken Patties With Couscous and Vegetable Soup",time:"2 h and 30 min",desc:"This recipe was shared by Eva Zaghdoun. Read more about her family in \"The Tunisian Recipes Preserved During a Nurse’s Night...",tags:["Artichokes", "Butternut Squash", "Courgettes (Zucchini)", "Turnips"],url:"https://www.jewishfoodsociety.org/recipes/chicken-patties-with-couscous-and-vegetable-soup"},
+    {name:"Green Shakshuka",time:"45min",desc:"﻿This recipe was shared by ﻿Gabriel Israel. Read more about his family in \"The Green ‘Shakshuka’ an Israeli Chef Carried Around...",tags:["Asparagus", "Courgettes (Zucchini)"],url:"https://www.jewishfoodsociety.org/recipes/green-shakshuka"},
+    {name:"Msayer (Pickled Vegetables)",time:"30min plus 30min pickling time",desc:"This recipe was shared by Hedai Offaim. Read more about his family in \"Hedai Offaim’s Table Is Always Open — And Covered with the...",tags:["Fennel", "Radish", "Turnips"],url:"https://www.jewishfoodsociety.org/recipes/msayer-pickled-vegetables"}
   ],
   4:[
-    {name:"Matzo Brei with Strawberries",time:"15 min",cuisine:"Ashkenazi · Passover",desc:"Soaked matzo pan-fried in butter, served sweet with fresh strawberries and honey.",tags:["🍓 Strawberries","🍋 Lemons"]},
-    {name:"Fattoush Salad",time:"15 min",cuisine:"Levantine",desc:"Crisp salad of cucumbers, tomatoes and spring herbs with a sumac-lemon dressing.",tags:["🥒 Cucumbers","🍅 Tomatoes","🌿 Mint","🌱 Spring Onions"]},
-    {name:"Spring Herb Frittata",time:"20 min",cuisine:"Israeli",desc:"Oven-baked egg cake loaded with spring onions, parsley and dill — great warm or cold.",tags:["🌱 Spring Onions","🌿 Dill","🌿 Parsley"]}
+    {name:"Marzipan-Stuffed Dates and Walnuts",time:"1 hour 30 minutes",desc:"This recipe is featured in our cookbook \"The Jewish Holiday Table: A World of Recipes, Traditions & Stories to Celebrate All Year...",tags:["Dates", "Oranges"],url:"https://www.jewishfoodsociety.org/recipes/dattes--noix-fourrees-dates-and-walnuts-stuffed-with"},
+    {name:"Rojitos Fritos de Pessah (Passover Fish Escabeche)",time:"1 h active + 8 h inactive",desc:"This recipe was shared by Michel Thouati. Read more about his family in \"Preserving a Five-Century Long Link to Andalusia at...",tags:["Fennel"],url:"https://www.jewishfoodsociety.org/recipes/rojitos-fritos-de-pessah-passover-fish-escabeche"},
+    {name:"Lettuce and Fennel Salad",time:"30 min",desc:"This recipe was shared by Michel Thouati. Read more about his family in \"Preserving a Five-Century Long Link to Andalusia at...",tags:["Fennel"],url:"https://www.jewishfoodsociety.org/recipes/lettuce-and-fennel-salad"}
   ],
   5:[
-    {name:"Apricot & Chicken Tagine",time:"50 min",cuisine:"Moroccan-Jewish",desc:"Sweet-savory chicken slow-cooked with fresh apricots, saffron and preserved lemon.",tags:["🍑 Apricots","🧄 Garlic","🌿 Coriander"]},
-    {name:"Cherry Compote over Labneh",time:"20 min",cuisine:"Israeli",desc:"Lightly spiced warm cherry sauce with cinnamon and lemon zest, served over thick labneh.",tags:["🍒 Cherries","🍋 Lemons"]},
-    {name:"Strawberry & Mint Granita",time:"10 min + freeze",cuisine:"Israeli",desc:"Blended fresh strawberries and mint frozen into a refreshing icy granita.",tags:["🍓 Strawberries","🌿 Mint","🍋 Lemons"]}
+    {name:"Spicy Moroccan Fish Crudo",time:"45m",desc:"﻿This recipe was shared by Rinat Tzadok. Read more about her family in \"Cooking Without Fire - Spicy Moroccan Crudo.\" ﻿",tags:["Cherries"],url:"https://www.jewishfoodsociety.org/recipes/spicy-moroccan-fish-crudo"},
+    {name:"Lali Salad (Cherry, Chile, and Cilantro Salad)",time:"30 min",desc:"This recipe is featured in our cookbook \"The Jewish Holiday Table: A World of Recipes, Traditions & Stories to Celebrate All Year...",tags:["Cherries"],url:"https://www.jewishfoodsociety.org/recipes/lali-salad-cherry-chile-and-cilantro-salad"},
+    {name:"German Layer Cake With Marzipan, Coffee Meringue, and Jam",time:"",desc:"﻿This recipe was shared by ﻿Idan Cohen. Read more about his family in \"Schmaltzy Spotlight / Idan Cohen: Home is where the garden...",tags:["Apricots", "Strawberries"],url:"https://www.jewishfoodsociety.org/recipes/german-layer-cake-with-marzipan-coffee-meringue-and"}
   ],
   6:[
-    {name:"Watermelon, Feta & Mint Salad",time:"10 min",cuisine:"Israeli",desc:"The iconic Israeli summer plate — cool watermelon cubes, salty feta and fresh mint.",tags:["🍉 Watermelon","🌿 Mint","🍋 Lemons"]},
-    {name:"Grilled Eggplant with Tehina",time:"25 min",cuisine:"Levantine",desc:"Charred eggplant dressed with tahini, garlic and chopped parsley — classic mezze.",tags:["🍆 Eggplant","🧄 Garlic","🌿 Parsley"]},
-    {name:"Cherry Soup (Kirshensuppe)",time:"15 min",cuisine:"Ashkenazi · Shavuot",desc:"Chilled sweet cherry soup with cinnamon and lemon — a Shavuot dairy-week tradition.",tags:["🍒 Cherries","🍋 Lemons"]}
+    {name:"Dolma (Vegetarian Stuffed Grape Leaves)",time:"2 hours 30 minutes",desc:"Stuffed grape leaves, often known as dolma, are seen on traditional tables in the Middle East, the Levant, and on the eastern...",tags:["Grapes"],url:"https://www.jewishfoodsociety.org/recipes/dolma-vegetarian-stuffed-grape-leaves"},
+    {name:"Kibbe Cherries (Syrian Meat and Rice Roll with Cherries and Tamarind)",time:"2 ½ hours",desc:"Kibbe dough, a malleable mixture of chopped meat and rice ground together, forms the basis of this popular Syrian dish. The dough...",tags:["Cherries"],url:"https://www.jewishfoodsociety.org/recipes/kibbe-cherries-syrian-meat-and-rice-roll-with-cher"},
+    {name:"Joojeh Bademjan (Persian Chicken and Eggplant Stew with Sour Grapes)",time:"1 1/2 hours",desc:"“We like everything sour, so I add a lot,” says Nilou Ghalchi, scooping frozen sour grapes known as gooreh in Farsi from the...",tags:["Cherries"],url:"https://www.jewishfoodsociety.org/recipes/joojeh-bademjan-persian-chicken-and-eggplant-stew-"}
   ],
   7:[
-    {name:"Watermelon Gazpacho",time:"15 min",cuisine:"Israeli-modern",desc:"Blended watermelon, cucumber and tomato chilled soup with mint and a drizzle of olive oil.",tags:["🍉 Watermelon","🥒 Cucumbers","🍅 Tomatoes","🌿 Mint"]},
-    {name:"Mango & Cucumber Salad",time:"10 min",cuisine:"Israeli",desc:"Ripe mango strips with cucumber, chilli and coriander in a lime-ginger dressing.",tags:["🥭 Mangoes","🥒 Cucumbers","🌿 Coriander"]},
-    {name:"Stuffed Eggplant (Imam Bayildi)",time:"50 min",cuisine:"Turkish-Jewish",desc:"Eggplants baked with spiced tomato, onion and garlic filling until meltingly soft.",tags:["🍆 Eggplant","🍅 Tomatoes","🧅 Onions","🧄 Garlic"]}
+    {name:"Summer Bean Salad",time:"20 min",desc:"﻿﻿This recipe was shared by Peter Hoffman. Read more about his family in \"Cool Down With Chef Peter Hoffman’s Summer Dinner Menu\"...",tags:["Cherries", "Apples", "Runner Beans"],url:"https://www.jewishfoodsociety.org/recipes/summer-bean-salad"},
+    {name:"Cumin Fava Beans",time:"40 MIN",desc:"In this recipe from Léa Karsenty’s family, fresh fava beans are tossed with garlic, cumin, and paprika, then seared off with...",tags:["Apples", "Runner Beans"],url:"https://www.jewishfoodsociety.org/recipes/cumin-fava-beans"},
+    {name:"Meatballs With Cherries",time:"45 min",desc:"Rottem Lieberson’s grandmother Hanom was a master at removing the pits from cherries, deftly approaching the task with a knife...",tags:["Cherries", "Plums"],url:"https://www.jewishfoodsociety.org/recipes/meatballs-with-cherries"}
   ],
   8:[
-    {name:"Peach & Tomato Salad with Basil",time:"10 min",cuisine:"Israeli-modern",desc:"Late-summer ripe peaches and tomatoes with fresh basil, olive oil and coarse salt.",tags:["🍑 Peaches","🍅 Tomatoes","🌿 Basil"]},
-    {name:"Nectarine & Labneh Bowl",time:"15 min",cuisine:"Israeli",desc:"Creamy labneh swirled with honey, topped with sliced nectarines and pistachios.",tags:["🍑 Nectarines","🌿 Mint","🍋 Lemons"]},
-    {name:"Grilled Peach with Honey & Za'atar",time:"15 min",cuisine:"Israeli",desc:"Halved peaches grilled until caramelised, drizzled with wildflower honey and za'atar.",tags:["🍑 Peaches","🌿 Thyme"]}
+    {name:"Eggplant Tachin with Barberries (Persian Baked Crispy Rice) ",time:"3 hours",desc:"Persian tachin is a cherished Shabbat dish in Substacker (and former JFS team member) Arielle Nir’s family. Deeply golden on the...",tags:["Avocado"],url:"https://www.jewishfoodsociety.org/recipes/eggplant-tachin-with-barberries-persian-baked-cris"},
+    {name:"Fish Albondigas (Fish Balls in Tomato Sauce)",time:"1 h",desc:"﻿﻿This recipe was shared by Esther Serruya Weyl. Read more about her family in \" The Recipes That Connect This Brazilian...",tags:["Plums"],url:"https://www.jewishfoodsociety.org/recipes/fish-albondigas-fish-balls-in-tomato-sauce"},
+    {name:"Hamadani Gondi Berenji (Meatballs With Rice and Prunes)",time:"1 h and 45 min",desc:"This recipe was shared by Orly Elyashar. Read more about her family in \"Recipes From a Persian Jewish Community ‘That Knows it...",tags:["Avocado", "Runner Beans"],url:"https://www.jewishfoodsociety.org/recipes/hamadani-gondi-berenji-meatballs-with-rice-and-prunes"}
   ],
   9:[
-    {name:"Pomegranate Molasses Chicken",time:"50 min",cuisine:"Persian-Jewish · Rosh Hashana",desc:"Chicken braised with pomegranate molasses, walnuts and onions — symbolic New Year dish.",tags:["❤️ Pomegranates","🧅 Onions","🧄 Garlic"]},
-    {name:"Apple & Honey Cake",time:"60 min",cuisine:"Ashkenazi · Rosh Hashana",desc:"Traditional honey-sweetened apple cake with cinnamon — the taste of the Jewish New Year.",tags:["🍎 Apples","🍋 Lemons"]},
-    {name:"Date & Pomegranate Salad",time:"10 min",cuisine:"Middle Eastern",desc:"Pomegranate arils and fresh dates over bitter greens with a citrus-honey dressing.",tags:["❤️ Pomegranates","🌴 Dates","🍋 Lemons"]}
+    {name:"Iraqi T’bit (Iraqi Stuffed Chicken with Spiced Rice)",time:"2 hours",desc:"One of Israeli-American recipe writer Ruhama Shitrit’s first viral recipes was for t’bit, Iraqi stuffed chicken. A beloved...",tags:["Dates"],url:"https://www.jewishfoodsociety.org/recipes/iraqi-tbit-iraqi-stuffed-chicken-with-spiced-rice"},
+    {name:"Apple and Date Challah Bread Pudding",time:"1h 45min",desc:"﻿﻿This recipe was shared by Einat Admony. Read more about her family in \"Einat Admony’s Rosh Hashanah Table\" and try her recipes...",tags:["Apples", "Dates"],url:"https://www.jewishfoodsociety.org/recipes/apple-and-date-challah-bread-pudding"},
+    {name:"Onion Mahshi (Stuffed Onions with Beef and Rice)",time:"1 h 30 min",desc:"Making stuffed onion sleeves can seem intimidating, but is easier than you might expect. Here, they are stuffed with a mixture of...",tags:["Pomegranates"],url:"https://www.jewishfoodsociety.org/recipes/onion-mahshi-stuffed-onions-with-beef-and-rice"}
   ],
   10:[
-    {name:"Pumpkin & Red Lentil Soup",time:"35 min",cuisine:"Israeli · Sukkot",desc:"Velvety golden soup of roasted pumpkin and red lentils with cumin and coriander.",tags:["🎃 Pumpkin","🧄 Garlic","🌿 Coriander"]},
-    {name:"Persimmon & Rocket Salad",time:"10 min",cuisine:"Israeli-modern",desc:"Sliced ripe persimmons over rocket with pomegranate, walnuts and tahini dressing.",tags:["🟠 Persimmons","❤️ Pomegranates","🌴 Dates"]},
-    {name:"Quince & Lamb Stew",time:"60 min",cuisine:"Sephardic · Sukkot",desc:"Tender lamb slow-cooked with quince, cinnamon and honey — a festive Sukkot classic.",tags:["🍐 Quinces","🧅 Onions","🧄 Garlic"]}
+    {name:"Khoresh e Beh (Lamb Stew With Quince and Dried Apricot)",time:"2 h",desc:"In Persian cooking, fruits aren’t reserved exclusively for dessert, cookbook author Rottem Lieberson explains. They are added to...",tags:["Limes", "Apples", "Quinces"],url:"https://www.jewishfoodsociety.org/recipes/khoresh-sib-lamb-stew-with-quince-and-dried-apricot"},
+    {name:"Czech Mate (Slivovitz Cocktail)",time:"30 minutes",desc:"This cocktail recipe from chef Jeremy Salamon’s new book “Second Generation: Hungarian and Jewish Classics Reimagined for the...",tags:["Limes", "Oranges", "Plums"],url:"https://www.jewishfoodsociety.org/recipes/czech-mate-slivovitz-cocktail"},
+    {name:"Baked Apples With Meringue",time:"1h 35min",desc:"﻿﻿This recipe was shared by Einat Admony. Read more about her family in \"Einat Admony’s Rosh Hashanah Table\" and try her recipes...",tags:["Apples", "Dates"],url:"https://www.jewishfoodsociety.org/recipes/baked-apples-with-meringue"}
   ],
   11:[
-    {name:"Pumpkin Kibbeh",time:"50 min",cuisine:"Syrian-Jewish",desc:"Crispy bulgur-pumpkin shells stuffed with spiced meat, onions and pine nuts.",tags:["🎃 Pumpkin","🧅 Onions","🌿 Coriander"]},
-    {name:"Persimmon Honey Cake",time:"55 min",cuisine:"Israeli-modern",desc:"Moist cake where ripe persimmon replaces oil, sweetened with honey and cardamom.",tags:["🟠 Persimmons","🍋 Lemons"]},
-    {name:"Guava Paste & Cheese Pastry",time:"30 min",cuisine:"Sephardic",desc:"Flaky pastry filled with guava paste and white cheese — a Sephardic pre-Hanukkah treat.",tags:["🍈 Guavas","🍋 Lemons"]}
+    {name:"Sopa de Tortilla (Tortilla Soup)",time:"45 minutes",desc:"When Ilan Stavans was growing up, his family would enjoy Mexican matzah ball soup or sopa de tortilla for Shabbat. Flavored with...",tags:["Limes", "Avocado", "Runner Beans"],url:"https://www.jewishfoodsociety.org/recipes/sopa-de-tortilla-tortilla-soup"},
+    {name:"Shirazi Salad",time:"10 minutes",desc:"Crunchy and tangy shirazi salad is a staple on Iranian tables. This recipe from Nicole Enayati and her mother Shahla uses...",tags:["Limes"],url:"https://www.jewishfoodsociety.org/recipes/shirazi-salad"},
+    {name:"Tishpishti (Semolina Layer Cake With Nuts and Jam)",time:"1h plus 1h cooling time plus 1h 15min baking time",desc:"When Rivka Hazan was growing up in Jerusalem in the 1930s and 1940s, her mother used the oven at the nearby Persian bakery when...",tags:["Dates", "Plums"],url:"https://www.jewishfoodsociety.org/recipes/tishpishti-semolina-layer-cake-with-nuts-and-jam"}
   ],
   12:[
-    {name:"Sufganiyot (Hanukkah Donuts)",time:"90 min",cuisine:"Ashkenazi · Hanukkah",desc:"Fluffy deep-fried doughnuts filled with strawberry jam — the iconic Hanukkah treat.",tags:["🍓 Strawberries","🍊 Oranges"]},
-    {name:"Orange & Fennel Salad",time:"10 min",cuisine:"Moroccan-Jewish",desc:"Thin-sliced fennel and sweet oranges with olives, coriander and citrus dressing.",tags:["🍊 Oranges","🌿 Fennel","🌿 Coriander"]},
-    {name:"Roasted Chestnuts with Date Honey",time:"20 min",cuisine:"Sephardic",desc:"Oven-roasted chestnuts scored and glazed with date honey — warming winter street food.",tags:["🌰 Chestnuts","🌴 Dates"]}
+    {name:"Cholent",time:"24h soaking plus 1h prepping plus 12h cooking",desc:"﻿This recipe was shared by ﻿Tziona Abramov. Read more about her family in \"A 9th Generation Jerusalem Family Shares Their Cholent...",tags:["Chestnuts", "Runner Beans"],url:"https://www.jewishfoodsociety.org/recipes/jerusalem-cholent"},
+    {name:"Zalabia (Doughnuts With  Orange Blossom Syrup)",time:"1h 30min",desc:"This recipe is featured in our cookbook \"The Jewish Holiday Table: A World of Recipes, Traditions & Stories to Celebrate All Year...",tags:["Oranges"],url:"https://www.jewishfoodsociety.org/recipes/zalabia-doughnuts-with-honey-and-orange-blossom-syrup"},
+    {name:"Hand-Rolled Couscous",time:"1 h active + 4 h inactive + soaking",desc:"﻿﻿This recipe was shared by Arielle (Nir) Mamiye and Efrat Navon. Read more about their family in \"A Moroccan Grandmother's Love...",tags:["Butternut Squash", "Courgettes (Zucchini)"],url:"https://www.jewishfoodsociety.org/recipes/hand-rolled-couscous"}
   ]
 };
+
+/* ─── Produce emoji lookup ──────────────────────────────────────────────── */
+const PRODUCE_EMOJI = Object.fromEntries(
+  [...RAW.fruits, ...RAW.vegetables, ...RAW.herbs].map(p => [p.name, p.emoji])
+);
+function fmtIngTag(name) {
+  const label = name.replace(/\s*\(.*?\)\s*$/, '').replace(' / ', '/');
+  const emoji = PRODUCE_EMOJI[name] || '';
+  return emoji ? `${emoji}\u2009${label}` : label;
+}
 
 /* ─── State ─────────────────────────────────────────────────────────────── */
 let filterCat = 'all', searchQ = '', sortMode = 'name', filterMonth = null, mobileMonth = NOW_MONTH;
@@ -1651,12 +1664,12 @@ function buildDishPanel() {
     </div>
     <div class="dish-cards">
       ${dishes.map(d => `
-        <div class="dish-card">
+        <a class="dish-card" href="${d.url}" target="_blank" rel="noopener noreferrer">
           <div class="dish-name">${d.name}</div>
-          <div class="dish-meta">⏱ ${d.time}&ensp;·&ensp;${d.cuisine}</div>
+          ${d.time ? `<div class="dish-meta">⏱ ${d.time}</div>` : ''}
           <div class="dish-desc">${d.desc}</div>
-          <div class="dish-tags">${d.tags.map(t => `<span class="dish-tag">${t}</span>`).join('')}</div>
-        </div>
+          <div class="dish-tags">${d.tags.map(t => `<span class="dish-tag">${fmtIngTag(t)}</span>`).join('')}</div>
+        </a>
       `).join('')}
     </div>
     <span class="dish-swipe-hint">← swipe for more dishes →</span>

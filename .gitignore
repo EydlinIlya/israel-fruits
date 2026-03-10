@@ -17,6 +17,9 @@ pyproject.toml
 .venv/
 __pycache__/
 
+# Scraped data
+scraped_recipes/
+
 # Screenshots / local assets
 *.png
 *.jpg
