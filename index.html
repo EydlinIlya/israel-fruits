@@ -62,11 +62,11 @@
     --s-autumn-h:  #7A2C0A;  --s-autumn-bg: #F0C8A4;  --s-autumn-txt: #4A1004;
 
     /* Bar gradients */
-    --fruit-lo:    #D86A2A;  --fruit-hi:    #7C1E08;
-    --veg-lo:      #68A828;  --veg-hi:      #245014;
-    --herb-lo:     #80C898;  --herb-hi:     #1C5C3C;
+    --fruit-lo:    #E47030;  --fruit-hi:    #8C1E08;
+    --veg-lo:      #72B828;  --veg-hi:      #285A14;
+    --herb-lo:     #8AD4A8;  --herb-hi:     #1E6440;
 
-    --off-cell:    #E8DFCC;
+    --off-cell:    #EAE0CC;
     --off-border:  #D8CDB0;
 
     --radius:      12px;
@@ -225,12 +225,14 @@
   .btn-all   { border-color: var(--ink-mid);   color: var(--ink-mid); }
   .btn-fruit { border-color: var(--terra);      color: var(--terra-dark); }
   .btn-veg   { border-color: var(--green);      color: var(--green-dark); }
-  .btn-herb  { border-color: var(--sage);       color: var(--sage-dark); }
+  .btn-herb    { border-color: var(--sage);   color: var(--sage-dark); }
+  .btn-vegherb { border-color: var(--green);  color: var(--green-dark); }
 
-  .btn-all.active   { background: var(--ink-mid);   color: var(--surface); }
-  .btn-fruit.active { background: var(--terra);      color: #fff; }
-  .btn-veg.active   { background: var(--green);      color: #fff; }
-  .btn-herb.active  { background: var(--sage);       color: #fff; }
+  .btn-all.active     { background: var(--ink-mid);   color: var(--surface); }
+  .btn-fruit.active   { background: var(--terra);      color: #fff; }
+  .btn-veg.active     { background: var(--green);      color: #fff; }
+  .btn-herb.active    { background: var(--sage);       color: #fff; }
+  .btn-vegherb.active { background: var(--green);      color: #fff; }
 
   .search-wrap { flex: 1; min-width: 180px; position: relative; }
   .search-wrap .search-icon {
@@ -361,10 +363,10 @@
     border-left: 1px solid rgba(255,255,255,0.15);
     color: rgba(255,255,255,0.92);
   }
-  .th-season.winter { background: var(--s-winter-h); }
-  .th-season.spring { background: var(--s-spring-h); }
-  .th-season.summer { background: var(--s-summer-h); }
-  .th-season.autumn { background: var(--s-autumn-h); }
+  .th-season.winter { background: linear-gradient(90deg, #1C3050, var(--s-winter-h) 50%, #1C3050); }
+  .th-season.spring { background: linear-gradient(90deg, #1A4008, var(--s-spring-h) 50%, #1A4008); }
+  .th-season.summer { background: linear-gradient(90deg, #6A4000, var(--s-summer-h) 50%, #6A4000); }
+  .th-season.autumn { background: linear-gradient(90deg, #4A1806, var(--s-autumn-h) 50%, #4A1806); }
   .th-spacer { background: var(--surface); border: none; }
 
   /* Month header row */
@@ -377,10 +379,10 @@
     border-left: 1px solid rgba(255,255,255,0.15);
     color: rgba(255,255,255,0.9);
   }
-  .th-month.winter { background: #3A6490; }
-  .th-month.spring { background: #3E7A1E; }
-  .th-month.summer { background: #B88010; }
-  .th-month.autumn { background: #903A18; }
+  .th-month.winter { background: linear-gradient(180deg, #4A7AAC, #2C4E74); }
+  .th-month.spring { background: linear-gradient(180deg, #4E9026, #2E6010); }
+  .th-month.summer { background: linear-gradient(180deg, #CCA020, #9C6400); }
+  .th-month.autumn { background: linear-gradient(180deg, #A84A22, #7A2C0A); }
   .th-month.current {
     outline: 3px solid #F2E060;
     outline-offset: -3px;
@@ -490,7 +492,7 @@
     transition: filter 0.15s, transform 0.12s;
   }
   .cell-bar.off {
-    background: var(--off-cell);
+    background: linear-gradient(180deg, #EEDED0, var(--off-cell));
     border: 1px solid var(--off-border);
     border-radius: 3px;
   }
@@ -504,17 +506,17 @@
   /* Fruit — terracotta-to-burgundy */
   .cell-bar.fruit.on {
     background: linear-gradient(135deg, var(--fruit-lo) 0%, var(--fruit-hi) 100%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(0,0,0,0.1);
   }
   /* Veg — field green */
   .cell-bar.veg.on {
     background: linear-gradient(135deg, var(--veg-lo) 0%, var(--veg-hi) 100%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.24), inset 0 -1px 0 rgba(0,0,0,0.1);
   }
   /* Herb — sage */
   .cell-bar.herb.on {
     background: linear-gradient(135deg, var(--herb-lo) 0%, var(--herb-hi) 100%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.24), inset 0 -1px 0 rgba(0,0,0,0.1);
   }
 
   .tr-item:hover .cell-bar.on { filter: brightness(1.1) saturate(1.1); }
@@ -754,12 +756,14 @@
     display: flex; align-items: center; gap: 8px;
     font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em;
     text-transform: uppercase; color: var(--ink-muted);
-    margin: 12px 0 8px;
+    margin: 16px 0 10px;
+    white-space: nowrap;
   }
   .mob-cat-header::after {
     content: ''; flex: 1; height: 1px; background: var(--rule-light);
+    min-width: 10px; flex-shrink: 1;
   }
-  .mob-items-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+  .mob-items-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 4px; }
   .mob-item {
     display: inline-flex; align-items: center; gap: 5px;
     padding: 6px 12px; border-radius: 20px;
@@ -779,6 +783,8 @@
     .divider, .season-legend, .chart-card, .type-legend { display: none !important; }
     /* Show mobile produce */
     .mobile-produce { display: block !important; }
+    /* Hide controls bar — filters/search/sort not needed on mobile */
+    .controls { display: none !important; }
 
     /* Dish carousel */
     .dish-cards {
@@ -798,13 +804,50 @@
     .dish-cards::-webkit-scrollbar { height: 4px; }
     .dish-cards::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
 
+    /* Swipe hint below dish carousel */
+    .dish-panel .dish-swipe-hint {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--ink-faint);
+      text-align: center;
+      padding: 6px 0 8px;
+      letter-spacing: 0.04em;
+      user-select: none;
+      border-top: 1px solid var(--rule-light);
+    }
+
     /* Dish panel: no animation re-trigger on mobile */
     .dish-panel { animation: none; }
+  }
+  /* On desktop, hide swipe hints and fade edges */
+  @media (min-width: 769px) {
+    .mob-swipe-hint  { display: none; }
+    .dish-swipe-hint { display: none; }
+    .mob-month-nav-wrap::before,
+    .mob-month-nav-wrap::after { display: none; }
   }
 
   /* ══════════════════════════════════════════════════
      MOBILE MONTH NAV
   ══════════════════════════════════════════════════ */
+  .mob-month-nav-wrap {
+    position: relative;
+  }
+  /* Fade edges hint that row is scrollable */
+  .mob-month-nav-wrap::before,
+  .mob-month-nav-wrap::after {
+    content: '';
+    position: absolute; top: 0; bottom: 12px; width: 28px;
+    pointer-events: none; z-index: 2;
+  }
+  .mob-month-nav-wrap::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--bg), transparent);
+  }
+  .mob-month-nav-wrap::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--bg), transparent);
+  }
   .mob-month-nav {
     display: flex;
     overflow-x: auto;
@@ -814,6 +857,15 @@
     scrollbar-width: none;
   }
   .mob-month-nav::-webkit-scrollbar { display: none; }
+  .mob-swipe-hint {
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    text-align: center;
+    letter-spacing: 0.04em;
+    margin-top: -6px;
+    margin-bottom: 10px;
+    user-select: none;
+  }
   .mob-month-pill {
     flex: 0 0 auto;
     padding: 5px 11px;
@@ -970,6 +1022,20 @@
   /* Hidden on mobile */
   @media (max-width: 768px) { .btn-full-calendar { display: none; } }
 
+  /* Desktop: larger + pulsing glow so it stands out */
+  @keyframes calPulse {
+    0%, 100% { box-shadow: 0 2px 10px rgba(42,90,20,0.28); }
+    50%       { box-shadow: 0 4px 26px rgba(42,90,20,0.52), 0 0 0 6px rgba(61,122,32,0.13); }
+  }
+  @media (min-width: 769px) {
+    .btn-full-calendar {
+      padding: 11px 28px;
+      font-size: 1rem;
+      border-radius: 26px;
+      animation: calPulse 4s ease-in-out infinite;
+    }
+  }
+
   /* ══════════════════════════════════════════════════
      VIEW MODE — show/hide panels
   ══════════════════════════════════════════════════ */
@@ -1086,10 +1152,9 @@
 <!-- ════════════════════════ CONTROLS ════════════════════════ -->
 <div class="controls">
   <div class="filter-group">
-    <button class="btn btn-all active"   onclick="setFilter('all')"   id="btn-all">All Produce</button>
-    <button class="btn btn-fruit"        onclick="setFilter('fruit')" id="btn-fruit">🍎 Fruits</button>
-    <button class="btn btn-veg"          onclick="setFilter('veg')"   id="btn-veg">🥦 Vegetables</button>
-    <button class="btn btn-herb"         onclick="setFilter('herb')"  id="btn-herb">🌿 Herbs</button>
+    <button class="btn btn-all active"    onclick="setFilter('all')"     id="btn-all">All Produce</button>
+    <button class="btn btn-fruit"         onclick="setFilter('fruit')"   id="btn-fruit">🍎 Fruits &amp; Berries</button>
+    <button class="btn btn-vegherb"       onclick="setFilter('vegherb')" id="btn-vegherb">🥦 Vegetables &amp; Herbs</button>
   </div>
 
   <div class="search-wrap">
@@ -1432,45 +1497,29 @@ function buildBody() {
   const body = document.getElementById('ganttBody');
   body.innerHTML = '';
 
-  const cats = [
-    { key:'fruits',     label:'Fruits',     icon:'🍎', cls:'fruit-cat', cellCls:'fruit' },
-    { key:'vegetables', label:'Vegetables', icon:'🥦', cls:'veg-cat',   cellCls:'veg'   },
-    { key:'herbs',      label:'Herbs',      icon:'🌿', cls:'herb-cat',  cellCls:'herb'  }
-  ];
-
-  const filterMap = { fruits:'fruit', vegetables:'veg', herbs:'herb' };
   let totalShown = 0, inSeasonNow = 0;
 
-  cats.forEach(cat => {
-    if (filterCat !== 'all' && filterCat !== filterMap[cat.key]) return;
-    let items = sortItems(RAW[cat.key].filter(matchSearch));
-    if (filterMonth !== null) items = items.filter(i => i.months.includes(filterMonth));
-    items = items.filter(i => i.months.length !== 12); // year-round go to yrPanel
-    if (!items.length) return;
-    totalShown += items.length;
-
-    // Category header
+  function renderCatHeader(icon, label, cls, count) {
     const trCat = document.createElement('tr');
-    trCat.className = `tr-category ${cat.cls}`;
+    trCat.className = `tr-category ${cls}`;
     const tdCat = document.createElement('td');
     tdCat.colSpan = 13;
-    tdCat.innerHTML = `${cat.icon}&ensp;${cat.label}<span class="cat-count">&mdash; ${items.length} varieties</span>`;
+    tdCat.innerHTML = `${icon}&ensp;${label}<span class="cat-count">&mdash; ${count} varieties</span>`;
     trCat.appendChild(tdCat);
     body.appendChild(trCat);
+  }
 
-    // Item rows (seasonal only — year-round shown in yrPanel below)
+  function renderItems(items, cellCls) {
     items.forEach(item => {
       if (item.months.includes(NOW_MONTH)) inSeasonNow++;
-
+      totalShown++;
       const tr = document.createElement('tr');
       tr.className = 'tr-item';
-
       const tdName = document.createElement('td');
       tdName.className = 'td-name';
       tdName.title = item.name;
       tdName.innerHTML = `<span class="item-emoji">${item.emoji}</span>${item.name}`;
       tr.appendChild(tdName);
-
       for (let m = 1; m <= 12; m++) {
         const td = document.createElement('td');
         td.className = `td-month${m === NOW_MONTH ? ' current-col' : ''}`;
@@ -1478,14 +1527,40 @@ function buildBody() {
         const div = document.createElement('div');
         const pc = posClass(item.months, m);
         const isIso = inSeason && isIsolatedMonth(item.months, m);
-        div.className = `cell-bar ${cat.cellCls} ${inSeason ? 'on ' + pc : 'off'}${m === NOW_MONTH && inSeason ? ' current-bar' : ''}${isIso ? ' isolated' : ''}`;
+        div.className = `cell-bar ${cellCls} ${inSeason ? 'on ' + pc : 'off'}${m === NOW_MONTH && inSeason ? ' current-bar' : ''}${isIso ? ' isolated' : ''}`;
         if (inSeason) div.dataset.tip = `${item.emoji} ${item.name} · ${MONTHS_LONG[m-1]}${isIso ? ' · isolated window' : ''}`;
         td.appendChild(div);
         tr.appendChild(td);
       }
       body.appendChild(tr);
     });
-  });
+  }
+
+  // ── Fruits & Berries ──
+  if (filterCat === 'all' || filterCat === 'fruit') {
+    let items = sortItems(RAW.fruits.filter(matchSearch).filter(i => i.months.length !== 12));
+    if (filterMonth !== null) items = items.filter(i => i.months.includes(filterMonth));
+    if (items.length) {
+      renderCatHeader('🍎', 'Fruits & Berries', 'fruit-cat', items.length);
+      renderItems(items, 'fruit');
+    }
+  }
+
+  // ── Vegetables & Herbs (combined) ──
+  if (filterCat === 'all' || filterCat === 'vegherb') {
+    let vegItems = sortItems(RAW.vegetables.filter(matchSearch).filter(i => i.months.length !== 12));
+    let herbItems = sortItems(RAW.herbs.filter(matchSearch).filter(i => i.months.length !== 12));
+    if (filterMonth !== null) {
+      vegItems  = vegItems.filter(i => i.months.includes(filterMonth));
+      herbItems = herbItems.filter(i => i.months.includes(filterMonth));
+    }
+    const total = vegItems.length + herbItems.length;
+    if (total) {
+      renderCatHeader('🥦', 'Vegetables & Herbs', 'veg-cat', total);
+      renderItems(vegItems, 'veg');
+      renderItems(herbItems, 'herb');
+    }
+  }
 
   buildYrPanel();
 
@@ -1518,7 +1593,7 @@ function buildBody() {
 /* ─── UI handlers ───────────────────────────────────────────────────────── */
 function setFilter(f) {
   filterCat = f;
-  ['all','fruit','veg','herb'].forEach(k =>
+  ['all','fruit','vegherb'].forEach(k =>
     document.getElementById(`btn-${k}`).classList.toggle('active', k === f));
   buildBody();
   buildMobilePanel();
@@ -1582,29 +1657,43 @@ function buildDishPanel() {
         </div>
       `).join('')}
     </div>
+    <span class="dish-swipe-hint">← swipe for more dishes →</span>
   `;
 }
 
 function buildYrPanel() {
   const panel = document.getElementById('yrPanel');
   if (!panel) return;
-  const filterMap = { fruits:'fruit', vegetables:'veg', herbs:'herb' };
-  const cats = [
-    { key:'fruits',     label:'Fruits',     icon:'🍎', cls:'fruit' },
-    { key:'vegetables', label:'Vegetables', icon:'🥦', cls:'veg'   },
-    { key:'herbs',      label:'Herbs',      icon:'🌿', cls:'herb'  }
-  ];
   let catsHtml = '';
-  cats.forEach(cat => {
-    if (filterCat !== 'all' && filterCat !== filterMap[cat.key]) return;
-    const items = sortItems(RAW[cat.key].filter(i => i.months.length === 12 && matchSearch(i)));
-    if (!items.length) return;
-    catsHtml += `
-      <div class="yr-cat-row">
-        <span class="yr-cat-label">${cat.icon} ${cat.label}</span>
-        <div class="yr-items">${items.map(i => `<span class="yr-item ${cat.cls}">${i.emoji} ${i.name}</span>`).join('')}</div>
-      </div>`;
-  });
+
+  // Fruits & Berries
+  if (filterCat === 'all' || filterCat === 'fruit') {
+    const items = sortItems(RAW.fruits.filter(i => i.months.length === 12 && matchSearch(i)));
+    if (items.length) {
+      catsHtml += `
+        <div class="yr-cat-row">
+          <span class="yr-cat-label">🍎 Fruits</span>
+          <div class="yr-items">${items.map(i => `<span class="yr-item fruit">${i.emoji} ${i.name}</span>`).join('')}</div>
+        </div>`;
+    }
+  }
+
+  // Vegetables & Herbs (combined)
+  if (filterCat === 'all' || filterCat === 'vegherb') {
+    const vegItems  = sortItems(RAW.vegetables.filter(i => i.months.length === 12 && matchSearch(i)));
+    const herbItems = sortItems(RAW.herbs.filter(i => i.months.length === 12 && matchSearch(i)));
+    if (vegItems.length || herbItems.length) {
+      catsHtml += `
+        <div class="yr-cat-row">
+          <span class="yr-cat-label">🥦 Veg &amp; Herbs</span>
+          <div class="yr-items">
+            ${vegItems.map(i => `<span class="yr-item veg">${i.emoji} ${i.name}</span>`).join('')}
+            ${herbItems.map(i => `<span class="yr-item herb">${i.emoji} ${i.name}</span>`).join('')}
+          </div>
+        </div>`;
+    }
+  }
+
   if (!catsHtml) { panel.innerHTML = ''; panel.removeAttribute('class'); return; }
   panel.className = 'yr-panel';
   panel.innerHTML = `
@@ -1621,40 +1710,57 @@ function buildMobilePanel() {
   const m = mobileMonth;
 
   // Month navigation pills
-  let nav = '<div class="mob-month-nav">';
+  let navPills = '';
   for (let i = 1; i <= 12; i++) {
-    nav += `<button class="mob-month-pill ${SEASON_OF[i]}${i === m ? ' active' : ''}${i === NOW_MONTH ? ' now-month' : ''}" onclick="setMobileMonth(${i})">${MONTHS_SHORT[i-1]}</button>`;
+    navPills += `<button class="mob-month-pill ${SEASON_OF[i]}${i === m ? ' active' : ''}${i === NOW_MONTH ? ' now-month' : ''}" onclick="setMobileMonth(${i})">${MONTHS_SHORT[i-1]}</button>`;
   }
-  nav += '</div>';
+  const nav = `<div class="mob-month-nav-wrap"><div class="mob-month-nav">${navPills}</div></div>
+    <p class="mob-swipe-hint">← swipe months →</p>`;
 
   let html = `
     <div class="mob-header">
       <span class="mob-title">In Season — ${MONTHS_LONG[m-1]}</span>
       <span class="mob-season-badge ${SEASON_OF[m]}">${SEASON_NAME[m]}</span>
-      <button class="btn-full-calendar" onclick="toggleViewMode()">📅 Full Calendar</button>
+      <button class="btn-full-calendar" onclick="toggleViewMode()">📅 Full Calendar →</button>
     </div>
     ${nav}`;
 
   let anyShown = false;
 
-  // Fruits & Vegetables — filtered by selected month
-  [
-    { key:'fruits',     label:'Fruits',     icon:'🍎', cls:'fruit' },
-    { key:'vegetables', label:'Vegetables', icon:'🥦', cls:'veg'   }
-  ].forEach(cat => {
-    const catKey = cat.key === 'fruits' ? 'fruit' : 'veg';
-    if (filterCat !== 'all' && filterCat !== catKey) return;
-    const items = sortItems(RAW[cat.key].filter(i => i.months.includes(m) && i.months.length !== 12 && matchSearch(i)));
-    if (!items.length) return;
-    anyShown = true;
-    html += `<div class="mob-cat-header">${cat.icon}&ensp;${cat.label}</div>
+  // ── Fruits & Berries ──
+  if (filterCat === 'all' || filterCat === 'fruit') {
+    const items = sortItems(RAW.fruits.filter(i => i.months.includes(m) && i.months.length !== 12 && matchSearch(i)));
+    if (items.length) {
+      anyShown = true;
+      html += `<div class="mob-cat-header">🍎&ensp;Fruits &amp; Berries</div>
     <div class="mob-items-grid">
       ${items.map(i => {
         const iso = isIsolatedMonth(i.months, m);
-        return `<span class="mob-item ${cat.cls}${iso ? ' isolated-month' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}>${i.emoji} ${i.name}</span>`;
+        return `<span class="mob-item fruit${iso ? ' isolated-month' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}>${i.emoji} ${i.name}</span>`;
       }).join('')}
     </div>`;
-  });
+    }
+  }
+
+  // ── Vegetables & Herbs ──
+  if (filterCat === 'all' || filterCat === 'vegherb') {
+    const vegItems  = sortItems(RAW.vegetables.filter(i => i.months.includes(m) && i.months.length !== 12 && matchSearch(i)));
+    const herbItems = sortItems(RAW.herbs.filter(i => i.months.includes(m) && i.months.length !== 12 && matchSearch(i)));
+    if (vegItems.length || herbItems.length) {
+      anyShown = true;
+      html += `<div class="mob-cat-header">🥦&ensp;Vegetables &amp; Herbs</div>
+    <div class="mob-items-grid">
+      ${vegItems.map(i => {
+        const iso = isIsolatedMonth(i.months, m);
+        return `<span class="mob-item veg${iso ? ' isolated-month' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}>${i.emoji} ${i.name}</span>`;
+      }).join('')}
+      ${herbItems.map(i => {
+        const iso = isIsolatedMonth(i.months, m);
+        return `<span class="mob-item herb${iso ? ' isolated-month' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}>${i.emoji} ${i.name}</span>`;
+      }).join('')}
+    </div>`;
+    }
+  }
 
   if (!anyShown) html += `<p style="text-align:center;padding:28px 0;color:var(--ink-muted);font-style:italic">Nothing found</p>`;
   panel.innerHTML = html;
