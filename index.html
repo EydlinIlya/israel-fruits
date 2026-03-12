@@ -675,9 +675,22 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
     margin-top: 16px;
+    margin-bottom: 28px;
     overflow: hidden;
     animation: dishFadeIn 0.25s ease;
   }
+  .dish-source {
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem; font-style: italic;
+    color: var(--ink-faint);
+    padding: 9px 18px 11px;
+    border-top: 1px solid var(--rule-light);
+  }
+  .dish-source a {
+    color: var(--ink-muted); text-decoration: none;
+  }
+  .dish-source a:hover { text-decoration: underline; }
   @keyframes dishFadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: none; }
@@ -1547,7 +1560,7 @@ function buildBody() {
         const inSeason = item.months.includes(m);
         const div = document.createElement('div');
         const pc = posClass(item.months, m);
-        const isIso = inSeason && isIsolatedMonth(item.months, m);
+        const isIso = inSeason && filterMonth !== null && isIsolatedMonth(item.months, m);
         div.className = `cell-bar ${cellCls} ${inSeason ? 'on ' + pc : 'off'}${m === NOW_MONTH && inSeason ? ' current-bar' : ''}${isIso ? ' isolated' : ''}`;
         if (inSeason) div.dataset.tip = `${item.emoji} ${item.name} · ${MONTHS_LONG[m-1]}${isIso ? ' · isolated window' : ''}`;
         td.appendChild(div);
@@ -1683,6 +1696,7 @@ function buildDishPanel() {
       `).join('')}
     </div>
     <span class="dish-swipe-hint">← swipe for more dishes →</span>
+    <div class="dish-source">Recipe inspiration: <a href="https://www.jewishfoodsociety.org" target="_blank" rel="noopener noreferrer">The Jewish Food Society</a></div>
   `;
 }
 
