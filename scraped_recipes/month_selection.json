@@ -1,0 +1,611 @@
+{
+  "1": {
+    "monthly_value": 4,
+    "recipes": [
+      {
+        "uid": "broccoli-soup-with-pasta-and-anchovy",
+        "title": "Broccoli Soup with Pasta and Anchovy ",
+        "score": 1,
+        "time": "1 hour",
+        "dish_type": "Other",
+        "region": [],
+        "holidays": [],
+        "in_season_tags": [
+          "Broccoli"
+        ]
+      },
+      {
+        "uid": "triple-ginger-persimmon-loaf",
+        "title": "Triple Ginger Persimmon Loaf",
+        "score": 1,
+        "time": "1h 25min",
+        "dish_type": "Desserts",
+        "region": [
+          "North America"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Persimmons"
+        ]
+      },
+      {
+        "uid": "opera-style-chopped-salad",
+        "title": "Opera-Style Chopped Salad",
+        "score": 2,
+        "time": "",
+        "dish_type": "Salads",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Chinese Cabbage"
+        ]
+      }
+    ]
+  },
+  "2": {
+    "monthly_value": 7,
+    "recipes": [
+      {
+        "uid": "garden-greens-and-squash-salad",
+        "title": "Garden Greens and Squash Salad",
+        "score": 3,
+        "time": "40 minutes",
+        "dish_type": "Other",
+        "region": [],
+        "holidays": [],
+        "in_season_tags": [
+          "Butternut Squash",
+          "Kale",
+          "Lettuce"
+        ]
+      },
+      {
+        "uid": "asparagus-with-preserved-lemons-and-herbs",
+        "title": "Asparagus With Preserved Lemons and Herbs",
+        "score": 2,
+        "time": "20min",
+        "dish_type": "Sides",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Asparagus"
+        ]
+      },
+      {
+        "uid": "chicken-thighs-with-kumquats-and-olives",
+        "title": "Chicken Thighs With Kumquats and Olives",
+        "score": 2,
+        "time": "",
+        "dish_type": "Main Courses",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Kumquats"
+        ]
+      }
+    ]
+  },
+  "3": {
+    "monthly_value": 10,
+    "recipes": [
+      {
+        "uid": "msayer-pickled-vegetables",
+        "title": "Msayer (Pickled Vegetables)",
+        "score": 5,
+        "time": "30min plus 30min pickling time",
+        "dish_type": "Sides",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Cauliflower",
+          "Fennel",
+          "Radish",
+          "Turnips"
+        ]
+      },
+      {
+        "uid": "hand-rolled-couscous",
+        "title": "Hand-Rolled Couscous",
+        "score": 3,
+        "time": "1 h active + 4 h inactive + soaking",
+        "dish_type": "Main Courses",
+        "region": [
+          "North Africa"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Butternut Squash",
+          "Kohlrabi"
+        ]
+      },
+      {
+        "uid": "rhubarb-and-strawberry-galette-with-halva-cream",
+        "title": "Rhubarb and Strawberry Galette with Halva Cream",
+        "score": 2,
+        "time": "1 hour, plus 30 minutes chilling time",
+        "dish_type": "Desserts",
+        "region": [
+          "North America"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Oranges",
+          "Strawberries"
+        ]
+      }
+    ]
+  },
+  "4": {
+    "monthly_value": 11,
+    "recipes": [
+      {
+        "uid": "lettuce-and-fennel-salad",
+        "title": "Lettuce and Fennel Salad",
+        "score": 5,
+        "time": "30 min",
+        "dish_type": "Salads",
+        "region": [
+          "Western Europe",
+          "North Africa"
+        ],
+        "holidays": [
+          "Passover "
+        ],
+        "in_season_tags": [
+          "Fennel",
+          "Lettuce"
+        ]
+      },
+      {
+        "uid": "venetian-charoset",
+        "title": "Venetian Charoset",
+        "score": 4,
+        "time": "20 Minutes",
+        "dish_type": "Sides",
+        "region": [
+          "Western Europe"
+        ],
+        "holidays": [
+          "Passover "
+        ],
+        "in_season_tags": [
+          "Dates",
+          "Oranges"
+        ]
+      },
+      {
+        "uid": "tara-kavkazi-beef-and-chard-soup",
+        "title": "Tara (Kavkazi Beef and Chard Soup)",
+        "score": 2,
+        "time": "2h",
+        "dish_type": "Soups & Stews",
+        "region": [
+          "Eastern Europe",
+          "Middle East"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Swiss Chard (Mangold)"
+        ]
+      }
+    ]
+  },
+  "5": {
+    "monthly_value": 8,
+    "recipes": [
+      {
+        "uid": "shaved-fennel-and-orange-salad",
+        "title": "Shaved Fennel and Orange Salad",
+        "score": 4,
+        "time": "10 minutes",
+        "dish_type": "Salads",
+        "region": [
+          "North Africa"
+        ],
+        "holidays": [
+          "Shabbat"
+        ],
+        "in_season_tags": [
+          "Oranges",
+          "Fennel"
+        ]
+      },
+      {
+        "uid": "spiced-apricot-cake",
+        "title": "Spiced Apricot Cake",
+        "score": 2,
+        "time": "1h 20m",
+        "dish_type": "Desserts",
+        "region": [
+          "Middle East",
+          "Eastern Europe"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Apricots"
+        ]
+      },
+      {
+        "uid": "artichoke-heart-salad",
+        "title": "Artichoke Heart Salad",
+        "score": 2,
+        "time": "15 minutes",
+        "dish_type": "Other",
+        "region": [
+          "North Africa"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Artichokes"
+        ]
+      }
+    ]
+  },
+  "6": {
+    "monthly_value": 4,
+    "recipes": [
+      {
+        "uid": "scotch-gravlax",
+        "title": "Gravlax",
+        "score": 1,
+        "time": "",
+        "dish_type": "Other",
+        "region": [],
+        "holidays": [],
+        "in_season_tags": [
+          "Grapefruit"
+        ]
+      },
+      {
+        "uid": "pastel-de-choclo-peruvian-corn-and-beef-casserole",
+        "title": "Pastel de Choclo (South American Corn and Beef Casserole)",
+        "score": 2,
+        "time": "1 hour plus 2 hour inactive",
+        "dish_type": "Main Courses",
+        "region": [
+          "South and Central America"
+        ],
+        "holidays": [
+          "Shabbat"
+        ],
+        "in_season_tags": [
+          "Corn"
+        ]
+      },
+      {
+        "uid": "peach-and-blueberry-kuchen-cake",
+        "title": "Peach and Blueberry Kuchen",
+        "score": 1,
+        "time": "3 hours",
+        "dish_type": "Desserts",
+        "region": [
+          "Eastern Europe",
+          "North America"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Peaches"
+        ]
+      }
+    ]
+  },
+  "7": {
+    "monthly_value": 8,
+    "recipes": [
+      {
+        "uid": "meatballs-with-cherries",
+        "title": "Meatballs With Cherries",
+        "score": 3,
+        "time": "45 min",
+        "dish_type": "Main Courses",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Cherries",
+          "Plums"
+        ]
+      },
+      {
+        "uid": "classic-mango-amba",
+        "title": "Classic Mango Amba",
+        "score": 2,
+        "time": "",
+        "dish_type": "Sides",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Mangoes"
+        ]
+      },
+      {
+        "uid": "homemade-verjus",
+        "title": "Homemade Verjus",
+        "score": 3,
+        "time": "3 days",
+        "dish_type": "Salads",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [
+          "Shabbat"
+        ],
+        "in_season_tags": [
+          "Grapes"
+        ]
+      }
+    ]
+  },
+  "8": {
+    "monthly_value": 5,
+    "recipes": [
+      {
+        "uid": "walnut-and-vinegar-green-bean-lobio-georgian-beans",
+        "title": "Walnut and Vinegar Green Bean Lobio (Georgian Beans with Nuts)",
+        "score": 2,
+        "time": "25 minutes",
+        "dish_type": "Sides",
+        "region": [
+          "Eastern Europe"
+        ],
+        "holidays": [
+          "Shabbat"
+        ],
+        "in_season_tags": [
+          "Runner Beans"
+        ]
+      },
+      {
+        "uid": "lox-bowl",
+        "title": "Lox Bowl",
+        "score": 1,
+        "time": "1 H 15 min",
+        "dish_type": "Main Courses",
+        "region": [
+          "South Asia",
+          "North America"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Avocado"
+        ]
+      },
+      {
+        "uid": "watermelon-and-bulgarian-cheese-salad-with-mint",
+        "title": "Watermelon and Bulgarian Cheese Salad With Mint",
+        "score": 2,
+        "time": "15min",
+        "dish_type": "Salads",
+        "region": [
+          "North America",
+          "Middle East"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Watermelon"
+        ]
+      }
+    ]
+  },
+  "9": {
+    "monthly_value": 14,
+    "recipes": [
+      {
+        "uid": "fried-eggplant-with-mint-vinaigrette",
+        "title": "Fried Eggplant With Mint Dressing",
+        "score": 5,
+        "time": "45 min",
+        "dish_type": "Sides",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [
+          "Rosh Hashanah"
+        ],
+        "in_season_tags": [
+          "Pomegranates",
+          "Eggplant"
+        ]
+      },
+      {
+        "uid": "apple-and-date-challah-bread-pudding",
+        "title": "Apple and Date Challah Bread Pudding",
+        "score": 5,
+        "time": "1h 45min",
+        "dish_type": "Desserts",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [
+          "Rosh Hashanah"
+        ],
+        "in_season_tags": [
+          "Apples",
+          "Dates"
+        ]
+      },
+      {
+        "uid": "samsa-savory-pastries-with-beef",
+        "title": "Samsa (Pastries with Beef and Squash)",
+        "score": 4,
+        "time": "1 hour and 45 minutes",
+        "dish_type": "Breads",
+        "region": [
+          "Middle East",
+          "Eastern Europe"
+        ],
+        "holidays": [
+          "Sukkot"
+        ],
+        "in_season_tags": [
+          "Butternut Squash"
+        ]
+      }
+    ]
+  },
+  "10": {
+    "monthly_value": 11,
+    "recipes": [
+      {
+        "uid": "khoresh-sib-lamb-stew-with-quince-and-dried-apricot",
+        "title": "Khoresh e Beh (Lamb Stew With Quince and Dried Apricot)",
+        "score": 6,
+        "time": "2 h",
+        "dish_type": "Soups & Stews",
+        "region": [
+          "Middle East"
+        ],
+        "holidays": [
+          "Rosh Hashanah"
+        ],
+        "in_season_tags": [
+          "Apples",
+          "Limes",
+          "Quinces"
+        ]
+      },
+      {
+        "uid": "tzimmes-with-dates-pomegranate-and-mint",
+        "title": "Tzimmes With Dates, Pomegranate, and Mint",
+        "score": 4,
+        "time": "40m",
+        "dish_type": "Sides",
+        "region": [],
+        "holidays": [
+          "Rosh Hashanah"
+        ],
+        "in_season_tags": [
+          "Dates",
+          "Oranges"
+        ]
+      },
+      {
+        "uid": "pomelo-candies",
+        "title": "Pomelo Candies",
+        "score": 1,
+        "time": "",
+        "dish_type": "Desserts",
+        "region": [],
+        "holidays": [],
+        "in_season_tags": [
+          "Pomelo"
+        ]
+      }
+    ]
+  },
+  "11": {
+    "monthly_value": 6,
+    "recipes": [
+      {
+        "uid": "aliciotti-con-indivia-anchovies-baked-with-escarole",
+        "title": "Aliciotti Con Indivia (Anchovies Baked With Escarole)",
+        "score": 1,
+        "time": "30 to 45 minutes",
+        "dish_type": "Main Courses",
+        "region": [
+          "Western Europe"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Chicory"
+        ]
+      },
+      {
+        "uid": "pickled-nectarines-in-a-spiced-brine",
+        "title": "Pickled Nectarines in a Spiced Brine",
+        "score": 2,
+        "time": "Prep time: 20 min + Ferment time: 48 h",
+        "dish_type": "Sides",
+        "region": [
+          "Eastern Europe"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Limes",
+          "Nectarines"
+        ]
+      },
+      {
+        "uid": "arugula-and-hazelnut-salad",
+        "title": "Arugula and Hazelnut Salad",
+        "score": 3,
+        "time": "15min",
+        "dish_type": "Salads",
+        "region": [
+          "North America"
+        ],
+        "holidays": [],
+        "in_season_tags": [
+          "Pears",
+          "Pomegranates",
+          "Kale"
+        ]
+      }
+    ]
+  },
+  "12": {
+    "monthly_value": 7,
+    "recipes": [
+      {
+        "uid": "lamb-and-chestnut-plov-pilaf",
+        "title": "Lamb and Chestnut Plov (Pilaf)",
+        "score": 3,
+        "time": "4 hours",
+        "dish_type": "Soups & Stews",
+        "region": [
+          "Eastern Europe"
+        ],
+        "holidays": [
+          "Shabbat"
+        ],
+        "in_season_tags": [
+          "Chestnuts",
+          "Pomegranates"
+        ]
+      },
+      {
+        "uid": "spanakopita-spinach-pie",
+        "title": "Spanakopita (Spinach Pie)",
+        "score": 2,
+        "time": "2 hours",
+        "dish_type": "Main Courses",
+        "region": [
+          "Western Europe"
+        ],
+        "holidays": [
+          "Shabbat"
+        ],
+        "in_season_tags": [
+          "Leeks"
+        ]
+      },
+      {
+        "uid": "guava-challah",
+        "title": "Guava Challah",
+        "score": 2,
+        "time": "45 min active + 3 h 45 min inactive",
+        "dish_type": "Breads",
+        "region": [
+          "South and Central America"
+        ],
+        "holidays": [
+          "Shabbat"
+        ],
+        "in_season_tags": [
+          "Guavas"
+        ]
+      }
+    ]
+  }
+}
