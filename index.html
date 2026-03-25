@@ -87,36 +87,76 @@
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Ccircle cx='3' cy='3' r='0.6' fill='%23A08040' opacity='0.16'/%3E%3C/svg%3E");
     color: var(--ink);
     min-height: 100vh;
+    transition: background-color 0.6s ease;
   }
+  /* Season-reactive body backgrounds */
+  body.season-winter { background-color: #EDE8F0; }
+  body.season-spring { background-color: #F4EDE0; }
+  body.season-summer { background-color: #F6F0DE; }
+  body.season-autumn { background-color: #F4E8DC; }
 
   /* ══════════════════════════════════════════════════
-     HEADER
+     HEADER — Mahane Yehuda Market Board
   ══════════════════════════════════════════════════ */
   header {
     position: relative;
     overflow: hidden;
-    background:
-      linear-gradient(160deg, #1A0808 0%, #3A0E18 35%, #5A1828 60%, #2A1A08 100%);
-    padding: 32px 24px 26px;
-    text-align: center;
-    color: #fff;
+    background: #1A2A1C;
+    padding: 0;
+    text-align: left;
+    color: #F0E8D0;
+    transition: background 0.6s ease;
   }
+  /* Season-reactive header backgrounds */
+  header.season-winter { background: #14202E; }
+  header.season-spring { background: #1A2A1C; }
+  header.season-summer { background: #2A2210; }
+  header.season-autumn { background: #2A1610; }
 
-  /* Grain overlay */
+  /* Chalk dust / blackboard texture */
   header::before {
     content: '';
     position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    background:
+      radial-gradient(ellipse 50% 40% at 30% 30%, rgba(255,255,255,0.03) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 75% 65%, rgba(255,255,255,0.02) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.10'/%3E%3C/svg%3E");
     pointer-events: none;
   }
 
-  /* ── Botanical SVG decorations ── */
+  /* Rough chalk border — bottom only, hand-drawn feel */
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        rgba(240,232,208,0.5) 0px,
+        rgba(240,232,208,0.3) 3px,
+        transparent 3px,
+        transparent 8px,
+        rgba(240,232,208,0.4) 8px,
+        rgba(240,232,208,0.2) 14px,
+        transparent 14px,
+        transparent 18px
+      );
+    pointer-events: none;
+    z-index: 3;
+  }
+  /* Season-reactive chalk border accent */
+  header.season-winter::after { background-image: repeating-linear-gradient(90deg, rgba(160,200,240,0.4) 0px, rgba(160,200,240,0.2) 3px, transparent 3px, transparent 8px, rgba(160,200,240,0.3) 8px, rgba(160,200,240,0.15) 14px, transparent 14px, transparent 18px); }
+  header.season-summer::after { background-image: repeating-linear-gradient(90deg, rgba(240,210,120,0.5) 0px, rgba(240,210,120,0.3) 3px, transparent 3px, transparent 8px, rgba(240,210,120,0.4) 8px, rgba(240,210,120,0.2) 14px, transparent 14px, transparent 18px); }
+  header.season-autumn::after { background-image: repeating-linear-gradient(90deg, rgba(220,160,100,0.5) 0px, rgba(220,160,100,0.3) 3px, transparent 3px, transparent 8px, rgba(220,160,100,0.4) 8px, rgba(220,160,100,0.2) 14px, transparent 14px, transparent 18px); }
+
+  /* ── Botanical SVG decorations — market produce sketches ── */
   .hdr-deco {
     position: absolute;
     top: 0; bottom: 0;
     width: 200px;
     pointer-events: none;
-    opacity: 0.55;
+    opacity: 0.45;
   }
   .hdr-deco-left  { left: 0; }
   .hdr-deco-right { right: 0; transform: scaleX(-1); }
@@ -124,65 +164,91 @@
   .hdr-inner {
     position: relative;
     z-index: 2;
-    max-width: 680px;
+    max-width: 1100px;
     margin: 0 auto;
+    padding: 28px 40px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
   }
 
+  /* Left block: title area */
   .hdr-emblem {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
-    margin-bottom: 8px;
-    font-size: 1.1rem;
-    letter-spacing: 0.06em;
-    opacity: 0.7;
+    margin-bottom: 6px;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
     font-family: 'Karla', sans-serif;
-    font-weight: 300;
+    font-weight: 500;
     text-transform: uppercase;
-    color: #D4A860;
+    color: rgba(240,232,208,0.45);
   }
 
   header h1 {
     font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    line-height: 1.15;
-    letter-spacing: -0.5px;
-    color: #FDFAF0;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
-    margin-bottom: 8px;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: #F0E8D0;
+    margin-bottom: 6px;
   }
   header h1 em {
     font-style: italic;
-    color: #D4A860;
+    color: #E8C060;
   }
 
   header p {
-    font-size: 0.9rem;
+    font-size: 0.84rem;
     font-weight: 400;
-    color: rgba(253,250,240,0.68);
-    line-height: 1.55;
-    max-width: 460px;
-    margin: 0 auto 14px;
+    color: rgba(240,232,208,0.5);
+    line-height: 1.5;
+    max-width: 380px;
+    margin: 0 0 12px;
   }
 
   .season-pill {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    background: rgba(255,255,255,0.12);
-    border: 1.5px solid rgba(255,255,255,0.28);
-    backdrop-filter: blur(4px);
-    color: #D4A860;
+    background: rgba(232,192,96,0.12);
+    border: 1.5px solid rgba(232,192,96,0.3);
+    color: #E8C060;
     font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     padding: 6px 16px;
-    border-radius: 30px;
+    border-radius: 20px;
     transition: background 0.2s;
+    font-family: 'Karla', sans-serif;
   }
-  .season-pill::before { content: '✦'; font-size: 0.65rem; opacity: 0.7; }
+  .season-pill::before { content: '●'; font-size: 0.45rem; opacity: 0.7; }
+
+  /* Market produce art — right side of header */
+  .hdr-produce-art {
+    flex-shrink: 0;
+    width: 260px;
+    height: 180px;
+  }
+  .hdr-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  @media (max-width: 768px) {
+    .hdr-inner {
+      flex-direction: column;
+      text-align: center;
+      padding: 24px 20px 20px;
+      gap: 16px;
+    }
+    .hdr-produce-art { width: 180px; height: 130px; }
+    header p { margin: 0 auto 12px; }
+    .hdr-emblem { justify-content: center; }
+  }
 
   /* ══════════════════════════════════════════════════
      CONTROLS
@@ -198,9 +264,13 @@
 
   /* Decorative leaf left border */
   .controls::before {
-    content: '🌿';
-    font-size: 1.1rem;
-    opacity: 0.55;
+    content: '';
+    width: 14px; height: 14px;
+    background: var(--green);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    opacity: 0.35;
+    flex-shrink: 0;
   }
 
   .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -212,7 +282,7 @@
     border: 2px solid transparent;
     cursor: pointer;
     font-family: 'Karla', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 600;
     letter-spacing: 0.02em;
     transition: all 0.18s ease;
@@ -220,6 +290,7 @@
     background: transparent;
   }
   .btn:hover { box-shadow: 0 2px 8px rgba(80,40,0,0.18); }
+  .btn-icon { width: 14px; height: 14px; flex-shrink: 0; }
 
   .btn-all   { border-color: var(--ink-mid);   color: var(--ink-mid); }
   .btn-fruit { border-color: var(--terra);      color: var(--terra-dark); }
@@ -236,7 +307,7 @@
   .search-wrap { flex: 1; min-width: 180px; position: relative; }
   .search-wrap .search-icon {
     position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-    color: var(--ink-faint); pointer-events: none; font-size: 0.9rem;
+    color: var(--ink-faint); pointer-events: none; font-size: 0.88rem;
   }
   .search-input {
     width: 100%;
@@ -244,7 +315,7 @@
     border: 2px solid var(--rule-light);
     border-radius: 20px;
     font-family: 'Karla', sans-serif;
-    font-size: 0.94rem;
+    font-size: 0.95rem;
     color: var(--ink);
     background: var(--bg);
     outline: none;
@@ -297,7 +368,7 @@
     background: linear-gradient(90deg, transparent, var(--rule), transparent);
   }
   .divider-label {
-    font-family: 'Playfair Display SC', 'Playfair Display', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 0.78rem;
     font-style: normal;
     color: var(--ink-muted);
@@ -313,7 +384,7 @@
   .season-chip {
     display: inline-flex; align-items: center; gap: 7px;
     padding: 6px 14px; border-radius: 20px;
-    font-size: 0.75rem; font-weight: 600;
+    font-size: 0.78rem; font-weight: 600;
     letter-spacing: 0.04em;
     border: 1.5px solid transparent;
   }
@@ -333,6 +404,13 @@
     background: var(--s-autumn-bg); color: var(--s-autumn-txt);
     border-color: rgba(106,24,32,0.25);
   }
+  .season-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .chip-winter .season-dot { background: var(--s-winter-h); }
+  .chip-spring .season-dot { background: var(--s-spring-h); }
+  .chip-summer .season-dot { background: var(--s-summer-h); }
+  .chip-autumn .season-dot { background: var(--s-autumn-h); }
 
   /* ── Chart card ── */
   .chart-card {
@@ -394,7 +472,7 @@
 
   .th-name {
     text-align: left;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--ink-muted);
     padding: 9px 14px;
@@ -404,7 +482,7 @@
     letter-spacing: 0.08em;
     width: 260px;
     min-width: 260px;
-    font-family: 'Playfair Display SC', 'Playfair Display', serif;
+    font-family: 'Karla', sans-serif;
     font-style: normal;
   }
 
@@ -412,7 +490,7 @@
   .tr-category td {
     padding: 10px 14px;
     font-family: 'Playfair Display SC', 'Playfair Display', serif;
-    font-size: 0.96rem;
+    font-size: 0.95rem;
     font-weight: 700;
     font-style: normal;
     letter-spacing: 0.05em;
@@ -434,7 +512,7 @@
 
   .cat-count {
     font-family: 'Karla', sans-serif;
-    font-size: 0.84rem;
+    font-size: 0.78rem;
     font-style: normal;
     font-weight: 500;
     opacity: 0.6;
@@ -442,14 +520,14 @@
   }
 
   /* Item rows */
-  .tr-item { transition: background 0.12s; }
+  .tr-item { transition: background 0.15s; }
   .tr-item:hover { background: #F0E8D4; }
   .tr-item:nth-child(even) { background: rgba(200,180,140,0.04); }
-  .tr-item:hover .td-name { color: var(--green-dark); }
+  .tr-item:hover .td-name { color: var(--terra-deep); font-weight: 600; }
 
   .td-name {
     padding: 6px 28px 6px 14px;
-    font-size: 0.93rem;
+    font-size: 0.95rem;
     font-weight: 500;
     color: var(--ink);
     white-space: nowrap;
@@ -460,6 +538,7 @@
     position: sticky; left: 0; z-index: 5;
     background: inherit;
   }
+  .he-sub { display: block; font-size: 0.73rem; color: var(--ink-faint); font-weight: 400; direction: rtl; line-height: 1.1; margin-top: 1px; }
   .tr-item:hover .td-name { background: #F0E8D4; }
 
   .badge-yr {
@@ -489,37 +568,38 @@
   .td-month.current-col { background: rgba(242,224,96,0.07); }
 
   .cell-bar {
-    height: 24px;
-    border-radius: 3px;
+    height: 28px;
+    border-radius: 4px;
     width: 100%;
     position: relative;
     transition: filter 0.15s, transform 0.12s;
   }
   .cell-bar.off {
-    background: linear-gradient(180deg, #EEDED0, var(--off-cell));
+    background: var(--off-cell);
     border: 1px solid var(--off-border);
-    border-radius: 3px;
+    border-radius: 4px;
+    opacity: 0.5;
   }
 
   /* ── Bar shapes (connected run) ── */
-  .cell-bar.s-solo  { border-radius: 5px; }
-  .cell-bar.s-start { border-radius: 5px 2px 2px 5px; }
+  .cell-bar.s-solo  { border-radius: 6px; }
+  .cell-bar.s-start { border-radius: 6px 2px 2px 6px; }
   .cell-bar.s-mid   { border-radius: 2px; }
-  .cell-bar.s-end   { border-radius: 2px 5px 5px 2px; }
+  .cell-bar.s-end   { border-radius: 2px 6px 6px 2px; }
 
-  /* Fruit — terracotta-to-burgundy */
+  /* Fruit — wine-to-burgundy */
   .cell-bar.fruit.on {
     background: linear-gradient(135deg, var(--fruit-lo) 0%, var(--fruit-hi) 100%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 0 rgba(0,0,0,0.1);
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.22), inset 0 -1px 0 rgba(0,0,0,0.12), 0 1px 3px rgba(107,26,42,0.15);
   }
-  /* Veg & Herb — field green */
+  /* Veg & Herb — olive green */
   .cell-bar.veg.on,
   .cell-bar.herb.on {
     background: linear-gradient(135deg, var(--veg-lo) 0%, var(--veg-hi) 100%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.24), inset 0 -1px 0 rgba(0,0,0,0.1);
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.18), inset 0 -1px 0 rgba(0,0,0,0.12), 0 1px 3px rgba(42,58,16,0.15);
   }
 
-  .tr-item:hover .cell-bar.on { filter: brightness(1.1) saturate(1.1); }
+  .tr-item:hover .cell-bar.on { filter: brightness(1.12) saturate(1.15); transform: scaleY(1.1); }
 
   .cell-bar.current-bar {
     box-shadow:
@@ -537,7 +617,7 @@
     background: var(--ink);
     color: var(--gold-light);
     font-family: 'Karla', sans-serif;
-    font-size: 0.78rem; font-weight: 600;
+    font-size: 0.72rem; font-weight: 600;
     padding: 5px 10px; border-radius: 6px;
     white-space: nowrap; z-index: 999;
     pointer-events: none;
@@ -560,7 +640,7 @@
     padding: 10px 16px;
     background: var(--surface-2);
     border-top: 1.5px solid var(--rule-light);
-    font-size: 0.87rem; color: var(--ink-mid);
+    font-size: 0.84rem; color: var(--ink-mid);
     align-items: center;
   }
   .stat-item { display: flex; align-items: center; gap: 6px; }
@@ -573,8 +653,8 @@
   .no-results {
     text-align: center; padding: 56px 24px;
     color: var(--ink-muted);
-    font-family: 'Playfair Display SC', 'Playfair Display', serif;
-    font-size: 1.1rem; font-style: normal;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-style: italic;
   }
   .no-results span { display: block; font-size: 2.2rem; margin-bottom: 10px; }
 
@@ -588,7 +668,7 @@
     display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
   }
   .legend-title {
-    font-family: 'Playfair Display SC', 'Playfair Display', serif;
+    font-family: 'Karla', sans-serif;
     font-size: 0.78rem; font-style: normal;
     color: var(--ink-muted);
     letter-spacing: 0.08em;
@@ -603,7 +683,7 @@
     width: 28px; height: 13px; border-radius: 6px; flex-shrink: 0;
   }
   .leg-item span {
-    font-size: 0.88rem; color: var(--ink-mid);
+    font-size: 0.84rem; color: var(--ink-mid);
     white-space: nowrap;
   }
   .leg-sep {
@@ -611,36 +691,65 @@
   }
 
   /* ══════════════════════════════════════════════════
-     FOOTER
+     FOOTER — dark bar echoing header
   ══════════════════════════════════════════════════ */
   footer {
-    text-align: center;
-    padding: 28px 24px;
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-    line-height: 1.8;
-    border-top: 1.5px solid var(--rule-light);
-    margin-top: 4px;
+    background: #1A2218;
+    color: rgba(240,232,208,0.5);
+    padding: 24px 28px;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: relative;
   }
-  footer a { color: var(--terra-deep); text-decoration: none; font-weight: 500; }
-  footer a:hover { text-decoration: underline; }
+  /* Chalk border top — mirrors header bottom */
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        rgba(240,232,208,0.4) 0px,
+        rgba(240,232,208,0.2) 3px,
+        transparent 3px,
+        transparent 8px,
+        rgba(240,232,208,0.3) 8px,
+        rgba(240,232,208,0.15) 14px,
+        transparent 14px,
+        transparent 18px
+      );
+  }
+  footer a { color: rgba(232,192,96,0.7); text-decoration: none; font-weight: 500; }
+  footer a:hover { text-decoration: underline; color: rgba(232,192,96,0.9); }
   .footer-brand {
-    display: block;
-    font-family: 'Playfair Display SC', 'Playfair Display', serif;
-    font-size: 0.8rem; font-style: normal;
-    color: var(--ink-faint);
-    margin-top: 4px;
-    letter-spacing: 0.06em;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.84rem; font-style: italic;
+    color: rgba(240,232,208,0.35);
+    letter-spacing: 0.04em;
+  }
+  .footer-source {
+    color: rgba(240,232,208,0.4);
+  }
+  .footer-hebrew {
+    font-size: 0.78rem;
+    color: rgba(240,232,208,0.25);
+    letter-spacing: 0.02em;
   }
 
   /* ══════════════════════════════════════════════════
      RESPONSIVE
   ══════════════════════════════════════════════════ */
   @media (max-width: 640px) {
-    header { padding: 22px 16px 20px; }
     main   { padding: 16px 12px 24px; }
     .controls { padding: 10px 12px; }
-    .hdr-deco { display: none; }
+    .hdr-inner { padding: 20px 14px 18px; }
+    .hdr-produce-art { width: 150px; height: 110px; }
   }
 
   /* ══════════════════════════════════════════════════
@@ -680,18 +789,7 @@
   @media (prefers-reduced-motion: no-preference) {
     .dish-panel { animation: dishFadeIn 0.25s ease; }
   }
-  .dish-source {
-    text-align: center;
-    font-family: 'Karla', sans-serif;
-    font-size: 0.68rem; font-style: italic;
-    color: var(--ink-faint);
-    padding: 9px 18px 11px;
-    border-top: 1px solid var(--rule-light);
-  }
-  .dish-source a {
-    color: var(--ink-muted); text-decoration: none;
-  }
-  .dish-source a:hover { text-decoration: underline; }
+  /* dish-source removed — attribution now in header */
   @keyframes dishFadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: none; }
@@ -702,21 +800,22 @@
     background: linear-gradient(90deg, var(--surface-2), var(--surface));
     border-bottom: 1.5px solid var(--rule-light);
   }
-  .dish-panel-title {
-    font-family: 'Playfair Display SC', 'Playfair Display', serif; font-size: 0.9rem;
-    font-style: normal; color: var(--ink-muted);
-  }
   .dish-panel-month {
-    font-family: 'Playfair Display', serif; font-size: 1rem;
+    font-family: 'Playfair Display', serif; font-size: 1.05rem;
     font-weight: 700; color: var(--terra-deep);
   }
   .dish-panel-hint {
-    margin-left: auto; font-size: 0.75rem; color: var(--ink-faint);
+    margin-left: auto; font-size: 0.72rem; color: var(--ink-faint);
     font-style: italic; white-space: nowrap;
   }
+  .dish-panel-hint a {
+    color: var(--ink-muted); text-decoration: none; font-weight: 500;
+  }
+  .dish-panel-hint a:hover { text-decoration: underline; }
   .dish-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-rows: auto;
   }
   .dish-card {
     padding: 14px 18px;
@@ -725,12 +824,32 @@
     display: block; text-decoration: none; color: inherit;
     cursor: pointer; position: relative;
   }
+  /* Featured first card */
+  .dish-card:first-child {
+    padding: 18px 22px;
+    border-right: 2px solid var(--rule-light);
+    background: linear-gradient(180deg, var(--featured-tint, rgba(107,26,42,0.04)), transparent);
+  }
+  .dish-card:first-child .dish-name {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+  .dish-card:first-child .dish-desc {
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
   .dish-card:last-child { border-right: none; }
-  .dish-card:hover { background: #F4EDE0; box-shadow: inset 0 -2px 0 var(--gold); }
+  .dish-card { --dish-accent: var(--terra); }
+  .dish-card:hover { background: #F4EDE0; box-shadow: inset 0 -3px 0 var(--dish-accent); }
+  /* Season-reactive dish accents */
+  body.season-winter .dish-card { --dish-accent: var(--s-winter-h); --featured-tint: rgba(30,58,90,0.05); }
+  body.season-spring .dish-card { --dish-accent: var(--green);      --featured-tint: rgba(58,80,16,0.05); }
+  body.season-summer .dish-card { --dish-accent: var(--gold);       --featured-tint: rgba(184,150,10,0.05); }
+  body.season-autumn .dish-card { --dish-accent: var(--terra);      --featured-tint: rgba(107,26,42,0.04); }
   .dish-card:hover .dish-name { text-decoration: underline; text-underline-offset: 2px; }
   .dish-card:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; }
   .dish-name {
-    font-family: 'Playfair Display', serif; font-size: 0.94rem;
+    font-family: 'Playfair Display', serif; font-size: 0.95rem;
     font-weight: 700; color: var(--ink); margin-bottom: 3px; line-height: 1.3;
   }
   .dish-meta {
@@ -746,9 +865,15 @@
   .dish-badge-region   { background: var(--terra-light); color: var(--terra-deep); border: 1px solid rgba(106,28,6,0.2); }
   .dish-badge-diet     { background: var(--sage-light);  color: var(--sage-dark);  border: 1px solid rgba(30,80,56,0.2); }
   .dish-badge-kashrut  { background: #dbeafe; color: #1e40af; border: 1px solid rgba(30,64,175,0.2); }
+  .dish-desc {
+    font-size: 0.84rem; color: var(--ink-muted);
+    line-height: 1.45; margin-bottom: 8px;
+  }
+  /* Hide desc on non-featured cards to keep them compact */
+  .dish-card:not(:first-child) .dish-desc { display: none; }
   .dish-tags { display: flex; flex-wrap: wrap; gap: 4px; }
   .dish-tag {
-    font-size: 0.7rem; font-weight: 600; padding: 2px 8px;
+    font-size: 0.72rem; font-weight: 600; padding: 2px 8px;
     border-radius: 10px; background: var(--green-light);
     color: var(--green-deep); border: 1px solid rgba(42,90,20,0.15);
     white-space: nowrap;
@@ -778,7 +903,7 @@
 
   .mob-cat-header {
     display: flex; align-items: center; gap: 8px;
-    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em;
     text-transform: uppercase; color: var(--ink-muted);
     margin: 16px 0 10px;
     white-space: nowrap;
@@ -789,15 +914,49 @@
   }
   .mob-items-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 4px; }
   .mob-item {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 6px 12px; border-radius: 20px;
-    font-size: 0.87rem; font-weight: 500;
+    display: inline-flex; flex-direction: column; align-items: center; gap: 1px;
+    padding: 8px 14px 6px; border-radius: 16px;
+    font-size: 0.88rem; font-weight: 500;
     border: 1.5px solid var(--rule-light); background: var(--surface);
-    color: var(--ink);
+    color: var(--ink); text-align: center;
   }
+  .mob-he { display: block; color: var(--ink-faint); font-size: 0.78rem; font-weight: 400; direction: rtl; line-height: 1.2; text-align: right; align-self: stretch; }
   .mob-item.fruit { border-color: var(--terra-light); background: #F8EAE4; }
   .mob-item.veg   { border-color: var(--green-light); background: #E8ECD4; }
   .mob-item.herb  { border-color: var(--sage-light);  background: #E0F0E8; }
+
+  /* "Last month in season" indicator */
+  .mob-item.last-chance {
+    position: relative;
+  }
+  .mob-item.last-chance.fruit {
+    border-color: var(--terra) !important;
+    background: #F4DCD4 !important;
+  }
+  .mob-item.last-chance.veg {
+    border-color: var(--green-dark) !important;
+    background: #D8E4C4 !important;
+  }
+  .mob-item.last-chance.herb {
+    border-color: var(--sage-dark) !important;
+    background: #C8E0D4 !important;
+  }
+  .lc-badge {
+    position: absolute;
+    top: -7px; right: -4px;
+    font-size: 0.56rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gold-deep);
+    background: var(--gold-light);
+    padding: 1px 5px;
+    border-radius: 4px;
+    border: 1px solid var(--gold);
+    line-height: 1.3;
+    white-space: nowrap;
+    z-index: 1;
+  }
 
   /* ══════════════════════════════════════════════════
      MOBILE BREAKPOINT
@@ -805,6 +964,7 @@
   @media (max-width: 768px) {
     /* Hide Gantt + related */
     .divider, .season-legend, .chart-card, .type-legend { display: none !important; }
+    .gantt-anchor-link { display: none !important; }
     /* Show mobile produce */
     .mobile-produce { display: block !important; }
     /* Hide controls bar — filters/search/sort not needed on mobile */
@@ -834,7 +994,7 @@
     /* Swipe hint below dish carousel */
     .dish-panel .dish-swipe-hint {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--ink-faint);
       text-align: center;
       padding: 6px 0 8px;
@@ -885,7 +1045,7 @@
   }
   .mob-month-nav::-webkit-scrollbar { display: none; }
   .mob-swipe-hint {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--ink-faint);
     text-align: center;
     letter-spacing: 0.04em;
@@ -899,7 +1059,7 @@
     border-radius: 16px;
     border: 1.5px solid transparent;
     font-family: 'Karla', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 700;
     cursor: pointer;
     letter-spacing: 0.03em;
@@ -946,7 +1106,7 @@
   }
   .mob-yr-note {
     font-family: 'Karla', sans-serif;
-    font-size: 0.7rem; font-weight: 600;
+    font-size: 0.72rem; font-weight: 600;
     color: var(--sage); margin-left: 8px;
     text-transform: none; letter-spacing: 0.04em;
     vertical-align: middle;
@@ -980,7 +1140,7 @@
   .yr-panel-cats { display: flex; flex-direction: column; gap: 12px; }
   .yr-cat-row { display: flex; flex-direction: column; gap: 6px; }
   .yr-cat-label {
-    font-size: 0.66rem; font-weight: 700;
+    font-size: 0.65rem; font-weight: 700;
     letter-spacing: 0.08em; text-transform: uppercase;
     color: rgba(232,216,176,0.45);
     white-space: nowrap;
@@ -989,130 +1149,72 @@
   .yr-item {
     display: inline-flex; align-items: center; gap: 4px;
     padding: 3px 10px; border-radius: 12px;
-    font-size: 0.82rem; font-weight: 500;
+    font-size: 0.84rem; font-weight: 500;
     color: rgba(240,226,190,0.82);
     border: 1px solid rgba(255,255,255,0.1);
     background: rgba(255,255,255,0.05);
     transition: background 0.12s;
   }
   .yr-item:hover { background: rgba(255,255,255,0.1); }
+  .yr-he { color: rgba(240,226,190,0.5); font-size: 0.76rem; font-weight: 400; direction: rtl; }
   .yr-item.fruit { border-color: rgba(168,64,80,0.45); }
   .yr-item.veg   { border-color: rgba(106,122,48,0.4); }
   .yr-item.herb  { border-color: rgba(58,112,88,0.4); }
 
-  /* ══════════════════════════════════════════════════
-     VIEW TOGGLE BUTTON
-  ══════════════════════════════════════════════════ */
-  .btn-view-toggle {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 7px 15px;
-    border-radius: 20px;
-    border: 2px solid var(--rule);
-    background: var(--surface-2);
-    color: var(--ink-mid);
-    font-family: 'Karla', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    transition: all 0.18s;
-    white-space: nowrap;
-  }
-  .btn-view-toggle:hover { border-color: var(--terra); color: var(--terra-deep); background: var(--surface); }
-  .btn-view-toggle.gantt-active { background: var(--terra-deep); color: #fff; border-color: var(--terra-deep); }
-  /* Hidden on mobile — gantt never available there */
-  @media (max-width: 768px) { .btn-view-toggle { display: none; } }
+  /* (view toggle + full calendar button removed — both views always visible) */
 
-  /* ── Full Calendar button (inside grid panel header) ── */
-  .btn-full-calendar {
+  /* ══════════════════════════════════════════════════
+     LAYOUT — both panels always visible on desktop
+  ══════════════════════════════════════════════════ */
+  /* Grid panel always visible */
+  .mobile-produce { display: block; }
+
+  /* Gantt section divider */
+  .gantt-anchor-link {
     display: inline-flex; align-items: center; gap: 6px;
-    padding: 9px 20px;
-    border-radius: 22px;
-    border: 2px solid var(--terra-deep);
-    background: var(--terra-deep);
-    color: #fff;
-    font-family: 'Karla', sans-serif;
-    font-size: 0.92rem;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: 0.02em;
+    color: var(--terra-deep); font-family: 'Karla', sans-serif;
+    font-size: 0.84rem; font-weight: 600;
+    text-decoration: none; letter-spacing: 0.02em;
+    padding: 6px 14px; border-radius: 16px;
+    border: 1.5px solid var(--rule-light);
+    background: var(--surface);
     transition: all 0.18s;
-    white-space: nowrap;
-    margin-left: auto;
-    box-shadow: 0 2px 10px rgba(107,26,42,0.28);
+    cursor: pointer;
   }
-  .btn-full-calendar:hover {
-    background: var(--terra-dark);
-    border-color: var(--terra-dark);
-    box-shadow: 0 4px 16px rgba(107,26,42,0.35);
-    transform: translateY(-1px);
+  .gantt-anchor-link:hover {
+    border-color: var(--terra); background: var(--terra-light);
   }
-  /* Hidden on mobile */
-  @media (max-width: 768px) { .btn-full-calendar { display: none; } }
-
-  /* Desktop: larger + pulsing glow so it stands out */
-  @keyframes calPulse {
-    0%, 100% { box-shadow: 0 2px 10px rgba(107,26,42,0.28); }
-    50%       { box-shadow: 0 4px 26px rgba(107,26,42,0.52), 0 0 0 6px rgba(138,40,64,0.13); }
-  }
-  @media (min-width: 769px) {
-    .btn-full-calendar {
-      padding: 11px 28px;
-      font-size: 1rem;
-      border-radius: 26px;
-      animation: calPulse 4s ease-in-out infinite;
-    }
-  }
-
-  /* ══════════════════════════════════════════════════
-     VIEW MODE — show/hide panels
-  ══════════════════════════════════════════════════ */
-  /* Grid mode (default): hide Gantt elements, show grid panel */
-  body.view-grid .divider,
-  body.view-grid .season-legend,
-  body.view-grid .chart-card,
-  body.view-grid .type-legend { display: none; }
-  body.view-grid .mobile-produce { display: block; }
-
-  /* Gantt mode: hide grid panel */
-  body.view-gantt .mobile-produce { display: none; }
-
-  /* Hide controls bar on desktop in grid mode — not needed there */
-  @media (min-width: 769px) {
-    body.view-grid .controls { display: none; }
-  }
+  .gantt-anchor-link svg { width: 14px; height: 14px; }
 
   /* ── Desktop grid panel: card + layout ── */
   @media (min-width: 769px) {
-    body.view-grid #mobilePanel {
+    #mobilePanel {
       background: var(--surface);
       border: 1.5px solid var(--rule-light);
       border-radius: var(--radius);
       box-shadow: var(--shadow-warm);
       padding: 20px 24px 26px;
     }
-    @media (prefers-reduced-motion: no-preference) {
-      body.view-grid #mobilePanel { animation: gridFadeIn 0.2s ease; }
-    }
     @keyframes gridFadeIn {
       from { opacity: 0; transform: translateY(5px); }
       to   { opacity: 1; transform: none; }
     }
-    body.view-grid .mob-month-nav {
+    .mob-month-nav {
       flex-wrap: wrap;
       overflow: visible;
       gap: 6px;
       padding-bottom: 16px;
     }
-    body.view-grid .mob-month-pill {
+    .mob-month-pill {
       padding: 7px 17px;
       font-size: 0.88rem;
       border-radius: 20px;
     }
-    body.view-grid .mob-title { font-size: 1.35rem; }
-    body.view-grid .mob-items-grid { gap: 9px; }
-    body.view-grid .mob-item { padding: 8px 15px; font-size: 0.93rem; }
-    body.view-grid .mob-cat-header { font-size: 0.8rem; margin: 16px 0 10px; }
+    .mob-title { font-size: 1.35rem; }
+    .mob-items-grid { gap: 9px; }
+    .mob-item { padding: 10px 16px 8px; font-size: 0.95rem; }
+    .mob-he { font-size: 0.82rem; }
+    .mob-cat-header { font-size: 0.78rem; margin: 16px 0 10px; }
   }
   </style>
 </head>
@@ -1133,49 +1235,53 @@
 
 <!-- ════════════════════════ HEADER ════════════════════════ -->
 <header>
-  <!-- Left botanical: olive branch -->
-  <svg class="hdr-deco hdr-deco-left" viewBox="0 0 120 320" fill="none" aria-hidden="true">
-    <path d="M60 320 C56 280 50 240 54 200 C57 170 63 140 60 100 C57 60 50 30 55 0" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-    <path d="M54 290 C28 276 10 250 34 244 C46 262 53 278 54 290Z" fill="rgba(255,255,255,0.1)"/>
-    <path d="M56 256 C80 240 96 216 74 210 C62 228 57 244 56 256Z" fill="rgba(255,255,255,0.09)"/>
-    <path d="M53 220 C28 204 10 180 34 174 C46 192 52 208 53 220Z" fill="rgba(255,255,255,0.11)"/>
-    <path d="M56 186 C80 170 96 146 74 140 C62 158 57 174 56 186Z" fill="rgba(255,255,255,0.08)"/>
-    <path d="M53 150 C28 134 10 110 34 104 C46 122 52 138 53 150Z" fill="rgba(255,255,255,0.1)"/>
-    <path d="M57 115 C80 100 94 78 73 72 C62 90 58 104 57 115Z" fill="rgba(255,255,255,0.08)"/>
-    <!-- small fruits (dots) -->
-    <circle cx="34" cy="244" r="4" fill="rgba(255,200,80,0.25)"/>
-    <circle cx="74" cy="210" r="3.5" fill="rgba(255,200,80,0.22)"/>
-    <circle cx="34" cy="174" r="4" fill="rgba(255,200,80,0.25)"/>
-    <circle cx="74" cy="140" r="3" fill="rgba(255,200,80,0.2)"/>
-  </svg>
-
-  <!-- Right botanical: pomegranate + leaves -->
-  <svg class="hdr-deco hdr-deco-right" viewBox="0 0 120 320" fill="none" aria-hidden="true">
-    <path d="M60 320 C56 280 50 240 54 200 C57 170 63 140 60 100 C57 60 50 30 55 0" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
-    <!-- Pomegranate shape -->
-    <ellipse cx="38" cy="155" rx="18" ry="22" fill="rgba(200,60,30,0.18)" stroke="rgba(255,200,120,0.2)" stroke-width="1"/>
-    <!-- crown on pomegranate -->
-    <path d="M30 134 L32 130 L35 133 L38 129 L41 133 L44 130 L46 134" stroke="rgba(255,200,120,0.35)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <!-- stem -->
-    <line x1="38" y1="129" x2="42" y2="120" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/>
-    <!-- leaves -->
-    <path d="M54 290 C80 276 96 252 72 246 C62 263 56 278 54 290Z" fill="rgba(255,255,255,0.1)"/>
-    <path d="M56 256 C28 242 12 218 36 212 C48 230 55 244 56 256Z" fill="rgba(255,255,255,0.09)"/>
-    <path d="M53 200 C80 184 96 160 74 154 C62 172 55 188 53 200Z" fill="rgba(255,255,255,0.09)"/>
-    <path d="M57 115 C28 100 12 78 34 72 C46 90 55 104 57 115Z" fill="rgba(255,255,255,0.1)"/>
-    <circle cx="72" cy="246" r="4" fill="rgba(255,200,80,0.2)"/>
-    <circle cx="36" cy="212" r="3.5" fill="rgba(255,200,80,0.2)"/>
-  </svg>
-
   <div class="hdr-inner">
-    <div class="hdr-emblem">
-      <span>🇮🇱</span>
-      <span>From the Fields of Israel</span>
-      <span>🌾</span>
+    <div class="hdr-text">
+      <div class="hdr-emblem">
+        <span>שוק מחנה יהודה</span>
+        <span>·</span>
+        <span>Israel Produce</span>
+      </div>
+      <h1><em>Seasonal</em> Produce Calendar</h1>
+      <p>What's fresh right now from the fields, orchards &amp; gardens of Israel</p>
+      <span class="season-pill" id="seasonBadge">Now in season…</span>
     </div>
-    <h1><em>Seasonal</em> Produce Calendar</h1>
-    <p>A month-by-month harvest guide to the freshest fruits, vegetables &amp; herbs of Israel</p>
-    <span class="season-pill" id="seasonBadge">Now in season…</span>
+    <!-- Market produce chalk-sketch composition -->
+    <svg class="hdr-produce-art" viewBox="0 0 220 160" fill="none" aria-hidden="true">
+      <!-- Pomegranate — hero fruit -->
+      <circle cx="80" cy="80" r="32" fill="rgba(168,64,80,0.25)" stroke="rgba(240,232,208,0.5)" stroke-width="1.2"/>
+      <path d="M68 48 L72 42 L76 47 L80 40 L84 47 L88 42 L92 48" stroke="rgba(240,232,208,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <circle cx="72" cy="76" r="2.5" fill="rgba(200,60,70,0.4)"/>
+      <circle cx="80" cy="72" r="2" fill="rgba(200,60,70,0.35)"/>
+      <circle cx="88" cy="78" r="2.5" fill="rgba(200,60,70,0.4)"/>
+      <circle cx="76" cy="84" r="2" fill="rgba(200,60,70,0.3)"/>
+      <circle cx="84" cy="86" r="2.5" fill="rgba(200,60,70,0.35)"/>
+      <!-- Fig -->
+      <ellipse cx="150" cy="68" rx="18" ry="24" fill="rgba(90,50,80,0.2)" stroke="rgba(240,232,208,0.35)" stroke-width="1"/>
+      <path d="M150 44 Q153 36 156 40" stroke="rgba(140,180,80,0.4)" stroke-width="1.2" fill="none"/>
+      <!-- Olive branch -->
+      <path d="M20 50 Q50 30 90 40" stroke="rgba(140,180,80,0.35)" stroke-width="1.2" fill="none"/>
+      <ellipse cx="35" cy="44" rx="7" ry="4" fill="rgba(100,130,50,0.25)" transform="rotate(-15,35,44)"/>
+      <ellipse cx="50" cy="38" rx="7" ry="4" fill="rgba(100,130,50,0.2)" transform="rotate(-8,50,38)"/>
+      <ellipse cx="65" cy="37" rx="6" ry="3.5" fill="rgba(100,130,50,0.22)" transform="rotate(-5,65,37)"/>
+      <!-- Grapes -->
+      <circle cx="180" cy="110" r="7" fill="rgba(107,26,42,0.25)" stroke="rgba(240,232,208,0.25)" stroke-width="0.8"/>
+      <circle cx="192" cy="106" r="7" fill="rgba(107,26,42,0.2)" stroke="rgba(240,232,208,0.2)" stroke-width="0.8"/>
+      <circle cx="186" cy="118" r="7" fill="rgba(107,26,42,0.22)" stroke="rgba(240,232,208,0.22)" stroke-width="0.8"/>
+      <circle cx="198" cy="115" r="6" fill="rgba(107,26,42,0.18)" stroke="rgba(240,232,208,0.18)" stroke-width="0.8"/>
+      <path d="M186 99 Q190 85 200 90" stroke="rgba(140,180,80,0.3)" stroke-width="1" fill="none"/>
+      <!-- Wheat stalks -->
+      <line x1="30" y1="140" x2="38" y2="70" stroke="rgba(212,180,80,0.3)" stroke-width="1"/>
+      <path d="M38 90 C32 86 30 78 34 74 C38 80 38 86 38 90Z" fill="rgba(212,180,80,0.2)"/>
+      <path d="M38 78 C44 74 46 66 42 62 C38 68 38 74 38 78Z" fill="rgba(212,180,80,0.18)"/>
+      <path d="M38 106 C32 102 30 94 34 90 C38 96 38 102 38 106Z" fill="rgba(212,180,80,0.2)"/>
+      <!-- Citrus slice -->
+      <circle cx="140" cy="130" r="16" fill="rgba(232,180,40,0.15)" stroke="rgba(240,232,208,0.35)" stroke-width="1"/>
+      <line x1="140" y1="114" x2="140" y2="146" stroke="rgba(240,232,208,0.15)" stroke-width="0.6"/>
+      <line x1="124" y1="130" x2="156" y2="130" stroke="rgba(240,232,208,0.15)" stroke-width="0.6"/>
+      <line x1="129" y1="119" x2="151" y2="141" stroke="rgba(240,232,208,0.12)" stroke-width="0.6"/>
+      <line x1="151" y1="119" x2="129" y2="141" stroke="rgba(240,232,208,0.12)" stroke-width="0.6"/>
+    </svg>
   </div>
 </header>
 
@@ -1183,12 +1289,12 @@
 <div class="controls">
   <div class="filter-group">
     <button class="btn btn-all active"    onclick="setFilter('all')"     id="btn-all"     aria-pressed="true">All Produce</button>
-    <button class="btn btn-fruit"         onclick="setFilter('fruit')"   id="btn-fruit"   aria-pressed="false">🍎 Fruits &amp; Berries</button>
-    <button class="btn btn-vegherb"       onclick="setFilter('vegherb')" id="btn-vegherb" aria-pressed="false">🥦 Vegetables &amp; Herbs</button>
+    <button class="btn btn-fruit"         onclick="setFilter('fruit')"   id="btn-fruit"   aria-pressed="false"><svg class="btn-icon" viewBox="0 0 16 16"><circle cx="8" cy="9" r="6" fill="currentColor" opacity="0.25"/><path d="M8 3 Q10 1 12 3" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>Fruits &amp; Berries</button>
+    <button class="btn btn-vegherb"       onclick="setFilter('vegherb')" id="btn-vegherb" aria-pressed="false"><svg class="btn-icon" viewBox="0 0 16 16"><path d="M8 14 C8 14 4 10 4 6 Q4 2 8 2 Q12 2 12 6 C12 10 8 14 8 14Z" fill="currentColor" opacity="0.25"/><line x1="8" y1="4" x2="8" y2="12" stroke="currentColor" stroke-width="1" opacity="0.5"/></svg>Vegetables &amp; Herbs</button>
   </div>
 
   <div class="search-wrap">
-    <span class="search-icon">🔍</span>
+    <span class="search-icon"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6.5" cy="6.5" r="5"/><line x1="10.5" y1="10.5" x2="15" y2="15"/></svg></span>
     <input type="text" class="search-input" placeholder="Search produce…" oninput="setSearch(this.value)" />
   </div>
 
@@ -1201,7 +1307,7 @@
     </select>
   </div>
 
-  <button class="btn-view-toggle" id="btn-view-toggle" onclick="toggleViewMode()">📊 Gantt Chart</button>
+  <!-- toggle removed: both views always visible -->
 </div>
 
 <!-- ════════════════════════ MAIN ════════════════════════ -->
@@ -1213,17 +1319,9 @@
   <!-- Mobile: current month produce (hidden on desktop) -->
   <div id="mobilePanel" class="mobile-produce"></div>
 
-  <!-- Decorative divider -->
-  <div class="divider">
-    <span class="divider-label">🌱 Monthly Availability 🌱</span>
-  </div>
-
-  <!-- Season legend -->
-  <div class="season-legend">
-    <div class="season-chip chip-winter">❄️ &nbsp;Winter — Dec · Jan · Feb</div>
-    <div class="season-chip chip-spring">🌸 &nbsp;Spring — Mar · Apr · May</div>
-    <div class="season-chip chip-summer">☀️ &nbsp;Summer — Jun · Jul · Aug</div>
-    <div class="season-chip chip-autumn">🍂 &nbsp;Autumn — Sep · Oct · Nov</div>
+  <!-- Full Calendar section -->
+  <div id="ganttSection" class="divider" style="margin-top:32px">
+    <span class="divider-label">Full Year Calendar</span>
   </div>
 
   <!-- Chart -->
@@ -1252,7 +1350,7 @@
           <span>Current month</span>
         </div>
         <div class="leg-item">
-          <span class="badge-yr" style="font-size:0.7rem;padding:2px 7px">YR</span>
+          <span class="badge-yr" style="font-size:0.72rem;padding:2px 7px">YR</span>
           <span>Year-round</span>
         </div>
       </div>
@@ -1273,8 +1371,9 @@
 
 <!-- ════════════════════════ FOOTER ════════════════════════ -->
 <footer>
-  <span>Seasonal data based on Israeli agricultural harvest records</span>
-  <em class="footer-brand">🌿 From the Land — Harvested with Care 🌿</em>
+  <em class="footer-brand">Seasonal Produce Calendar — Israel</em>
+  <span class="footer-source">Harvest data sourced from Israeli field reports &amp; agricultural cooperatives</span>
+  <span class="footer-hebrew">מהשדה לשולחן</span>
 </footer>
 
 <!-- ════════════════════════ SCRIPT ════════════════════════ -->
@@ -1293,92 +1392,92 @@ const NOW_MONTH    = new Date().getMonth() + 1;
 
 const RAW = {
   fruits: [
-    { name:"Anona (Cherimoya)",       emoji:"🍈", months:[1,2,10,11,12] },
-    { name:"Apples",                  emoji:"🍎", months:[8,9,10,11] },
-    { name:"Apricots",                emoji:"🟠", months:[5,6] },
-    { name:"Asian Pears",             emoji:"🍐", months:[1,2,3,9,10,11,12] },
-    { name:"Avocado",                 emoji:"🥑", months:[1,2,3,4,5,8,9,10,11,12] },
-    { name:"Bananas",                 emoji:"🍌", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Carambola (Star Fruit)",  emoji:"⭐", months:[10] },
-    { name:"Cherry Tomatoes",         emoji:"🍅", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Cherries",                emoji:"🍒", months:[5,6,7] },
-    { name:"Chestnuts",               emoji:"🌰", months:[1,2,12] },
-    { name:"Clementines / Mandarins", emoji:"🍊", months:[1,2,3,4,5,10,11,12] },
+    { name:"Anona (Cherimoya)",       emoji:"🍈", he:"אנונה", months:[1,2,10,11,12] },
+    { name:"Apples",                  emoji:"🍎", he:"תפוחים", months:[8,9,10,11] },
+    { name:"Apricots",                emoji:"🟠", he:"משמשים", months:[5,6] },
+    { name:"Asian Pears",             emoji:"🍐", he:"אגסים אסייתיים", months:[1,2,3,9,10,11,12] },
+    { name:"Avocado",                 emoji:"🥑", he:"אבוקדו", months:[1,2,3,4,5,8,9,10,11,12] },
+    { name:"Bananas",                 emoji:"🍌", he:"בננות", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Carambola (Star Fruit)",  emoji:"⭐", he:"קרמבולה", months:[10] },
+    { name:"Cherry Tomatoes",         emoji:"🍅", he:"עגבניות שרי", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Cherries",                emoji:"🍒", he:"דובדבנים", months:[5,6,7] },
+    { name:"Chestnuts",               emoji:"🌰", he:"ערמונים", months:[1,2,12] },
+    { name:"Clementines / Mandarins", emoji:"🍊", he:"קלמנטינות", months:[1,2,3,4,5,10,11,12] },
 
-    { name:"Dates",                   emoji:"🌴", months:[1,2,3,4,9,10,11,12] },
-    { name:"Grapefruit",              emoji:"🍋", months:[1,2,3,4,5,6,10,11,12] },
-    { name:"Grapes",                  emoji:"🍇", months:[4,5,6,7,8,9,10,11] },
-    { name:"Guavas",                  emoji:"🍈", months:[10,11,12] },
-    { name:"Kiwi",                    emoji:"🥝", months:[1,2,3,4,5,10,11,12] },
-    { name:"Kumquats",                emoji:"🟠", months:[1,2,3,12] },
-    { name:"Lemons",                  emoji:"🍋", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Limes",                   emoji:"🍋", months:[10,11] },
-    { name:"Loquats",                 emoji:"🟠", months:[4,5] },
-    { name:"Lychees",                 emoji:"🍒", months:[7,8,9] },
-    { name:"Mangoes",                 emoji:"🥭", months:[7,8,9,10,11] },
-    { name:"Melons",                  emoji:"🍈", months:[4,5,6,7,8,9,10,11] },
-    { name:"Nectarines",              emoji:"🍑", months:[5,6,7,8,9,10,11] },
-    { name:"Oranges",                 emoji:"🍊", months:[1,2,3,4,5,6,10,11,12] },
-    { name:"Papaya",                  emoji:"🍈", months:[2,3,5,10,11] },
-    { name:"Passion Fruit",           emoji:"💜", months:[1,2,8,9,10,11,12] },
-    { name:"Peaches",                 emoji:"🍑", months:[5,6,7,8,9,10,11] },
-    { name:"Pears",                   emoji:"🍐", months:[7,8,9,10,11] },
-    { name:"Persimmons",              emoji:"🟠", months:[1,2,3,10,11,12] },
-    { name:"Pineapple",               emoji:"🍍", months:[1,2,3,4,5,6,9,10,11,12] },
-    { name:"Plums",                   emoji:"🫐", months:[6,7,8,9,10,11] },
-    { name:"Pomegranates",            emoji:"❤️",  months:[1,2,3,9,10,11,12] },
-    { name:"Pomelo",                  emoji:"🟡", months:[1,2,3,10,11,12] },
-    { name:"Pomelit",                 emoji:"🟡", months:[1,2,3,12] },
-    { name:"Prickly Pears (Sabras)",  emoji:"🌵", months:[7,8,9,10] },
-    { name:"Quinces",                 emoji:"🍐", months:[1,2,3,10,11,12] },
-    { name:"Strawberries",            emoji:"🍓", months:[1,2,3,12] },
-    { name:"Tomatoes",                emoji:"🍅", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Watermelon",              emoji:"🍉", months:[4,5,6,7,8,9,10] }
+    { name:"Dates",                   emoji:"🌴", he:"תמרים", months:[1,2,3,4,9,10,11,12] },
+    { name:"Grapefruit",              emoji:"🍋", he:"אשכולית", months:[1,2,3,4,5,6,10,11,12] },
+    { name:"Grapes",                  emoji:"🍇", he:"ענבים", months:[4,5,6,7,8,9,10,11] },
+    { name:"Guavas",                  emoji:"🍈", he:"גויאבה", months:[10,11,12] },
+    { name:"Kiwi",                    emoji:"🥝", he:"קיווי", months:[1,2,3,4,5,10,11,12] },
+    { name:"Kumquats",                emoji:"🟠", he:"קומקוואט", months:[1,2,3,12] },
+    { name:"Lemons",                  emoji:"🍋", he:"לימון", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Limes",                   emoji:"🍋", he:"ליים", months:[10,11] },
+    { name:"Loquats",                 emoji:"🟠", he:"שסק", months:[4,5] },
+    { name:"Lychees",                 emoji:"🍒", he:"ליצ׳י", months:[7,8,9] },
+    { name:"Mangoes",                 emoji:"🥭", he:"מנגו", months:[7,8,9,10,11] },
+    { name:"Melons",                  emoji:"🍈", he:"מלון", months:[4,5,6,7,8,9,10,11] },
+    { name:"Nectarines",              emoji:"🍑", he:"נקטרינה", months:[5,6,7,8,9,10,11] },
+    { name:"Oranges",                 emoji:"🍊", he:"תפוזים", months:[1,2,3,4,5,6,10,11,12] },
+    { name:"Papaya",                  emoji:"🍈", he:"פפאיה", months:[2,3,5,10,11] },
+    { name:"Passion Fruit",           emoji:"💜", he:"פסיפלורה", months:[1,2,8,9,10,11,12] },
+    { name:"Peaches",                 emoji:"🍑", he:"אפרסק", months:[5,6,7,8,9,10,11] },
+    { name:"Pears",                   emoji:"🍐", he:"אגסים", months:[7,8,9,10,11] },
+    { name:"Persimmons",              emoji:"🟠", he:"אפרסמון", months:[1,2,3,10,11,12] },
+    { name:"Pineapple",               emoji:"🍍", he:"אננס", months:[1,2,3,4,5,6,9,10,11,12] },
+    { name:"Plums",                   emoji:"🫐", he:"שזיפים", months:[6,7,8,9,10,11] },
+    { name:"Pomegranates",            emoji:"❤️",  he:"רימונים", months:[1,2,3,9,10,11,12] },
+    { name:"Pomelo",                  emoji:"🟡", he:"פומלה", months:[1,2,3,10,11,12] },
+    { name:"Pomelit",                 emoji:"🟡", he:"פומלית", months:[1,2,3,12] },
+    { name:"Prickly Pears (Sabras)",  emoji:"🌵", he:"צבר", months:[7,8,9,10] },
+    { name:"Quinces",                 emoji:"🍐", he:"חבוש", months:[1,2,3,10,11,12] },
+    { name:"Strawberries",            emoji:"🍓", he:"תותים", months:[1,2,3,12] },
+    { name:"Tomatoes",                emoji:"🍅", he:"עגבניות", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Watermelon",              emoji:"🍉", he:"אבטיח", months:[4,5,6,7,8,9,10] }
   ],
   vegetables: [
-    { name:"Artichokes",              emoji:"🫛", months:[1,2,3,4,5,12] },
-    { name:"Asparagus",               emoji:"🌱", months:[2,3,4] },
-    { name:"Beets",                   emoji:"🟣", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Broccoli",                emoji:"🥦", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Butternut Squash",        emoji:"🎃", months:[1,2,3,4,6,7,8,9,10,11,12] },
-    { name:"Cabbage",                 emoji:"🥬", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Carrots",                 emoji:"🥕", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Cauliflower",             emoji:"🥦", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Chinese Cabbage",         emoji:"🥬", months:[1,2,3,11,12] },
-    { name:"Chicory",                 emoji:"🍃", months:[1,2,3,11,12] },
-    { name:"Corn",                    emoji:"🌽", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Courgettes (Zucchini)",   emoji:"🥒", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Cucumbers",               emoji:"🥒", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Eggplant",                emoji:"🍆", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Fennel",                  emoji:"🌾", months:[1,2,3,4,5,6,7,8,10,11,12] },
-    { name:"Garlic",                  emoji:"🧄", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Jerusalem Artichoke",     emoji:"🥔", months:[1,2,3,10,11,12] },
-    { name:"Kale",                    emoji:"🥬", months:[1,2,3,11,12] },
-    { name:"Kohlrabi",                emoji:"🔵", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Leeks",                   emoji:"🌱", months:[1,2,3,10,11,12] },
-    { name:"Lettuce",                 emoji:"🥬", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Mushrooms",               emoji:"🍄", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Onions",                  emoji:"🧅", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Potatoes",                emoji:"🥔", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Pumpkin",                 emoji:"🎃", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Radish",                  emoji:"🔴", months:[1,2,3,11,12] },
-    { name:"Runner Beans",            emoji:"🫘", months:[1,2,3,7,8,9,10,11,12] },
-    { name:"Sweet Peppers",           emoji:"🫑", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Sweet Potatoes (Batata)", emoji:"🍠", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Swiss Chard (Mangold)",   emoji:"🥬", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Turnips",                 emoji:"⚪", months:[1,2,3,4,12] }
+    { name:"Artichokes",              emoji:"🫛", he:"ארטישוק", months:[1,2,3,4,5,12] },
+    { name:"Asparagus",               emoji:"🌱", he:"אספרגוס", months:[2,3,4] },
+    { name:"Beets",                   emoji:"🟣", he:"סלק", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Broccoli",                emoji:"🥦", he:"ברוקולי", months:[1,2,3,4,11,12] },
+    { name:"Butternut Squash",        emoji:"🎃", he:"דלורית", months:[1,2,3,4,6,7,8,9,10,11,12] },
+    { name:"Cabbage",                 emoji:"🥬", he:"כרוב", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Carrots",                 emoji:"🥕", he:"גזר", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Cauliflower",             emoji:"🥦", he:"כרובית", months:[1,2,3,4,11,12] },
+    { name:"Chinese Cabbage",         emoji:"🥬", he:"כרוב סיני", months:[1,2,3,11,12] },
+    { name:"Chicory",                 emoji:"🍃", he:"עולש", months:[1,2,3,11,12] },
+    { name:"Corn",                    emoji:"🌽", he:"תירס", months:[6,7,8,9] },
+    { name:"Courgettes (Zucchini)",   emoji:"🥒", he:"קישוא", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Cucumbers",               emoji:"🥒", he:"מלפפון", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Eggplant",                emoji:"🍆", he:"חציל", months:[5,6,7,8,9,10] },
+    { name:"Fennel",                  emoji:"🌾", he:"שומר", months:[1,2,3,4,5,6,7,8,10,11,12] },
+    { name:"Garlic",                  emoji:"🧄", he:"שום", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Jerusalem Artichoke",     emoji:"🥔", he:"טופינמבור", months:[1,2,3,10,11,12] },
+    { name:"Kale",                    emoji:"🥬", he:"קייל", months:[1,2,3,11,12] },
+    { name:"Kohlrabi",                emoji:"🔵", he:"קולורבי", months:[1,2,3,4,11,12] },
+    { name:"Leeks",                   emoji:"🌱", he:"כרישה", months:[1,2,3,10,11,12] },
+    { name:"Lettuce",                 emoji:"🥬", he:"חסה", months:[1,2,3,4,5,11,12] },
+    { name:"Mushrooms",               emoji:"🍄", he:"פטריות", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Onions",                  emoji:"🧅", he:"בצל", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Potatoes",                emoji:"🥔", he:"תפוחי אדמה", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Pumpkin",                 emoji:"🎃", he:"דלעת", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Radish",                  emoji:"🔴", he:"צנון", months:[1,2,3,11,12] },
+    { name:"Runner Beans",            emoji:"🫘", he:"שעועית", months:[1,2,3,7,8,9,10,11,12] },
+    { name:"Sweet Peppers",           emoji:"🫑", he:"פלפל מתוק", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Sweet Potatoes (Batata)", emoji:"🍠", he:"בטטה", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Swiss Chard (Mangold)",   emoji:"🥬", he:"מנגולד", months:[1,2,3,4,11,12] },
+    { name:"Turnips",                 emoji:"⚪", he:"לפת", months:[1,2,3,4,12] }
   ],
   herbs: [
-    { name:"Basil",             emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Celery",            emoji:"🥬", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Chives",            emoji:"🌱", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Coriander",         emoji:"🍃", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Dill",              emoji:"🌾", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Flat-Leaf Parsley", emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Mint (Nana)",       emoji:"🍃", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Spring Onions",     emoji:"🌱", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Sprouts",           emoji:"🫛", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Thyme",             emoji:"🌿", months:[1,2,3,4,5,6,7,8,9,10,11,12] }
+    { name:"Basil",             emoji:"🌿", he:"בזיליקום", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Celery",            emoji:"🥬", he:"סלרי", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Chives",            emoji:"🌱", he:"עירית", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Coriander",         emoji:"🍃", he:"כוסברה", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Dill",              emoji:"🌾", he:"שמיר", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Flat-Leaf Parsley", emoji:"🌿", he:"פטרוזיליה", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Mint (Nana)",       emoji:"🍃", he:"נענע", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Spring Onions",     emoji:"🌱", he:"בצל ירוק", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Sprouts",           emoji:"🫛", he:"נבטים", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
+    { name:"Thyme",             emoji:"🌿", he:"קורנית", months:[1,2,3,4,5,6,7,8,9,10,11,12] }
   ]
 };
 
@@ -1402,7 +1501,7 @@ const MONTH_DISHES = {
   4:[
     {name:"Lettuce and Fennel Salad",time:"30 min",dish:"Salads",region:["North Africa"],diet:["Pareve"],tags:["Fennel", "Lettuce"],url:"https://www.jewishfoodsociety.org/recipes/lettuce-and-fennel-salad"},
     {name:"Venetian Charoset",time:"20 min",dish:"Sides",region:["Western Europe"],diet:["Pareve"],tags:["Dates", "Oranges"],url:"https://www.jewishfoodsociety.org/recipes/venetian-charoset"},
-    {name:"Tara (Kavkazi Beef and Chard Soup)",time:"2 h",dish:"Soups & Stews",region:["Middle East"],diet:["Meat"],tags:["Swiss Chard (Mangold)"],url:"https://www.jewishfoodsociety.org/recipes/tara-kavkazi-beef-and-chard-soup"}
+    {name:"Tara (Kavkazi Beef and Chard Soup)",time:"2 h",dish:"Soups & Stews",region:["Eastern Europe"],diet:["Meat"],tags:["Swiss Chard (Mangold)"],url:"https://www.jewishfoodsociety.org/recipes/tara-kavkazi-beef-and-chard-soup"}
   ],
   5:[
     {name:"Shaved Fennel and Orange Salad",time:"10 min",dish:"Salads",region:["North Africa"],diet:["Pareve"],tags:["Oranges", "Fennel"],url:"https://www.jewishfoodsociety.org/recipes/shaved-fennel-and-orange-salad"},
@@ -1477,13 +1576,18 @@ function sortItems(arr) {
   return c;
 }
 function matchSearch(item) {
-  return !searchQ || item.name.toLowerCase().includes(searchQ);
+  return !searchQ || item.name.toLowerCase().includes(searchQ) || (item.he && item.he.includes(searchQ));
 }
 function isIsolatedMonth(months, m) {
   if (!months.includes(m)) return false;
   const prev = m === 1 ? 12 : m - 1;
   const next = m === 12 ? 1 : m + 1;
   return !months.includes(prev) && !months.includes(next);
+}
+function isLastMonth(months, m) {
+  if (!months.includes(m) || months.length === 12) return false;
+  const next = m === 12 ? 1 : m + 1;
+  return !months.includes(next);
 }
 
 /* ─── Build head ────────────────────────────────────────────────────────── */
@@ -1492,11 +1596,11 @@ function buildHead() {
   head.innerHTML = '';
 
   const seasonSpans = [
-    { label:'❄ Winter',  cls:'winter', cols:2 },
-    { label:'🌸 Spring', cls:'spring', cols:3 },
-    { label:'☀ Summer',  cls:'summer', cols:3 },
-    { label:'🍂 Autumn', cls:'autumn', cols:3 },
-    { label:'❄ Winter',  cls:'winter', cols:1 }
+    { label:'Winter',  cls:'winter', cols:2 },
+    { label:'Spring', cls:'spring', cols:3 },
+    { label:'Summer',  cls:'summer', cols:3 },
+    { label:'Autumn', cls:'autumn', cols:3 },
+    { label:'Winter',  cls:'winter', cols:1 }
   ];
   const tr1 = document.createElement('tr');
   const th0 = document.createElement('th');
@@ -1558,7 +1662,7 @@ function buildBody() {
       const tdName = document.createElement('td');
       tdName.className = 'td-name';
       tdName.title = item.name;
-      tdName.innerHTML = `<span class="item-emoji">${item.emoji}</span>${item.name}`;
+      tdName.innerHTML = `<span class="item-emoji">${item.emoji}</span>${item.name}${item.he ? `<span class="he-sub">${item.he}</span>` : ''}`;
       tr.appendChild(tdName);
       for (let m = 1; m <= 12; m++) {
         const td = document.createElement('td');
@@ -1581,7 +1685,7 @@ function buildBody() {
     let items = sortItems(RAW.fruits.filter(matchSearch).filter(i => i.months.length !== 12));
     if (filterMonth !== null) items = items.filter(i => i.months.includes(filterMonth));
     if (items.length) {
-      renderCatHeader('🍎', 'Fruits & Berries', 'fruit-cat', items.length);
+      renderCatHeader('', 'Fruits & Berries', 'fruit-cat', items.length);
       renderItems(items, 'fruit');
     }
   }
@@ -1596,7 +1700,7 @@ function buildBody() {
     }
     const total = vegItems.length + herbItems.length;
     if (total) {
-      renderCatHeader('🥦', 'Vegetables & Herbs', 'veg-cat', total);
+      renderCatHeader('', 'Vegetables & Herbs', 'veg-cat', total);
       renderItems(vegItems, 'veg');
       renderItems(herbItems, 'herb');
     }
@@ -1608,7 +1712,7 @@ function buildBody() {
     const tr = document.createElement('tr');
     const td = document.createElement('td');
     td.colSpan = 13;
-    td.innerHTML = `<div class="no-results"><span>🌾</span>Nothing found for "${searchQ}"</div>`;
+    td.innerHTML = `<div class="no-results"><span>—</span>Nothing found for "${searchQ}"</div>`;
     tr.appendChild(td); body.appendChild(tr);
   }
 
@@ -1646,36 +1750,23 @@ function setSort(v)   { sortMode = v; buildBody(); buildMobilePanel(); }
 
 function setMonthFilter(m) {
   filterMonth = (filterMonth === m) ? null : m;
+  updateHeaderSeason(filterMonth || NOW_MONTH);
   buildHead();
   buildBody();
   buildDishPanel();
 }
 function setMobileMonth(m) {
   mobileMonth = m;
+  updateHeaderSeason(m);
   buildMobilePanel();
   buildDishPanel();
 }
 
+/* View mode kept for mobile compat but both panels always visible on desktop */
 function setViewMode(mode) {
   viewMode = mode;
-  document.body.classList.toggle('view-grid',  mode === 'grid');
-  document.body.classList.toggle('view-gantt', mode === 'gantt');
-  const btn = document.getElementById('btn-view-toggle');
-  if (btn) {
-    btn.textContent = mode === 'grid' ? '📊 Gantt Chart' : '🗓 Grid View';
-    btn.classList.toggle('gantt-active', mode === 'gantt');
-  }
 }
-function toggleViewMode() {
-  const next = viewMode === 'grid' ? 'gantt' : 'grid';
-  setViewMode(next);
-  if (next === 'grid') {
-    // sync grid month from any active gantt filter
-    if (filterMonth !== null) mobileMonth = filterMonth;
-    buildMobilePanel();
-    buildDishPanel();
-  }
-}
+function toggleViewMode() {}
 
 function buildDishPanel() {
   const panel = document.getElementById('dishPanel');
@@ -1686,15 +1777,15 @@ function buildDishPanel() {
   panel.className = 'dish-panel';
   panel.innerHTML = `
     <div class="dish-panel-header">
-      <span class="dish-panel-title">In-season dishes for</span>
-      <span class="dish-panel-month">&ensp;${MONTHS_LONG[m - 1]}</span>
-      ${!isFiltered ? '<span class="dish-panel-hint">Click a month to explore</span>' : ''}
+      <span class="dish-panel-month">${MONTHS_LONG[m - 1]} Inspirations</span>
+      <span class="dish-panel-hint">from the <a href="https://www.jewishfoodsociety.org" target="_blank" rel="noopener noreferrer">Jewish Food Society</a> collection</span>
     </div>
     <div class="dish-cards">
       ${dishes.map(d => `
         <a class="dish-card" href="${d.url}" target="_blank" rel="noopener noreferrer">
           <div class="dish-name">${d.name}</div>
-          ${d.time ? `<div class="dish-meta">⏱ ${d.time}</div>` : ''}
+          ${d.time ? `<div class="dish-meta">${d.time}${d.cuisine ? ' · ' + d.cuisine : ''}</div>` : ''}
+          ${d.desc ? `<div class="dish-desc">${d.desc}</div>` : ''}
           <div class="dish-badges">
             ${d.dish ? `<span class="dish-badge dish-badge-dish">${d.dish}</span>` : ''}
             ${d.region.map(r => `<span class="dish-badge dish-badge-region">${r}</span>`).join('')}
@@ -1705,7 +1796,6 @@ function buildDishPanel() {
       `).join('')}
     </div>
     <span class="dish-swipe-hint">← swipe for more dishes →</span>
-    <div class="dish-source">Recipe inspiration: <a href="https://www.jewishfoodsociety.org" target="_blank" rel="noopener noreferrer">The Jewish Food Society</a></div>
   `;
 }
 
@@ -1720,8 +1810,8 @@ function buildYrPanel() {
     if (items.length) {
       catsHtml += `
         <div class="yr-cat-row">
-          <span class="yr-cat-label">🍎 Fruits</span>
-          <div class="yr-items">${items.map(i => `<span class="yr-item fruit">${i.emoji} ${i.name}</span>`).join('')}</div>
+          <span class="yr-cat-label">Fruits</span>
+          <div class="yr-items">${items.map(i => `<span class="yr-item fruit">${i.emoji} ${i.name}${i.he ? ` <span class="yr-he">${i.he}</span>` : ''}</span>`).join('')}</div>
         </div>`;
     }
   }
@@ -1733,10 +1823,10 @@ function buildYrPanel() {
     if (vegItems.length || herbItems.length) {
       catsHtml += `
         <div class="yr-cat-row">
-          <span class="yr-cat-label">🥦 Veg &amp; Herbs</span>
+          <span class="yr-cat-label">Veg &amp; Herbs</span>
           <div class="yr-items">
-            ${vegItems.map(i => `<span class="yr-item veg">${i.emoji} ${i.name}</span>`).join('')}
-            ${herbItems.map(i => `<span class="yr-item herb">${i.emoji} ${i.name}</span>`).join('')}
+            ${vegItems.map(i => `<span class="yr-item veg">${i.emoji} ${i.name}${i.he ? ` <span class="yr-he">${i.he}</span>` : ''}</span>`).join('')}
+            ${herbItems.map(i => `<span class="yr-item herb">${i.emoji} ${i.name}${i.he ? ` <span class="yr-he">${i.he}</span>` : ''}</span>`).join('')}
           </div>
         </div>`;
     }
@@ -1769,7 +1859,7 @@ function buildMobilePanel() {
     <div class="mob-header">
       <span class="mob-title">In Season — ${MONTHS_LONG[m-1]}</span>
       <span class="mob-season-badge ${SEASON_OF[m]}">${SEASON_NAME[m]}</span>
-      <button class="btn-full-calendar" onclick="toggleViewMode()">📅 Full Calendar →</button>
+      <a class="gantt-anchor-link" href="#ganttSection"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="2" x2="8" y2="14"/><polyline points="3,9 8,14 13,9"/></svg>Full Calendar</a>
     </div>
     ${nav}`;
 
@@ -1780,11 +1870,12 @@ function buildMobilePanel() {
     const items = sortItems(RAW.fruits.filter(i => i.months.includes(m) && i.months.length !== 12 && matchSearch(i)));
     if (items.length) {
       anyShown = true;
-      html += `<div class="mob-cat-header">🍎&ensp;Fruits &amp; Berries</div>
+      html += `<div class="mob-cat-header">Fruits &amp; Berries</div>
     <div class="mob-items-grid">
       ${items.map(i => {
         const iso = isIsolatedMonth(i.months, m);
-        return `<span class="mob-item fruit${iso ? ' isolated-month' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}>${i.emoji} ${i.name}</span>`;
+        const last = isLastMonth(i.months, m);
+        return `<span class="mob-item fruit${iso ? ' isolated-month' : ''}${last ? ' last-chance' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}${last ? ' title="Last month in season — grab it now!"' : ''}>${i.emoji} ${i.name}${i.he ? ` <span class="mob-he">${i.he}</span>` : ''}${last ? '<span class="lc-badge">last month</span>' : ''}</span>`;
       }).join('')}
     </div>`;
     }
@@ -1796,15 +1887,17 @@ function buildMobilePanel() {
     const herbItems = sortItems(RAW.herbs.filter(i => i.months.includes(m) && i.months.length !== 12 && matchSearch(i)));
     if (vegItems.length || herbItems.length) {
       anyShown = true;
-      html += `<div class="mob-cat-header">🥦&ensp;Vegetables &amp; Herbs</div>
+      html += `<div class="mob-cat-header">Vegetables &amp; Herbs</div>
     <div class="mob-items-grid">
       ${vegItems.map(i => {
         const iso = isIsolatedMonth(i.months, m);
-        return `<span class="mob-item veg${iso ? ' isolated-month' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}>${i.emoji} ${i.name}</span>`;
+        const last = isLastMonth(i.months, m);
+        return `<span class="mob-item veg${iso ? ' isolated-month' : ''}${last ? ' last-chance' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}${last ? ' title="Last month in season — grab it now!"' : ''}>${i.emoji} ${i.name}${i.he ? ` <span class="mob-he">${i.he}</span>` : ''}${last ? '<span class="lc-badge">last month</span>' : ''}</span>`;
       }).join('')}
       ${herbItems.map(i => {
         const iso = isIsolatedMonth(i.months, m);
-        return `<span class="mob-item herb${iso ? ' isolated-month' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}>${i.emoji} ${i.name}</span>`;
+        const last = isLastMonth(i.months, m);
+        return `<span class="mob-item herb${iso ? ' isolated-month' : ''}${last ? ' last-chance' : ''}"${iso ? ' title="Isolated season window — peak month only"' : ''}${last ? ' title="Last month in season — grab it now!"' : ''}>${i.emoji} ${i.name}${i.he ? ` <span class="mob-he">${i.he}</span>` : ''}${last ? '<span class="lc-badge">last month</span>' : ''}</span>`;
       }).join('')}
     </div>`;
     }
@@ -1818,11 +1911,21 @@ function buildMobilePanel() {
   if (activeBtn) activeBtn.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' });
 }
 
+/* ─── Season-reactive header ───────────────────────────────────────────── */
+function updateHeaderSeason(month) {
+  const s = 'season-' + SEASON_OF[month];
+  const cls = ['season-winter','season-spring','season-summer','season-autumn'];
+  document.querySelector('header').classList.remove(...cls);
+  document.querySelector('header').classList.add(s);
+  document.body.classList.remove(...cls);
+  document.body.classList.add(s);
+}
+
 /* ─── Init ──────────────────────────────────────────────────────────────── */
 document.getElementById('seasonBadge').textContent =
   `Now Harvesting · ${MONTHS_LONG[NOW_MONTH-1]} · ${SEASON_NAME[NOW_MONTH]}`;
 
-setViewMode('grid');
+updateHeaderSeason(NOW_MONTH);
 buildHead();
 buildBody();
 buildDishPanel();
