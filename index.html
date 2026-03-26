@@ -245,8 +245,9 @@
       padding: 24px 20px 20px;
       gap: 16px;
     }
-    .hdr-produce-art { width: 180px; height: 130px; }
-    header p { margin: 0 auto 12px; }
+    .hdr-produce-art { position: absolute; top: 8px; right: 8px; width: 80px; height: 60px; opacity: 0.35; }
+    .hdr-inner { padding: 16px 20px 14px; text-align: left; }
+    header p { margin: 0 0 8px; font-size: 0.85rem; }
     .hdr-emblem { justify-content: center; }
   }
 
@@ -749,7 +750,7 @@
     main   { padding: 16px 12px 24px; }
     .controls { padding: 10px 12px; }
     .hdr-inner { padding: 20px 14px 18px; }
-    .hdr-produce-art { width: 150px; height: 110px; }
+    .hdr-produce-art { width: 65px; height: 48px; top: 6px; right: 6px; }
   }
 
   /* ══════════════════════════════════════════════════
@@ -912,10 +913,10 @@
     content: ''; flex: 1; height: 1px; background: var(--rule-light);
     min-width: 10px; flex-shrink: 1;
   }
-  .mob-items-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 4px; }
+  .mob-items-grid { display: flex; flex-wrap: wrap; gap: 12px 10px; margin-bottom: 12px; }
   .mob-item {
-    display: inline-flex; flex-direction: column; align-items: center; gap: 1px;
-    padding: 8px 14px 6px; border-radius: 16px;
+    display: inline-flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 8px 14px 7px; border-radius: 16px;
     font-size: 0.88rem; font-weight: 500;
     border: 1.5px solid var(--rule-light); background: var(--surface);
     color: var(--ink); text-align: center;
@@ -1395,7 +1396,7 @@ const RAW = {
     { name:"Anona (Cherimoya)",       emoji:"🍈", he:"אנונה", months:[1,2,10,11,12] },
     { name:"Apples",                  emoji:"🍎", he:"תפוחים", months:[8,9,10,11] },
     { name:"Apricots",                emoji:"🟠", he:"משמשים", months:[5,6] },
-    { name:"Asian Pears",             emoji:"🍐", he:"אגסים אסייתיים", months:[1,2,3,9,10,11,12] },
+    { name:"Asian Pears",             emoji:"🍐", he:"אגס נאשי", months:[1,2,3,9,10,11,12] },
     { name:"Avocado",                 emoji:"🥑", he:"אבוקדו", months:[1,2,3,4,5,8,9,10,11,12] },
     { name:"Bananas",                 emoji:"🍌", he:"בננות", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
     { name:"Carambola (Star Fruit)",  emoji:"⭐", he:"קרמבולה", months:[10] },
@@ -1428,7 +1429,7 @@ const RAW = {
     { name:"Pomegranates",            emoji:"❤️",  he:"רימונים", months:[1,2,3,9,10,11,12] },
     { name:"Pomelo",                  emoji:"🟡", he:"פומלה", months:[1,2,3,10,11,12] },
     { name:"Pomelit",                 emoji:"🟡", he:"פומלית", months:[1,2,3,12] },
-    { name:"Prickly Pears (Sabras)",  emoji:"🌵", he:"צבר", months:[7,8,9,10] },
+    { name:"Prickly Pears (Sabras)",  emoji:"🌵", he:"סברס", months:[7,8,9,10] },
     { name:"Quinces",                 emoji:"🍐", he:"חבוש", months:[1,2,3,10,11,12] },
     { name:"Strawberries",            emoji:"🍓", he:"תותים", months:[1,2,3,12] },
     { name:"Tomatoes",                emoji:"🍅", he:"עגבניות", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
@@ -1451,7 +1452,7 @@ const RAW = {
     { name:"Eggplant",                emoji:"🍆", he:"חציל", months:[5,6,7,8,9,10] },
     { name:"Fennel",                  emoji:"🌾", he:"שומר", months:[1,2,3,4,5,6,7,8,10,11,12] },
     { name:"Garlic",                  emoji:"🧄", he:"שום", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Jerusalem Artichoke",     emoji:"🥔", he:"טופינמבור", months:[1,2,3,10,11,12] },
+    { name:"Jerusalem Artichoke",     emoji:"🥔", he:"ארטישוק ירושלמי", months:[1,2,3,10,11,12] },
     { name:"Kale",                    emoji:"🥬", he:"קייל", months:[1,2,3,11,12] },
     { name:"Kohlrabi",                emoji:"🔵", he:"קולורבי", months:[1,2,3,4,11,12] },
     { name:"Leeks",                   emoji:"🌱", he:"כרישה", months:[1,2,3,10,11,12] },
@@ -1461,10 +1462,10 @@ const RAW = {
     { name:"Potatoes",                emoji:"🥔", he:"תפוחי אדמה", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
     { name:"Pumpkin",                 emoji:"🎃", he:"דלעת", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
     { name:"Radish",                  emoji:"🔴", he:"צנון", months:[1,2,3,11,12] },
-    { name:"Runner Beans",            emoji:"🫘", he:"שעועית", months:[1,2,3,7,8,9,10,11,12] },
+    { name:"Runner Beans",            emoji:"🫘", he:"שעועית ירוקה", months:[1,2,3,7,8,9,10,11,12] },
     { name:"Sweet Peppers",           emoji:"🫑", he:"פלפל מתוק", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
     { name:"Sweet Potatoes (Batata)", emoji:"🍠", he:"בטטה", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Swiss Chard (Mangold)",   emoji:"🥬", he:"מנגולד", months:[1,2,3,4,11,12] },
+    { name:"Swiss Chard (Mangold)",   emoji:"🥬", he:"סלק עלים", months:[1,2,3,4,11,12] },
     { name:"Turnips",                 emoji:"⚪", he:"לפת", months:[1,2,3,4,12] }
   ],
   herbs: [
@@ -1477,7 +1478,7 @@ const RAW = {
     { name:"Mint (Nana)",       emoji:"🍃", he:"נענע", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
     { name:"Spring Onions",     emoji:"🌱", he:"בצל ירוק", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
     { name:"Sprouts",           emoji:"🫛", he:"נבטים", months:[1,2,3,4,5,6,7,8,9,10,11,12] },
-    { name:"Thyme",             emoji:"🌿", he:"קורנית", months:[1,2,3,4,5,6,7,8,9,10,11,12] }
+    { name:"Thyme",             emoji:"🌿", he:"טימין", months:[1,2,3,4,5,6,7,8,9,10,11,12] }
   ]
 };
 
