@@ -788,6 +788,7 @@
     margin-top: 16px;
     margin-bottom: 28px;
     overflow: hidden;
+    transition: border-color 0.3s;
   }
   @media (prefers-reduced-motion: no-preference) {
     .dish-panel { animation: dishFadeIn 0.25s ease; }
@@ -802,6 +803,7 @@
     padding: 11px 18px;
     background: linear-gradient(90deg, var(--surface-2), var(--surface));
     border-bottom: 1.5px solid var(--rule-light);
+    transition: background 0.3s;
   }
   .dish-panel-month {
     font-family: 'Playfair Display', serif; font-size: 1.05rem;
@@ -849,6 +851,19 @@
   body.season-spring .dish-card { --dish-accent: var(--green);      --featured-tint: rgba(58,80,16,0.05); }
   body.season-summer .dish-card { --dish-accent: var(--gold);       --featured-tint: rgba(184,150,10,0.05); }
   body.season-autumn .dish-card { --dish-accent: var(--terra);      --featured-tint: rgba(107,26,42,0.04); }
+  /* Season-reactive dish panel */
+  body.season-winter .dish-panel { border-color: var(--s-winter-bg); }
+  body.season-spring .dish-panel { border-color: var(--s-spring-bg); }
+  body.season-summer .dish-panel { border-color: var(--s-summer-bg); }
+  body.season-autumn .dish-panel { border-color: var(--s-autumn-bg); }
+  body.season-winter .dish-panel-header { background: linear-gradient(90deg, var(--s-winter-bg), var(--surface)); }
+  body.season-spring .dish-panel-header { background: linear-gradient(90deg, var(--s-spring-bg), var(--surface)); }
+  body.season-summer .dish-panel-header { background: linear-gradient(90deg, var(--s-summer-bg), var(--surface)); }
+  body.season-autumn .dish-panel-header { background: linear-gradient(90deg, var(--s-autumn-bg), var(--surface)); }
+  body.season-winter .dish-panel-month { color: var(--s-winter-txt); }
+  body.season-spring .dish-panel-month { color: var(--s-spring-txt); }
+  body.season-summer .dish-panel-month { color: var(--s-summer-txt); }
+  body.season-autumn .dish-panel-month { color: var(--s-autumn-txt); }
   .dish-card:hover .dish-name { text-decoration: underline; text-underline-offset: 2px; }
   .dish-card:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; }
   .dish-name {
