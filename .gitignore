@@ -25,3 +25,10 @@ scraped_recipes/
 *.jpg
 *.jpeg
 *.gif
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
